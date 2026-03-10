@@ -256,7 +256,7 @@ section { position: relative; z-index: 1; padding: 100px 24px; }
 #groups { background: linear-gradient(to bottom, transparent, rgba(13,13,26,0.5), transparent); }
 
 /* Gender tabs */
-.gen-tabs { display: flex; gap: 12px; margin-bottom: 36px; margin-top: 40px; }
+.gen-tabs { display: flex; gap: 10px; margin-bottom: 36px; margin-top: 40px; flex-wrap: wrap; }
 .gen-tab {
   padding: 10px 24px; border-radius: 100px; font-size: 12px; letter-spacing: 0.1em;
   text-transform: uppercase; cursor: pointer; border: 1px solid var(--border);
@@ -569,7 +569,7 @@ footer {
   </h1>
   <p class="hero-sub">The idol you're drawn to reveals something true about you — either who you already are, or who you're quietly becoming.</p>
   <div class="hero-actions">
-    <button class="btn-main" onclick="scrollToQuiz()">Take the Quiz ✦</button>
+    <button class="btn-main" onclick="startQuiz()">Take the Quiz ✦</button>
     <button class="btn-ghost-hero" onclick="document.getElementById('how').scrollIntoView({behavior:'smooth'})">Learn More</button>
   </div>
   <div class="hero-scroll">
@@ -620,13 +620,62 @@ footer {
 <section id="groups">
   <div class="section-inner">
     <div class="section-tag">✦ Currently Available</div>
-    <h2 class="section-title">4th Gen <em>Groups</em></h2>
-    <p class="section-body">Launching with eleven iconic 4th generation groups across girl and boy categories.</p>
+    <h2 class="section-title">Browse by <em>Generation</em></h2>
+    <p class="section-body">Explore groups across every generation of K-Pop. 4th gen is live now — more generations coming soon.</p>
     <div class="gen-tabs">
-      <button class="gen-tab active" onclick="switchGroupTab('girls', this)">Girl Groups</button>
-      <button class="gen-tab" onclick="switchGroupTab('boys', this)">Boy Groups</button>
+      <button class="gen-tab" onclick="switchGroupTab('gen1', this)">1st Gen</button>
+      <button class="gen-tab" onclick="switchGroupTab('gen2', this)">2nd Gen</button>
+      <button class="gen-tab" onclick="switchGroupTab('gen3', this)">3rd Gen</button>
+      <button class="gen-tab active" onclick="switchGroupTab('gen4', this)">4th Gen</button>
+      <button class="gen-tab" onclick="switchGroupTab('gen5', this)">5th Gen</button>
     </div>
-    <div class="groups-panel active" id="panel-girls">
+
+    <!-- 1st Gen -->
+    <div class="groups-panel" id="panel-gen1">
+      <div class="more-pill">+ H.O.T · Coming Soon</div>
+      <div class="more-pill">+ S.E.S · Coming Soon</div>
+      <div class="more-pill">+ g.o.d · Coming Soon</div>
+      <div class="more-pill">+ Fin.K.L · Coming Soon</div>
+      <div class="more-pill">+ Shinhwa · Coming Soon</div>
+      <div class="more-pill">+ BoA · Coming Soon</div>
+      <div class="more-pill">+ More 1st Gen · Suggest Below ↓</div>
+    </div>
+
+    <!-- 2nd Gen -->
+    <div class="groups-panel" id="panel-gen2">
+      <div class="more-pill">+ BIGBANG · Coming Soon</div>
+      <div class="more-pill">+ 2NE1 · Coming Soon</div>
+      <div class="more-pill">+ Girls' Generation · Coming Soon</div>
+      <div class="more-pill">+ Super Junior · Coming Soon</div>
+      <div class="more-pill">+ SHINee · Coming Soon</div>
+      <div class="more-pill">+ f(x) · Coming Soon</div>
+      <div class="more-pill">+ 4Minute · Coming Soon</div>
+      <div class="more-pill">+ SISTAR · Coming Soon</div>
+      <div class="more-pill">+ Miss A · Coming Soon</div>
+      <div class="more-pill">+ INFINITE · Coming Soon</div>
+      <div class="more-pill">+ B2ST · Coming Soon</div>
+      <div class="more-pill">+ More 2nd Gen · Suggest Below ↓</div>
+    </div>
+
+    <!-- 3rd Gen -->
+    <div class="groups-panel" id="panel-gen3">
+      <div class="more-pill">+ BTS · Coming Soon</div>
+      <div class="more-pill">+ EXO · Coming Soon</div>
+      <div class="more-pill">+ BLACKPINK · Coming Soon</div>
+      <div class="more-pill">+ TWICE · Coming Soon</div>
+      <div class="more-pill">+ Red Velvet · Coming Soon</div>
+      <div class="more-pill">+ GOT7 · Coming Soon</div>
+      <div class="more-pill">+ MAMAMOO · Coming Soon</div>
+      <div class="more-pill">+ MONSTA X · Coming Soon</div>
+      <div class="more-pill">+ NCT 127 · Coming Soon</div>
+      <div class="more-pill">+ NCT Dream · Coming Soon</div>
+      <div class="more-pill">+ SEVENTEEN · Coming Soon</div>
+      <div class="more-pill">+ Wanna One · Coming Soon</div>
+      <div class="more-pill">+ More 3rd Gen · Suggest Below ↓</div>
+    </div>
+
+    <!-- 4th Gen — LIVE -->
+    <div class="groups-panel active" id="panel-gen4">
       <div class="group-pill"><span class="group-pill-emoji">🤖</span> aespa</div>
       <div class="group-pill"><span class="group-pill-emoji">🐰</span> NewJeans</div>
       <div class="group-pill"><span class="group-pill-emoji">🌸</span> IVE</div>
@@ -634,31 +683,26 @@ footer {
       <div class="group-pill"><span class="group-pill-emoji">🔥</span> LE SSERAFIM</div>
       <div class="group-pill"><span class="group-pill-emoji">👑</span> (G)I-DLE</div>
       <div class="group-pill"><span class="group-pill-emoji">🎵</span> NMIXX</div>
-      <div class="more-pill">+ BLACKPINK · Coming Soon</div>
-      <div class="more-pill">+ TWICE · Coming Soon</div>
-      <div class="more-pill">+ Red Velvet · Coming Soon</div>
-      <div class="more-pill">+ MAMAMOO · Coming Soon</div>
-      <div class="more-pill">+ SISTAR · Coming Soon</div>
-      <div class="more-pill">+ f(x) · Coming Soon</div>
-      <div class="more-pill">+ 2NE1 · Coming Soon</div>
-      <div class="more-pill">+ More Groups · Suggest Below ↓</div>
-    </div>
-    <div class="groups-panel" id="panel-boys">
       <div class="group-pill"><span class="group-pill-emoji">🐺</span> Stray Kids</div>
       <div class="group-pill"><span class="group-pill-emoji">🏴‍☠️</span> ATEEZ</div>
       <div class="group-pill"><span class="group-pill-emoji">🌙</span> ENHYPEN</div>
       <div class="group-pill"><span class="group-pill-emoji">🌌</span> TXT</div>
-      <div class="more-pill">+ BTS · Coming Soon</div>
-      <div class="more-pill">+ NCT Dream · Coming Soon</div>
-      <div class="more-pill">+ NCT 127 · Coming Soon</div>
-      <div class="more-pill">+ EXO · Coming Soon</div>
-      <div class="more-pill">+ SHINee · Coming Soon</div>
-      <div class="more-pill">+ MONSTA X · Coming Soon</div>
-      <div class="more-pill">+ BIGBANG · Coming Soon</div>
-      <div class="more-pill">+ GOT7 · Coming Soon</div>
-      <div class="more-pill">+ SEVENTEEN · Coming Soon</div>
-      <div class="more-pill">+ More Groups · Suggest Below ↓</div>
+      <div class="more-pill">+ Kep1er · Coming Soon</div>
+      <div class="more-pill">+ STAYC · Coming Soon</div>
+      <div class="more-pill">+ aespa · More Reads Coming</div>
+      <div class="more-pill">+ More 4th Gen · Suggest Below ↓</div>
     </div>
+
+    <!-- 5th Gen -->
+    <div class="groups-panel" id="panel-gen5">
+      <div class="more-pill">+ ILLIT · Coming Soon</div>
+      <div class="more-pill">+ BABYMONSTER · Coming Soon</div>
+      <div class="more-pill">+ MEOVV · Coming Soon</div>
+      <div class="more-pill">+ UNIS · Coming Soon</div>
+      <div class="more-pill">+ tripleS · Coming Soon</div>
+      <div class="more-pill">+ More 5th Gen · Suggest Below ↓</div>
+    </div>
+
   </div>
 </section>
 
@@ -680,8 +724,7 @@ footer {
           <div class="intro-step"><div class="intro-step-num">2</div><span>Answer four honest questions</span></div>
           <div class="intro-step"><div class="intro-step-num">3</div><span>Get your full personality read</span></div>
         </div>
-        <button class="btn-nav-primary" onclick="startQuiz()">Begin ✦</button>
-      </div>
+        <button class="btn-nav-primary" onclick="startQuiz()">Begin ✦</button>      </div>
     </div>
 
     <!-- Gender -->
@@ -829,20 +872,6 @@ function drawStars() {
 }
 resizeCanvas(); initStars(); drawStars();
 window.addEventListener('resize', ()=>{ resizeCanvas(); initStars(); });
-
-// ── Group tab toggle ──
-function switchGroupTab(panel, btn) {
-  document.querySelectorAll('.gen-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.groups-panel').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  const el = document.getElementById('panel-'+panel);
-  if (el) el.classList.add('active');
-}
-
-function startQuiz() {
-  showQS('qs-gender');
-  document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'});
-}
 
 // ── Data ──
 const girlGroups = [
@@ -1120,12 +1149,22 @@ function showQS(id) {
   document.getElementById(id).classList.add('active');
 }
 
+function switchGroupTab(panel, btn) {
+  document.querySelectorAll('.gen-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.groups-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById('panel-'+panel);
+  if (el) el.classList.add('active');
+}
+
 function scrollToQuiz() {
-  const quizSection = document.getElementById('quiz-section');
-  quizSection.scrollIntoView({behavior:'smooth'});
-  setTimeout(() => {
-    showQS('qs-intro');
-  }, 300);
+  showQS('qs-intro');
+  document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'});
+}
+
+function startQuiz() {
+  showQS('qs-gender');
+  document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'});
 }
 
 function pickGender(g) {
