@@ -1432,7 +1432,8 @@ async function submitSuggestion() {
         type,
         group: groupName || '—',
         message,
-        email: email || '—',
+        _replyto: email || 'noreply@biastheory.net',
+        email: email || 'No email provided',
         submitted: new Date().toLocaleString(),
       })
     });
