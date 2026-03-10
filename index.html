@@ -1422,10 +1422,10 @@ async function submitSuggestion() {
   // ── Formspree submission ──
   // Replace YOUR_FORM_ID below with your actual Formspree form ID
   // Sign up free at formspree.io → New Form → copy the ID from the endpoint
-  const FORMSPREE_ID = 'YOUR_FORM_ID';
+  const FORMSPREE_ID = 'mpqypbjv';
 
   try {
-    const res = await fetch(`https://formspree.io/f/mpqypbjv}`, {
+    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
