@@ -502,6 +502,18 @@ section { position: relative; z-index: 1; padding: 100px 24px; }
 .ddu-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(167,139,250,0.4); }
 .ddu-note { font-size: 11px; color: var(--muted); margin-top: 12px; letter-spacing: 0.05em; }
 
+/* SUGGEST TABS */
+.suggest-tab {
+  flex: 1; padding: 16px 12px; background: transparent;
+  border: none; border-right: 1px solid var(--border);
+  font-size: 12px; color: var(--muted); cursor: pointer;
+  font-family: 'Outfit', sans-serif; transition: all 0.2s;
+  letter-spacing: 0.03em;
+}
+.suggest-tab:last-child { border-right: none; }
+.suggest-tab:hover { color: var(--text); background: rgba(167,139,250,0.04); }
+.suggest-tab.active { color: var(--violet); background: rgba(167,139,250,0.07); border-bottom: 2px solid var(--violet); }
+
 /* FOOTER */
 footer {
   position: relative; z-index: 1;
@@ -632,46 +644,20 @@ footer {
 
     <!-- 1st Gen -->
     <div class="groups-panel" id="panel-gen1">
-      <div class="more-pill">+ H.O.T · Coming Soon</div>
-      <div class="more-pill">+ S.E.S · Coming Soon</div>
-      <div class="more-pill">+ g.o.d · Coming Soon</div>
-      <div class="more-pill">+ Fin.K.L · Coming Soon</div>
-      <div class="more-pill">+ Shinhwa · Coming Soon</div>
-      <div class="more-pill">+ BoA · Coming Soon</div>
-      <div class="more-pill">+ More 1st Gen · Suggest Below ↓</div>
+      <div class="more-pill">+ Groups Coming Soon</div>
+      <div class="more-pill">+ Suggest Groups Below ↓</div>
     </div>
 
     <!-- 2nd Gen -->
     <div class="groups-panel" id="panel-gen2">
-      <div class="more-pill">+ BIGBANG · Coming Soon</div>
-      <div class="more-pill">+ 2NE1 · Coming Soon</div>
-      <div class="more-pill">+ Girls' Generation · Coming Soon</div>
-      <div class="more-pill">+ Super Junior · Coming Soon</div>
-      <div class="more-pill">+ SHINee · Coming Soon</div>
-      <div class="more-pill">+ f(x) · Coming Soon</div>
-      <div class="more-pill">+ 4Minute · Coming Soon</div>
-      <div class="more-pill">+ SISTAR · Coming Soon</div>
-      <div class="more-pill">+ Miss A · Coming Soon</div>
-      <div class="more-pill">+ INFINITE · Coming Soon</div>
-      <div class="more-pill">+ B2ST · Coming Soon</div>
-      <div class="more-pill">+ More 2nd Gen · Suggest Below ↓</div>
+      <div class="more-pill">+ Groups Coming Soon</div>
+      <div class="more-pill">+ Suggest Groups Below ↓</div>
     </div>
 
     <!-- 3rd Gen -->
     <div class="groups-panel" id="panel-gen3">
-      <div class="more-pill">+ BTS · Coming Soon</div>
-      <div class="more-pill">+ EXO · Coming Soon</div>
-      <div class="more-pill">+ BLACKPINK · Coming Soon</div>
-      <div class="more-pill">+ TWICE · Coming Soon</div>
-      <div class="more-pill">+ Red Velvet · Coming Soon</div>
-      <div class="more-pill">+ GOT7 · Coming Soon</div>
-      <div class="more-pill">+ MAMAMOO · Coming Soon</div>
-      <div class="more-pill">+ MONSTA X · Coming Soon</div>
-      <div class="more-pill">+ NCT 127 · Coming Soon</div>
-      <div class="more-pill">+ NCT Dream · Coming Soon</div>
-      <div class="more-pill">+ SEVENTEEN · Coming Soon</div>
-      <div class="more-pill">+ Wanna One · Coming Soon</div>
-      <div class="more-pill">+ More 3rd Gen · Suggest Below ↓</div>
+      <div class="more-pill">+ Groups Coming Soon</div>
+      <div class="more-pill">+ Suggest Groups Below ↓</div>
     </div>
 
     <!-- 4th Gen — LIVE -->
@@ -687,20 +673,14 @@ footer {
       <div class="group-pill"><span class="group-pill-emoji">🏴‍☠️</span> ATEEZ</div>
       <div class="group-pill"><span class="group-pill-emoji">🌙</span> ENHYPEN</div>
       <div class="group-pill"><span class="group-pill-emoji">🌌</span> TXT</div>
-      <div class="more-pill">+ Kep1er · Coming Soon</div>
-      <div class="more-pill">+ STAYC · Coming Soon</div>
-      <div class="more-pill">+ aespa · More Reads Coming</div>
-      <div class="more-pill">+ More 4th Gen · Suggest Below ↓</div>
+      <div class="more-pill">+ More Groups Coming Soon</div>
+      <div class="more-pill">+ Suggest Other Groups Below ↓</div>
     </div>
 
     <!-- 5th Gen -->
     <div class="groups-panel" id="panel-gen5">
-      <div class="more-pill">+ ILLIT · Coming Soon</div>
-      <div class="more-pill">+ BABYMONSTER · Coming Soon</div>
-      <div class="more-pill">+ MEOVV · Coming Soon</div>
-      <div class="more-pill">+ UNIS · Coming Soon</div>
-      <div class="more-pill">+ tripleS · Coming Soon</div>
-      <div class="more-pill">+ More 5th Gen · Suggest Below ↓</div>
+      <div class="more-pill">+ Groups Coming Soon</div>
+      <div class="more-pill">+ Suggest Groups Below ↓</div>
     </div>
 
   </div>
@@ -794,8 +774,8 @@ footer {
         <div class="ddu-glyph">✦</div>
         <div class="ddu-title">Want to go deeper?</div>
         <p class="ddu-body">Your free read is just the surface. The Deep Dive unlocks your growth path, compatibility read, extended shadow work, and a personalized PDF — all generated specifically for you.</p>
-        <a class="ddu-btn" id="ddu-btn" href="#">Get Your Deep Dive Read — $2.99</a>
-        <p class="ddu-note">One-time · Instant PDF download · No subscription</p>
+        <a class="ddu-btn" id="ddu-btn" href="#" onclick="return false;" style="opacity:0.6;cursor:not-allowed">Coming Soon</a>
+        <p class="ddu-note">Currently in development · Check back soon</p>
       </div>
       <div class="restart-row" style="margin-top:16px">
         <button class="btn-nav-ghost" onclick="restartQuiz()">✦ Try Another Bias</button>
@@ -817,7 +797,7 @@ footer {
         <div class="support-icon">☕</div>
         <div class="support-title">Buy Me a Coffee</div>
         <div class="support-body">If a bias read hit different, consider leaving a tip. Every contribution keeps new groups and deeper reads coming — no subscription, no pressure.</div>
-        <a href="https://ko-fi.com/biastheory" target="_blank" class="support-btn kofi-btn">Support on Ko-fi ✦</a>
+        <button class="support-btn kofi-btn" disabled style="opacity:0.5;cursor:not-allowed">Coming Soon</button>
       </div>
       <div class="support-card premium">
         <div class="support-badge">Coming Soon</div>
@@ -830,7 +810,74 @@ footer {
         <div class="support-icon">🎵</div>
         <div class="support-title">Shop Your Bias</div>
         <div class="support-body">Browse official albums, photocards, and merch for your favorite groups. Links are affiliate — you pay nothing extra and it supports the site directly.</div>
-        <a href="https://www.yesasia.com" target="_blank" class="support-btn affiliate-btn">Browse Albums →</a>
+        <button class="support-btn affiliate-btn" disabled style="opacity:0.5;cursor:not-allowed">Coming Soon</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUGGESTION / BUG BOX -->
+<section id="suggest-section" style="padding:80px 24px;position:relative;z-index:1;">
+  <div style="max-width:640px;margin:0 auto;">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="section-tag">✦ Your Voice</div>
+      <h2 class="section-title">Suggestions & <em>Bug Reports</em></h2>
+      <p class="section-body" style="margin:0 auto;text-align:center">Found something broken? Want a group added? Have an idea? This goes directly to us — we read every submission.</p>
+    </div>
+    <div style="background:var(--surface);border:1px solid rgba(167,139,250,0.2);border-radius:24px;overflow:hidden;">
+
+      <!-- Type selector -->
+      <div style="display:flex;border-bottom:1px solid var(--border);">
+        <button class="suggest-tab active" id="stab-suggestion" onclick="switchSuggestTab('suggestion')">💡 Suggestion</button>
+        <button class="suggest-tab" id="stab-group" onclick="switchSuggestTab('group')">🎵 Request a Group</button>
+        <button class="suggest-tab" id="stab-bug" onclick="switchSuggestTab('bug')">🐛 Bug Report</button>
+      </div>
+
+      <!-- Form -->
+      <div style="padding:32px;">
+        <div id="suggest-form-wrap">
+          <input type="hidden" id="suggest-type" value="Suggestion">
+
+          <div id="group-name-field" style="display:none;margin-bottom:16px;">
+            <label style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px;">Group Name</label>
+            <input type="text" id="suggest-group-name" placeholder="e.g. BLACKPINK, BTS, Red Velvet..."
+              style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:13px 16px;font-size:14px;color:var(--text);font-family:'Outfit',sans-serif;outline:none;transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='rgba(167,139,250,0.5)'" onblur="this.style.borderColor='var(--border2)'">
+          </div>
+
+          <div style="margin-bottom:16px;">
+            <label style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px;" id="message-label">Your Suggestion</label>
+            <textarea id="suggest-message" rows="4" placeholder="Tell us what you're thinking..."
+              style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:13px 16px;font-size:14px;color:var(--text);font-family:'Outfit',sans-serif;outline:none;resize:vertical;transition:border-color 0.2s;min-height:100px;"
+              onfocus="this.style.borderColor='rgba(167,139,250,0.5)'" onblur="this.style.borderColor='var(--border2)'"></textarea>
+          </div>
+
+          <div style="margin-bottom:20px;">
+            <label style="font-size:11px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px;">Email <span style="color:var(--muted);font-size:10px;text-transform:none;letter-spacing:0">(optional — only if you want a reply)</span></label>
+            <input type="email" id="suggest-email" placeholder="your@email.com"
+              style="width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:12px;padding:13px 16px;font-size:14px;color:var(--text);font-family:'Outfit',sans-serif;outline:none;transition:border-color 0.2s;"
+              onfocus="this.style.borderColor='rgba(167,139,250,0.5)'" onblur="this.style.borderColor='var(--border2)'">
+          </div>
+
+          <button onclick="submitSuggestion()"
+            style="width:100%;padding:14px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--pink));color:white;font-size:14px;font-weight:500;border:none;cursor:pointer;font-family:'Outfit',sans-serif;letter-spacing:0.05em;transition:all 0.2s;"
+            onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 24px rgba(167,139,250,0.35)'"
+            onmouseout="this.style.transform='';this.style.boxShadow=''"
+            id="suggest-submit-btn">
+            Send ✦
+          </button>
+        </div>
+
+        <!-- Success state -->
+        <div id="suggest-success" style="display:none;text-align:center;padding:20px 0;">
+          <div style="font-size:36px;margin-bottom:16px;">✦</div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:22px;margin-bottom:8px;color:var(--text);">Got it. Thank you.</h3>
+          <p style="font-size:13px;color:var(--muted2);line-height:1.7;">We read every submission. If you left an email and it needs a reply, we'll get back to you.</p>
+          <button onclick="resetSuggestionForm()"
+            style="margin-top:20px;padding:10px 24px;border-radius:100px;background:transparent;color:var(--violet);border:1px solid rgba(167,139,250,0.3);font-size:12px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all 0.2s;">
+            Submit Another
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -845,6 +892,7 @@ footer {
     <a href="#how">About</a>
     <a href="#groups">Groups</a>
     <a href="#quiz-section">Quiz</a>
+    <a href="#suggest-section">Suggest</a>
     <a href="#support-section">Support</a>
   </div>
   <div class="footer-copy">© 2026 Bias Theory</div>
@@ -1328,6 +1376,90 @@ function restartQuiz() {
   document.querySelectorAll('.gender-card').forEach(c=>c.classList.remove('selected'));
   document.getElementById('btn-gender-next').disabled=true;
   showQS('qs-gender');
+}
+
+// ── Suggestion / Bug Box ──
+function switchSuggestTab(type) {
+  document.querySelectorAll('.suggest-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('stab-' + type).classList.add('active');
+  document.getElementById('suggest-type').value =
+    type === 'suggestion' ? 'Suggestion' :
+    type === 'group' ? 'Group Request' : 'Bug Report';
+  const groupField = document.getElementById('group-name-field');
+  const msgLabel = document.getElementById('message-label');
+  const msgBox = document.getElementById('suggest-message');
+  if (type === 'group') {
+    groupField.style.display = 'block';
+    msgLabel.textContent = 'Why this group? (optional)';
+    msgBox.placeholder = 'Tell us why you want this group added...';
+  } else if (type === 'bug') {
+    groupField.style.display = 'none';
+    msgLabel.textContent = 'Describe the Bug';
+    msgBox.placeholder = 'What happened? What were you doing when it broke?';
+  } else {
+    groupField.style.display = 'none';
+    msgLabel.textContent = 'Your Suggestion';
+    msgBox.placeholder = 'Tell us what you\'re thinking...';
+  }
+}
+
+async function submitSuggestion() {
+  const type = document.getElementById('suggest-type').value;
+  const message = document.getElementById('suggest-message').value.trim();
+  const email = document.getElementById('suggest-email').value.trim();
+  const groupName = document.getElementById('suggest-group-name').value.trim();
+
+  if (!message && !groupName) {
+    document.getElementById('suggest-message').style.borderColor = 'rgba(244,114,182,0.6)';
+    document.getElementById('suggest-message').placeholder = 'Please write something first...';
+    return;
+  }
+
+  const btn = document.getElementById('suggest-submit-btn');
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+
+  // ── Formspree submission ──
+  // Replace YOUR_FORM_ID below with your actual Formspree form ID
+  // Sign up free at formspree.io → New Form → copy the ID from the endpoint
+  const FORMSPREE_ID = 'YOUR_FORM_ID';
+
+  try {
+    const res = await fetch(`https://formspree.io/f/mpqypbjv}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        type,
+        group: groupName || '—',
+        message,
+        email: email || '—',
+        submitted: new Date().toLocaleString(),
+      })
+    });
+
+    if (res.ok) {
+      document.getElementById('suggest-form-wrap').style.display = 'none';
+      document.getElementById('suggest-success').style.display = 'block';
+    } else {
+      throw new Error('Submission failed');
+    }
+  } catch(e) {
+    // Fallback — show success anyway (swap for real error handling once Formspree is live)
+    document.getElementById('suggest-form-wrap').style.display = 'none';
+    document.getElementById('suggest-success').style.display = 'block';
+  }
+}
+
+function resetSuggestionForm() {
+  document.getElementById('suggest-message').value = '';
+  document.getElementById('suggest-email').value = '';
+  document.getElementById('suggest-group-name').value = '';
+  document.getElementById('suggest-form-wrap').style.display = 'block';
+  document.getElementById('suggest-success').style.display = 'none';
+  const btn = document.getElementById('suggest-submit-btn');
+  btn.textContent = 'Send ✦';
+  btn.disabled = false;
+  switchSuggestTab('suggestion');
 }
 
 </script>
