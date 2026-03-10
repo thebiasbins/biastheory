@@ -852,26 +852,29 @@ footer {
 
 <script>
 // ── Starfield ──
-const canvas = document.getElementById('starfield');
-const ctx = canvas.getContext('2d');
-let stars = [];
-function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-function initStars() {
-  stars = [];
-  for (let i = 0; i < 130; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.2, speed: 0.003+Math.random()*0.008, phase: Math.random()*Math.PI*2 });
-}
-function drawStars() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  const t = Date.now()*0.001;
-  stars.forEach(s => {
-    const op = 0.08 + 0.45*(0.5+0.5*Math.sin(t*s.speed*10+s.phase));
-    ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-    ctx.fillStyle = `rgba(255,255,255,${op})`; ctx.fill();
-  });
-  requestAnimationFrame(drawStars);
-}
-resizeCanvas(); initStars(); drawStars();
-window.addEventListener('resize', ()=>{ resizeCanvas(); initStars(); });
+window.addEventListener('DOMContentLoaded', function() {
+  const canvas = document.getElementById('starfield');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < 130; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.2, speed: 0.003+Math.random()*0.008, phase: Math.random()*Math.PI*2 });
+  }
+  function drawStars() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const t = Date.now()*0.001;
+    stars.forEach(s => {
+      const op = 0.08 + 0.45*(0.5+0.5*Math.sin(t*s.speed*10+s.phase));
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle = `rgba(255,255,255,${op})`; ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+  resizeCanvas(); initStars(); drawStars();
+  window.addEventListener('resize', ()=>{ resizeCanvas(); initStars(); });
+});
 
 // ── Data ──
 const girlGroups = [
@@ -1306,11 +1309,9 @@ function showResult() {
   showQS('qs-result');
 
   // Wire up Deep Dive button with all quiz data as URL params
-  const allGroups = [...girlGroups,...boyGroups];
-  const gForUrl = allGroups.find(x=>x.id===selGroup);
   const params = new URLSearchParams({
     member: m.name,
-    group: gForUrl ? gForUrl.name : selGroup,
+    group: g ? g.name : selGroup,
     archetype: p.title,
     archetypeKey: m.archetype,
     mirror: isMirror ? 'true' : 'false',
@@ -1328,6 +1329,7 @@ function restartQuiz() {
   document.getElementById('btn-gender-next').disabled=true;
   showQS('qs-gender');
 }
+
 </script>
 </body>
 </html>
