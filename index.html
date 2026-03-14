@@ -786,6 +786,7 @@ footer {
         <p class="ddu-body">Your free read is just the surface. The Deep Dive unlocks your full growth path, compatibility with other members, extended shadow work, and a personalized PDF — all generated specifically for you.</p>
         <a class="ddu-btn" id="ddu-btn" href="#" onclick="return false;" style="opacity:0.6;cursor:not-allowed">Coming Soon</a>
         <p class="ddu-note">Currently in development · Check back soon</p>
+        <p class="ddu-note" style="margin-top:8px;opacity:0.6">For entertainment & self-reflection only · Not professional advice</p>
       </div>
       <div class="restart-row" style="margin-top:16px">
         <button class="btn-nav-ghost" onclick="qzRestart()">✦ Try Another Group</button>
@@ -903,10 +904,12 @@ footer {
     <a href="#how">About</a>
     <a href="#groups">Groups</a>
     <a href="#quiz-section">Quiz</a>
+    <a href="profiles.html">Profiles</a>
     <a href="#suggest-section">Suggest</a>
-    <a href="#support-section">Support</a>
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy</a>
   </div>
-  <div class="footer-copy">© 2026 Bias Theory</div>
+  <div class="footer-copy">© 2026 Bias Theory · For entertainment purposes only · Not professional advice</div>
 </footer>
 
 <script>
@@ -1456,6 +1459,37 @@ function qzShowResult(){
     if(opt&&opt.w[topKey])dimScores[q.dim]+=opt.w[topKey];
   });
   const maxD=Math.max(...Object.values(dimScores))||1;
+
+  // Collect top answer texts for deep dive context
+  const topAnswers=sessionQs.map((q,i)=>{
+    if(qzAnswers[i]===undefined||!q._opts)return null;
+    return q._opts[qzAnswers[i]]?q._opts[qzAnswers[i]].t:null;
+  }).filter(Boolean).slice(0,5);
+
+  // Build deep-dive URL
+  const ddParams=new URLSearchParams({
+    member: m.name,
+    group: m.group,
+    groupKey: selGroup,
+    archetype: m.arch,
+    archetypeKey: topKey,
+    mirror: isMirror?'true':'false',
+    ms: sorted[0][1],
+    as: sorted[1]?sorted[1][1]:0,
+    d0: Math.round((dimScores[DIMS[0]]/maxD)*100),
+    d1: Math.round((dimScores[DIMS[1]]/maxD)*100),
+    d2: Math.round((dimScores[DIMS[2]]/maxD)*100),
+    d3: Math.round((dimScores[DIMS[3]]/maxD)*100),
+    d4: Math.round((dimScores[DIMS[4]]/maxD)*100),
+    ta: topAnswers.join('|'),
+  });
+  const ddUrl=`deep-dive.html?${ddParams.toString()}`;
+  const dduBtn=document.getElementById('ddu-btn');
+  if(dduBtn){
+    // Keep Coming Soon until Stripe is configured — swap onclick to navigate when ready
+    dduBtn.dataset.href=ddUrl;
+  }
+
   document.getElementById('qz-result-output').innerHTML=`
     <div class="qz-result-card">
       <div class="qz-result-header">
@@ -1469,7 +1503,7 @@ function qzShowResult(){
         <div class="qz-divider"></div>
         <div class="qz-section">
           <div class="qz-section-label">Your Personality Dimensions</div>
-          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${Math.round((dimScores[d]/maxD)*100)}%"></div></div></div>`).join('')}</div>
+          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${Math.max(8,Math.round((dimScores[d]/maxD)*100))}%"></div></div></div>`).join('')}</div>
         </div>
         <div class="qz-divider"></div>
         <div class="qz-section">
