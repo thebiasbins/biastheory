@@ -96,10 +96,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .boy-card .archetype-pill { border-color: rgba(96,165,250,0.25); background: rgba(96,165,250,0.07); }
 .boy-card .archetype-pill .glyph, .boy-card .archetype-pill .arch-text { color: var(--boy-color); }
 
-.card-insight { font-size: 13px; color: var(--muted2); line-height: 1.7; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.card-insight { font-size: 13px; color: var(--muted2); line-height: 1.7; margin-bottom: 16px; }
 
 .card-footer { display: flex; align-items: center; justify-content: space-between; }
-.shadow-preview { font-size: 11px; color: var(--muted); font-style: italic; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.expand-hint { font-size: 11px; color: var(--muted); letter-spacing: 0.04em; transition: opacity 0.2s; }
+.member-card.expanded .expand-hint { display: none; }
 .quiz-link { font-size: 11px; color: var(--violet); letter-spacing: 0.06em; text-decoration: none; opacity: 0; transition: opacity 0.2s; }
 .member-card:hover .quiz-link { opacity: 1; }
 .boy-card .quiz-link { color: var(--boy-color); }
@@ -110,7 +111,6 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; a
 .member-card.boy-card.expanded { border-color: rgba(96,165,250,0.4); }
 .expanded-content { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
 .member-card.expanded .expanded-content { display: block; animation: fadeUp 0.25s ease; }
-.expanded-content .card-insight { display: block; -webkit-line-clamp: unset; overflow: visible; margin-bottom: 12px; font-size: 13px; }
 .shadow-section { background: rgba(244,114,182,0.05); border-left: 2px solid var(--pink); padding: 10px 14px; border-radius: 0 10px 10px 0; margin-bottom: 14px; }
 .shadow-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pink); margin-bottom: 4px; }
 .shadow-text { font-size: 12px; color: var(--muted2); line-height: 1.65; }
@@ -378,7 +378,7 @@ function renderAll() {
               </div>
             </div>
             <div class="card-footer">
-              <div class="shadow-preview">${m.shadow}</div>
+              <div class="expand-hint">Click to see shadow side ↓</div>
               <span class="quiz-link">Take quiz →</span>
             </div>
           </div>
