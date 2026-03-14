@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Idol Profiles — Bias Theory</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #07070e;
+  --surface: #0f0f1a;
+  --surface2: #14141f;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0eeff;
+  --muted: rgba(240,238,255,0.45);
+  --muted2: rgba(240,238,255,0.65);
+  --violet: #a78bfa;
+  --violet2: #7c3aed;
+  --pink: #f472b6;
+  --girl-color: #f472b6;
+  --boy-color: #60a5fa;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; min-height: 100vh; overflow-x: hidden; }
+
+canvas#starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: 0.5; }
+
+/* NAV */
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 64px; background: rgba(7,7,14,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--text); text-decoration: none; cursor: pointer; }
+.nav-links { display: flex; gap: 32px; align-items: center; }
+.nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-links a.active { color: var(--violet); }
+.nav-cta { background: linear-gradient(135deg, var(--violet2), #be185d); color: white !important; padding: 8px 18px; border-radius: 100px; font-weight: 500; transition: opacity 0.2s !important; }
+.nav-cta:hover { opacity: 0.85; }
+
+/* PAGE HEADER */
+.page-header { position: relative; z-index: 1; padding: 120px 40px 60px; text-align: center; }
+.section-tag { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--violet); margin-bottom: 16px; }
+.page-title { font-family: 'Playfair Display', serif; font-size: clamp(36px, 5vw, 56px); font-weight: 400; line-height: 1.2; margin-bottom: 16px; }
+.page-title em { font-style: italic; background: linear-gradient(135deg, var(--violet), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.page-sub { font-size: 15px; color: var(--muted2); line-height: 1.8; max-width: 560px; margin: 0 auto 48px; }
+
+/* FILTER BAR */
+.filter-bar { position: sticky; top: 64px; z-index: 90; background: rgba(7,7,14,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 0 40px; display: flex; gap: 0; overflow-x: auto; }
+.filter-tab { padding: 16px 20px; font-size: 12px; font-weight: 500; letter-spacing: 0.06em; color: var(--muted); background: none; border: none; cursor: pointer; font-family: 'Outfit', sans-serif; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.2s; }
+.filter-tab:hover { color: var(--text); }
+.filter-tab.active { color: var(--violet); border-bottom-color: var(--violet); }
+.filter-tab.girl-tab.active { color: var(--girl-color); border-bottom-color: var(--girl-color); }
+.filter-tab.boy-tab.active { color: var(--boy-color); border-bottom-color: var(--boy-color); }
+
+/* MAIN CONTENT */
+.content { position: relative; z-index: 1; padding: 48px 40px 80px; max-width: 1200px; margin: 0 auto; }
+
+/* GROUP SECTION */
+.group-section { margin-bottom: 72px; animation: fadeUp 0.4s ease both; }
+.group-section.hidden { display: none; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.group-header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.group-emoji-big { font-size: 36px; }
+.group-header-info { flex: 1; }
+.group-header-name { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; }
+.group-header-meta { font-size: 12px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+.group-gender-badge { padding: 5px 14px; border-radius: 100px; font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.girl-badge { background: rgba(244,114,182,0.12); color: var(--girl-color); border: 1px solid rgba(244,114,182,0.25); }
+.boy-badge { background: rgba(96,165,250,0.12); color: var(--boy-color); border: 1px solid rgba(96,165,250,0.25); }
+.member-count { font-size: 12px; color: var(--muted); margin-left: auto; }
+
+/* MEMBER GRID */
+.member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+
+/* MEMBER CARD */
+.member-card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 24px; transition: all 0.25s; cursor: pointer; position: relative; overflow: hidden; }
+.member-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(167,139,250,0.04), transparent); opacity: 0; transition: opacity 0.25s; border-radius: 20px; }
+.member-card:hover { border-color: rgba(167,139,250,0.3); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); }
+.member-card:hover::before { opacity: 1; }
+.member-card.boy-card:hover { border-color: rgba(96,165,250,0.3); }
+.member-card.boy-card::before { background: linear-gradient(135deg, rgba(96,165,250,0.04), transparent); }
+
+.card-top { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+.member-initial { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 600; color: white; flex-shrink: 0; }
+.girl-initial { background: linear-gradient(135deg, #9333ea, #db2777); }
+.boy-initial { background: linear-gradient(135deg, #2563eb, #7c3aed); }
+.card-name-block { flex: 1; }
+.card-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; margin-bottom: 3px; }
+.card-role { font-size: 11px; color: var(--muted); letter-spacing: 0.06em; }
+
+.archetype-pill { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 100px; border: 1px solid rgba(167,139,250,0.25); background: rgba(167,139,250,0.07); margin-bottom: 14px; }
+.archetype-pill .glyph { font-size: 10px; color: var(--violet); }
+.archetype-pill .arch-text { font-size: 11px; color: var(--violet); letter-spacing: 0.06em; font-weight: 500; }
+.boy-card .archetype-pill { border-color: rgba(96,165,250,0.25); background: rgba(96,165,250,0.07); }
+.boy-card .archetype-pill .glyph, .boy-card .archetype-pill .arch-text { color: var(--boy-color); }
+
+.card-insight { font-size: 13px; color: var(--muted2); line-height: 1.7; margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+.card-footer { display: flex; align-items: center; justify-content: space-between; }
+.shadow-preview { font-size: 11px; color: var(--muted); font-style: italic; max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.quiz-link { font-size: 11px; color: var(--violet); letter-spacing: 0.06em; text-decoration: none; opacity: 0; transition: opacity 0.2s; }
+.member-card:hover .quiz-link { opacity: 1; }
+.boy-card .quiz-link { color: var(--boy-color); }
+
+/* EXPANDED STATE */
+.member-card.expanded { border-color: rgba(167,139,250,0.4); }
+.member-card.expanded::before { opacity: 1; }
+.member-card.boy-card.expanded { border-color: rgba(96,165,250,0.4); }
+.expanded-content { display: none; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+.member-card.expanded .expanded-content { display: block; animation: fadeUp 0.25s ease; }
+.expanded-content .card-insight { display: block; -webkit-line-clamp: unset; overflow: visible; margin-bottom: 12px; font-size: 13px; }
+.shadow-section { background: rgba(244,114,182,0.05); border-left: 2px solid var(--pink); padding: 10px 14px; border-radius: 0 10px 10px 0; margin-bottom: 14px; }
+.shadow-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--pink); margin-bottom: 4px; }
+.shadow-text { font-size: 12px; color: var(--muted2); line-height: 1.65; }
+.take-quiz-btn { display: inline-block; padding: 10px 20px; background: linear-gradient(135deg, var(--violet2), #be185d); color: white; border-radius: 100px; font-size: 12px; font-weight: 500; text-decoration: none; letter-spacing: 0.05em; transition: opacity 0.2s; }
+.take-quiz-btn:hover { opacity: 0.85; }
+
+/* STATS BAR */
+.stats-bar { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-bottom: 56px; }
+.stat-item { flex: 1; padding: 20px 24px; text-align: center; border-right: 1px solid var(--border); }
+.stat-item:last-child { border-right: none; }
+.stat-num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 600; background: linear-gradient(135deg, var(--violet), var(--pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.stat-label { font-size: 11px; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+
+/* ARCHETYPE LEGEND */
+.legend-section { margin-bottom: 56px; }
+.legend-title { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 400; margin-bottom: 20px; }
+.legend-title em { font-style: italic; }
+.legend-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.legend-pill { padding: 10px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; font-size: 12px; color: var(--muted2); display: flex; align-items: center; gap: 8px; }
+.legend-dot { width: 6px; height: 6px; border-radius: 50%; background: linear-gradient(135deg, var(--violet), var(--pink)); flex-shrink: 0; }
+
+/* EMPTY STATE */
+.empty-state { text-align: center; padding: 80px 40px; color: var(--muted); }
+.empty-state h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 12px; color: var(--text); }
+
+/* FOOTER */
+footer { position: relative; z-index: 1; display: flex; justify-content: space-between; align-items: center; padding: 32px 40px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); flex-wrap: wrap; gap: 16px; }
+.footer-logo { font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); margin-bottom: 4px; }
+.footer-links { display: flex; gap: 24px; }
+.footer-links a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--violet); }
+.disclaimer { font-size: 10px; color: var(--muted); max-width: 600px; line-height: 1.6; opacity: 0.6; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .nav-links { gap: 16px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .page-header { padding: 100px 20px 40px; }
+  .filter-bar { padding: 0 16px; }
+  .content { padding: 32px 20px 60px; }
+  .member-grid { grid-template-columns: 1fr; }
+  .stats-bar { flex-wrap: wrap; }
+  .stat-item { min-width: 50%; }
+  footer { flex-direction: column; align-items: flex-start; padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+
+<nav>
+  <a class="nav-logo" href="index.html">Bias Theory</a>
+  <div class="nav-links">
+    <a href="index.html#how">About</a>
+    <a href="index.html#groups">Groups</a>
+    <a href="profiles.html" class="active">Profiles</a>
+    <a href="index.html#quiz-section" class="nav-cta">Take the Quiz</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="section-tag">✦ The Archive</div>
+  <h1 class="page-title">Idol <em>Profiles</em></h1>
+  <p class="page-sub">Every member, every archetype. Browse the full Bias Theory roster — click any card to read the full personality profile.</p>
+</div>
+
+<div class="filter-bar" id="filter-bar">
+  <button class="filter-tab active" onclick="filterGroups('all', this)">All Groups</button>
+  <button class="filter-tab girl-tab" onclick="filterGroups('girl', this)">✨ Girl Groups</button>
+  <button class="filter-tab boy-tab" onclick="filterGroups('boy', this)">⚡ Boy Groups</button>
+  <div style="width:1px;background:var(--border);margin:12px 8px;flex-shrink:0"></div>
+  <button class="filter-tab" onclick="filterGroups('newjeans', this)">NewJeans</button>
+  <button class="filter-tab" onclick="filterGroups('lesserafim', this)">LE SSERAFIM</button>
+  <button class="filter-tab" onclick="filterGroups('aespa', this)">aespa</button>
+  <button class="filter-tab" onclick="filterGroups('ive', this)">IVE</button>
+  <button class="filter-tab" onclick="filterGroups('straykids', this)">Stray Kids</button>
+  <button class="filter-tab" onclick="filterGroups('ateez', this)">ATEEZ</button>
+  <button class="filter-tab" onclick="filterGroups('enhypen', this)">ENHYPEN</button>
+  <button class="filter-tab" onclick="filterGroups('txt', this)">TXT</button>
+</div>
+
+<div class="content">
+
+  <div class="stats-bar">
+    <div class="stat-item"><div class="stat-num">48</div><div class="stat-label">Member Profiles</div></div>
+    <div class="stat-item"><div class="stat-num">8</div><div class="stat-label">Groups</div></div>
+    <div class="stat-item"><div class="stat-num">30+</div><div class="stat-label">Unique Archetypes</div></div>
+    <div class="stat-item"><div class="stat-num">5</div><div class="stat-label">Personality Dimensions</div></div>
+  </div>
+
+  <div id="groups-container"></div>
+
+</div>
+
+<footer>
+  <div>
+    <div class="footer-logo">Bias Theory</div>
+    <div class="disclaimer">Bias Theory is an independent fan and commentary platform. Not affiliated with, endorsed by, or connected to any K-Pop artist, group, or entertainment agency. All group and artist names are used for commentary and educational purposes only.</div>
+  </div>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#quiz-section">Take the Quiz</a>
+    <a href="index.html#suggest-section">Suggest</a>
+  </div>
+</footer>
+
+<script>
+// ── Starfield ──
+window.addEventListener('DOMContentLoaded', function() {
+  const canvas = document.getElementById('starfield');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  function init() { stars = []; for (let i=0;i<120;i++) stars.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.2,speed:0.003+Math.random()*0.008,phase:Math.random()*Math.PI*2}); }
+  function draw() {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    const t = Date.now()*0.001;
+    stars.forEach(s=>{ const op=0.08+0.45*(0.5+0.5*Math.sin(t*s.speed*10+s.phase)); ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2); ctx.fillStyle=`rgba(255,255,255,${op})`; ctx.fill(); });
+    requestAnimationFrame(draw);
+  }
+  resize(); init(); draw();
+  window.addEventListener('resize',()=>{ resize(); init(); });
+});
+
+// ── Data ──
+const PROFILES = {
+  newjeans: {
+    name:'NewJeans', emoji:'🐰', gender:'girl', gen:'4th Gen · ADOR',
+    members:[
+      {name:'Minji',   role:'Leader · Vocalist',        arch:'The Quiet Anchor',    insight:'You carry rooms without asking for credit. People feel steadier when you\'re around — not because you\'re loud, but because you\'re consistent in a way that\'s become rare. You lead through presence, not performance.',                                                                                   shadow:'You absorb other people\'s weight without realizing it. Learn to put some of it down.'},
+      {name:'Hanni',   role:'Vocalist',                  arch:'The Spark',           insight:'You make things more alive. You\'re quick, warm, and genuinely present — people feel chosen when you give them your attention. That energy is a gift most people spend their whole lives trying to manufacture.',                                                                                             shadow:'You move fast. Let some moments last before you\'re already onto the next one.'},
+      {name:'Danielle',role:'Vocalist',                  arch:'The Bridge',          insight:'You exist comfortably in between — cultures, moods, groups. You translate people to each other. You make people who wouldn\'t otherwise connect feel like they belong in the same room. That\'s a rare and undervalued skill.',                                                                                shadow:'Being everyone\'s bridge means sometimes nobody\'s fully holding you up. Find your people.'},
+      {name:'Haerin',  role:'Vocalist',                  arch:'The Watcher',         insight:'You see everything and show nothing — and somehow that makes people more drawn to you, not less. Your quiet is not emptiness. It\'s depth. Most people can only guess at what\'s underneath.',                                                                                                             shadow:'Mystery without any vulnerability becomes distance. Let one or two people past the wall.'},
+      {name:'Hyein',   role:'Maknae · Vocalist',         arch:'The Becoming',        insight:'You\'re in the middle of figuring out who you are — and you\'re doing it honestly, which takes more courage than most realize. The version of you that\'s emerging is more interesting than any finished product could be.',                                                                                shadow:'Stop rushing to have it figured out. You\'re allowed to still be in the middle of becoming.'},
+    ]
+  },
+  lesserafim: {
+    name:'LE SSERAFIM', emoji:'🔥', gender:'girl', gen:'4th Gen · HYBE',
+    members:[
+      {name:'Chaewon', role:'Leader · Vocalist',         arch:'The Quiet Leader',    insight:'You lead without making it about being the leader. People trust you without being told to — because you\'ve been reliable long enough that it stopped needing to be said. That kind of authority isn\'t given. It\'s built.',                                                                                  shadow:'Competence becomes a cage when no one thinks to ask if you\'re okay. Let someone carry something for you.'},
+      {name:'Sakura',  role:'Vocalist',                  arch:'The Long Game',       insight:'You understand that most things worth having require time you\'re not guaranteed. You\'ve restarted before. You\'d do it again. That patience isn\'t passive — it\'s a specific form of courage that most people can\'t sustain.',                                                                          shadow:'Waiting for the right moment can become a way of avoiding the risk. Some things have to be started imperfectly.'},
+      {name:'Yunjin',  role:'Vocalist',                  arch:'The Unfiltered',      insight:'You\'ve never been good at performing a version of yourself that isn\'t real. When something is true to you, you say it — not because you\'re reckless, but because you believe honesty is a form of respect.',                                                                                            shadow:'Not every truth needs an audience. Learn who\'s actually safe to be unfiltered with.'},
+      {name:'Kazuha',  role:'Dancer · Vocalist',         arch:'The Still Point',     insight:'You have a quality of stillness that most people spend years trying to find. Not detachment — presence. You\'re fully in whatever you\'re doing, without needing it to be more than it is.',                                                                                                               shadow:'Stillness can slip into withdrawal. Make sure you\'re choosing peace, not just avoiding the mess.'},
+      {name:'Eunchae', role:'Maknae · Vocalist',         arch:'The Pure One',        insight:'You still believe people are mostly good — and you\'ve made that a choice, not a default. Keeping your softness in a world that rewards hardness is one of the quiet acts of courage nobody talks about enough.',                                                                                          shadow:'Your openness is a gift. Not everyone deserves your default level of trust. Stay warm and still be discerning.'},
+    ]
+  },
+  aespa: {
+    name:'aespa', emoji:'🤖', gender:'girl', gen:'4th Gen · SM',
+    members:[
+      {name:'Karina',  role:'Leader · Main Dancer',      arch:'The Relentless Refiner', insight:'You don\'t do anything halfway. There\'s a standard you hold yourself to that most people would find exhausting — and you\'ve decided that\'s not a flaw, it\'s a filter. The gap between where you are and where you want to be isn\'t frustrating. It\'s fuel.',                                          shadow:'Perfectionism that protects you from being wrong also keeps you from starting. The standard is real. Don\'t let it become a cage.'},
+      {name:'Winter',  role:'Main Vocalist',             arch:'The Controlled Fire',    insight:'You perform like you\'re proving something — and then offstage you disappear entirely. There\'s an intensity in you that comes out in specific contexts and stays completely hidden in others. Most people only see one version.',                                                                              shadow:'The controlled exterior can become emotional isolation. The people closest to you need more than your performance.'},
+      {name:'Giselle', role:'Main Rapper',               arch:'The Cool Outsider',      insight:'You\'ve always existed slightly outside whatever group you\'re in — not isolated, just watching from a different angle. That perspective is your superpower. You see what others miss because you\'re never fully inside the frame.',                                                                          shadow:'Distance can become a habit. Make sure you\'re choosing perspective, not avoiding belonging.'},
+      {name:'Ningning',role:'Main Vocalist',             arch:'The Soft Powerhouse',    insight:'There\'s more underneath than most people expect. You carry a quiet intensity that catches people off guard — warmth on the surface, something much stronger underneath. You don\'t need to be loud to be felt.',                                                                                               shadow:'Softness without self-advocacy can mean people underestimate what you need. Let them know.'},
+    ]
+  },
+  ive: {
+    name:'IVE', emoji:'🌸', gender:'girl', gen:'4th Gen · Starship',
+    members:[
+      {name:'Yujin',   role:'Leader · Vocalist',         arch:'The Natural',         insight:'Some people work to be magnetic. You just are. There\'s a naturalness to the way you take up space — confident without performing it, warm without manufacturing it. You make difficult things look easy, which means people rarely see the work.',                                                             shadow:'Being the natural can mean people stop checking if you\'re okay. Make sure someone sees the effort.'},
+      {name:'Gaeul',   role:'Vocalist',                  arch:'The Dedicated One',   insight:'You believe in earning things. Not waiting for them, not expecting them — building them through consistent, unglamorous effort. You\'re the person who shows up before anyone else and stays after. That\'s not a strategy. That\'s who you are.',                                                             shadow:'Dedication without rest becomes depletion. You can\'t pour from empty. Rest is not giving up.'},
+      {name:'Rei',     role:'Vocalist',                  arch:'The Precise One',     insight:'You notice everything. The details other people miss, the small inconsistencies, the thing that\'s slightly off. That precision isn\'t anxiety — it\'s a form of intelligence. You see the world at higher resolution than most.',                                                                              shadow:'Precision can become paralysis. Not everything needs to be perfect before it leaves your hands.'},
+      {name:'Wonyoung',role:'Center · Vocalist',         arch:'The Untouchable',     insight:'You understand the difference between showing up and arriving. Everything you do is considered — not out of vanity, but out of respect for the moment and the people watching. You hold yourself to a standard most people don\'t even acknowledge exists.',                                                    shadow:'The polish can become armor. The people who matter to you need the unguarded version too.'},
+      {name:'Liz',     role:'Main Vocalist',             arch:'The Open Heart',      insight:'You love openly and without apology. When you\'re in, you\'re completely in — for people, for things you care about, for experiences. That full-heartedness is rare and it\'s the reason people feel so seen around you.',                                                                                        shadow:'Loving fully without filters can leave you exposed. Not everyone handles an open heart with care.'},
+      {name:'Leeseo',  role:'Maknae · Vocalist',         arch:'The Quiet Surprise',  insight:'You\'re more than what your first impression suggests. There\'s a depth and a quiet sureness to you that people don\'t see coming — and that gap between expectation and reality is one of the most interesting things about you.',                                                                             shadow:'Playing small to avoid disappointing people keeps both of you from seeing what you\'re capable of.'},
+    ]
+  },
+  straykids: {
+    name:'Stray Kids', emoji:'🐺', gender:'boy', gen:'4th Gen · JYP',
+    members:[
+      {name:'Bang Chan', role:'Leader · Vocalist · Rapper', arch:'The Protector',      insight:'You hold things together. Not because you asked for that role — because you\'ve always just been there when things started to fall apart. People feel safer when you\'re around. That\'s not a small thing. That\'s everything.',                                                                               shadow:'The people who hold others together often forget to let anyone hold them. You don\'t have to always be the steady one.'},
+      {name:'Lee Know',  role:'Main Dancer',                arch:'The Composed Edge',  insight:'There\'s a sharpness to you that\'s completely under control. You have opinions, standards, a way of seeing things — and you deploy all of it with precision. You don\'t perform. You don\'t overshare. You let the work speak.',                                                                               shadow:'The composed exterior can read as cold to people who don\'t know you. Some of them are worth letting in.'},
+      {name:'Changbin',  role:'Main Rapper',                arch:'The Intensity',      insight:'You don\'t do anything halfway. When something matters to you, it matters completely — and you bring everything you have to it. That commitment is magnetic and it\'s one of the rarest things a person can have.',                                                                                             shadow:'That same intensity can be overwhelming for people who don\'t understand it. Not everyone can meet you at full volume.'},
+      {name:'Hyunjin',   role:'Main Dancer · Vocalist',    arch:'The Artist',          insight:'You don\'t just perform — you translate. Everything you make is a way of taking something internal and finding a form for it. You see beauty in things other people walk past and you feel compelled to do something with that.',                                                                              shadow:'The beauty you\'re chasing can become an escape. Creation is real but so is the life outside the work.'},
+      {name:'Han',       role:'Main Rapper · Vocalist',    arch:'The Open Nerve',      insight:'You feel everything and you don\'t hide it — you pour it into what you make. Your emotional honesty is your greatest gift and the thing that makes you most vulnerable. When you channel it right, it becomes art. When you don\'t, it becomes weight.',                                                       shadow:'Feeling everything without filtering it can exhaust you and the people around you. Learn to hold space without drowning in it.'},
+      {name:'Felix',     role:'Vocalist',                  arch:'The Connector',       insight:'You make every room feel safer. Not because you\'re trying to — because you\'re genuinely, completely present with people. You remember details. You make people feel like the most important person in the room without even trying.',                                                                          shadow:'The warmth can become a performance. Make sure someone\'s showing up for you, not just the warm version of you.'},
+      {name:'Seungmin',  role:'Vocalist',                  arch:'The Grounded One',    insight:'You\'re more dependable than you get credit for. There\'s a steadiness to you — not the loud kind, the quiet kind that actually holds things together over time. You don\'t need the spotlight. You need the work to be good.',                                                                                shadow:'Being the stable one means people assume you\'re fine. You\'re allowed to not be fine.'},
+      {name:'I.N',       role:'Maknae · Vocalist',         arch:'The Understated',     insight:'You\'re more than your position in the lineup. There\'s a quiet confidence developing in you that doesn\'t need to announce itself — and the people paying attention can already see it. The question is whether you can.',                                                                                     shadow:'Don\'t let the youngest role become a limit. You\'re allowed to take up more space than that.'},
+    ]
+  },
+  ateez: {
+    name:'ATEEZ', emoji:'🏴‍☠️', gender:'boy', gen:'4th Gen · KQ',
+    members:[
+      {name:'Hongjoong',role:'Leader · Main Rapper',     arch:'The Architect',       insight:'You don\'t fit into what already exists. You look at a blank space and see something that isn\'t there yet — and then you build it. The lane you walk didn\'t exist before you decided it should.',                                                                                                            shadow:'The drive to build can make people feel like parts of the project, not the point. Let the vision be important. Make sure the people matter more.'},
+      {name:'Seonghwa', role:'Vocalist',                  arch:'The Graceful One',    insight:'There\'s a quality to the way you carry yourself that most people can\'t manufacture — a kind of natural grace that shows up in how you move, how you speak, how you treat people. It\'s not performance. It\'s character.',                                                                                   shadow:'Grace can become a mask if you use it to avoid being seen in moments that are less than perfect.'},
+      {name:'Yunho',    role:'Main Dancer · Vocalist',    arch:'The Steady Giant',    insight:'You\'re bigger than the space you usually take up. There\'s a warmth and a steadiness to you that makes people feel like everything is going to be okay — and you carry that without making it about yourself.',                                                                                               shadow:'Being steady for everyone else can mean no one checks if you\'re steady. Let people in.'},
+      {name:'Yeosang',  role:'Vocalist',                  arch:'The Hidden Depth',    insight:'The surface doesn\'t tell the full story with you — and that\'s very intentional. There\'s more underneath than most people are allowed to see, and you\'re selective about who gets access to the real version.',                                                                                              shadow:'Layers become walls if you never let anyone all the way through. Choose one or two people and actually let them.'},
+      {name:'San',      role:'Main Dancer · Vocalist',    arch:'The Intensity',       insight:'You don\'t do 80%. Every time — total commitment. When something matters to you, it matters completely. That level of presence is rare and it\'s magnetic and it\'s the reason people can\'t look away.',                                                                                                      shadow:'The intensity can become pressure — on yourself and on the people around you. Not everyone can meet you at full volume. That\'s not a flaw in them.'},
+      {name:'Mingi',    role:'Main Rapper',               arch:'The Expressive One',  insight:'You feel things fully and you show it — in how you move, how you perform, how you love. That expressiveness isn\'t extra. It\'s the whole thing. The people drawn to you are drawn to that aliveness.',                                                                                                      shadow:'Full expression without a filter can leave you overexposed. You get to choose what you share and with whom.'},
+      {name:'Wooyoung', role:'Vocalist',                  arch:'The Warmth',          insight:'You make people feel like they matter. Not in a surface way — in the way that stays. You remember things. You show up. You make the people around you feel like they were chosen.',                                                                                                                          shadow:'Pouring warmth into people who don\'t return it will drain you. Choose carefully who gets your full energy.'},
+      {name:'Jongho',   role:'Main Vocalist',             arch:'The Quiet Strength',  insight:'The things you\'re made of don\'t announce themselves. Your strength, your loyalty, your conviction — they come out in what you do, not what you say. That understatement is actually one of the most powerful things about you.',                                                                             shadow:'Staying quiet about what you need because you can handle it alone will eventually cost you something.'},
+    ]
+  },
+  enhypen: {
+    name:'ENHYPEN', emoji:'🌙', gender:'boy', gen:'4th Gen · HYBE',
+    members:[
+      {name:'Jungwon',  role:'Leader · Vocalist',         arch:'The Centered One',    insight:'There\'s a stillness at your center that\'s unusual for someone your age. You lead not by demanding the room but by being the kind of person people naturally orient toward — calm, considered, consistently themselves.',                                                                                     shadow:'Being centered can become a reason to avoid conflict. Some things need to be said even when they disrupt the peace.'},
+      {name:'Heeseung', role:'Vocalist · Dancer · Rapper',arch:'The Everything',      insight:'You\'ve never been content with being good at one thing. There\'s a restlessness in you — not dissatisfaction, but the feeling that you\'re not done yet. You feel the weight of what you\'re capable of and you can\'t put it down.',                                                                       shadow:'Chasing everything can mean fully arriving nowhere. You don\'t have to master everything to be worthy of taking up space.'},
+      {name:'Jay',      role:'Vocalist',                  arch:'The Sharp Wit',       insight:'You\'re quick — in how you think, how you read situations, how you see through the surface of things. That intelligence has an edge to it and you use it to keep people at a comfortable distance while also pulling them closer.',                                                                             shadow:'The wit can become a wall. Humor is great until it replaces honesty.'},
+      {name:'Jake',     role:'Vocalist',                  arch:'The Sincere One',     insight:'You mean what you say and you say what you mean — and in a world of performance, that\'s genuinely rare. There\'s a sincerity to you that people feel immediately. You don\'t do fake warmth. The real version is right there.',                                                                               shadow:'Sincerity without discernment can leave you overexposed to people who don\'t deserve it.'},
+      {name:'Sunghoon', role:'Vocalist',                  arch:'The Composed Beauty', insight:'There\'s something about you that draws people in before you\'ve said a word — and then you open your mouth and it\'s entirely different from what they expected. That gap between impression and reality is one of your most interesting qualities.',                                                         shadow:'The composed exterior can keep the right people at arm\'s length. Let the interesting interior be seen more.'},
+      {name:'Sunoo',    role:'Vocalist',                  arch:'The Sunshine',        insight:'Your joy is not performance — it\'s conviction. You\'ve decided to meet the world with warmth and you defend that choice every day. That\'s not naïveté. That\'s one of the hardest stances a person can hold.',                                                                                              shadow:'Sunshine that never dims can start to feel like a pressure to always be okay. You\'re allowed to not be.'},
+      {name:'Niki',     role:'Main Dancer · Maknae',      arch:'The Prodigy',         insight:'You were capable before you were supposed to be — and you\'ve had to figure out who you are at the same time as figuring out what you can do. That\'s a specific kind of pressure. Being taken seriously before you feel like yourself.',                                                                     shadow:'Prodigies often skip learning to ask for help. You don\'t have to figure out everything alone just because you can.'},
+    ]
+  },
+  txt: {
+    name:'TXT', emoji:'🌌', gender:'boy', gen:'4th Gen · HYBE',
+    members:[
+      {name:'Yeonjun',    role:'Main Dancer · Vocalist',  arch:'The Stage',           insight:'You don\'t ask for the room. You already have it. There\'s an instinct in you toward impact — you want what you do to land, to stay with people, to matter. That\'s not ego. That\'s a drive toward legacy.',                                                                                                 shadow:'The audience can become a substitute for intimacy. Notice who you are when nobody\'s watching.'},
+      {name:'Soobin',     role:'Leader · Vocalist',       arch:'The Thoughtful One',  insight:'You think before you speak and mean what you say when you do. There\'s a deliberateness to the way you move through the world that\'s rare — considered, present, measured. People trust you before they understand why.',                                                                                     shadow:'Deliberateness can slide into avoidance. Some things need to be said before you\'re fully ready.'},
+      {name:'Beomgyu',    role:'Vocalist',                arch:'The Bright One',      insight:'You carry lightness in a way that looks effortless and isn\'t. You make things fun, you make people feel included, you find the humor in the difficult thing. That\'s a skill and a service and most people don\'t recognize how much work it actually takes.',                                                shadow:'The brightness can become a performance if you\'re not careful. You\'re allowed to put it down sometimes.'},
+      {name:'Taehyun',    role:'Main Vocalist',           arch:'The Standard',        insight:'You have expectations — of yourself, of the people around you, of the work. Most people would call that demanding. You call it caring. The gap between what is and what could be isn\'t frustrating to you. It\'s a direction.',                                                                                shadow:'High standards applied inward without mercy will break you down before you hit the ceiling. Be as rigorous about rest as you are about performance.'},
+      {name:'Huening Kai',role:'Maknae · Vocalist',       arch:'The Dreamer',         insight:'You live partially somewhere else — a world that\'s a little softer, a little more beautiful, a little more interesting than the default one. That\'s not escapism. That\'s creativity. The things you imagine are the beginning of things that could exist.',                                                  shadow:'The dream world is real, but so is this one. Don\'t let the interior become a way to avoid showing up.'},
+    ]
+  }
+};
+
+// ── Render ──
+function buildInitial(name) {
+  return name.includes(' ') ? name.split(' ').map(w=>w[0]).join('').slice(0,2) : name[0];
+}
+
+function renderAll() {
+  const container = document.getElementById('groups-container');
+  container.innerHTML = '';
+  Object.entries(PROFILES).forEach(([groupKey, group]) => {
+    const isGirl = group.gender === 'girl';
+    const section = document.createElement('div');
+    section.className = 'group-section';
+    section.dataset.group = groupKey;
+    section.dataset.gender = group.gender;
+
+    section.innerHTML = `
+      <div class="group-header">
+        <div class="group-emoji-big">${group.emoji}</div>
+        <div class="group-header-info">
+          <div class="group-header-name">${group.name}</div>
+          <div class="group-header-meta">${group.gen}</div>
+        </div>
+        <div class="group-gender-badge ${isGirl ? 'girl-badge' : 'boy-badge'}">${isGirl ? 'Girl Group' : 'Boy Group'}</div>
+        <div class="member-count">${group.members.length} members</div>
+      </div>
+      <div class="member-grid">
+        ${group.members.map(m => `
+          <div class="member-card ${isGirl ? '' : 'boy-card'}" onclick="toggleCard(this)">
+            <div class="card-top">
+              <div class="member-initial ${isGirl ? 'girl-initial' : 'boy-initial'}">${buildInitial(m.name)}</div>
+              <div class="card-name-block">
+                <div class="card-name">${m.name}</div>
+                <div class="card-role">${m.role}</div>
+              </div>
+            </div>
+            <div class="archetype-pill">
+              <span class="glyph">✦</span>
+              <span class="arch-text">${m.arch}</span>
+            </div>
+            <div class="card-insight">${m.insight}</div>
+            <div class="expanded-content">
+              <div class="shadow-section">
+                <div class="shadow-label">Watch For This</div>
+                <div class="shadow-text">${m.shadow}</div>
+              </div>
+              <div style="margin-top:14px">
+                <a href="index.html#quiz-section" class="take-quiz-btn">Find Your Match ✦</a>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div class="shadow-preview">${m.shadow}</div>
+              <span class="quiz-link">Take quiz →</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(section);
+  });
+}
+
+function toggleCard(card) {
+  const isExpanded = card.classList.contains('expanded');
+  // Close all others in same grid
+  card.closest('.member-grid').querySelectorAll('.member-card.expanded').forEach(c => {
+    if (c !== card) c.classList.remove('expanded');
+  });
+  card.classList.toggle('expanded', !isExpanded);
+}
+
+function filterGroups(filter, btn) {
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.group-section').forEach(section => {
+    const group = section.dataset.group;
+    const gender = section.dataset.gender;
+    if (filter === 'all') {
+      section.classList.remove('hidden');
+    } else if (filter === 'girl' || filter === 'boy') {
+      section.classList.toggle('hidden', gender !== filter);
+    } else {
+      section.classList.toggle('hidden', group !== filter);
+    }
+  });
+}
+
+renderAll();
+</script>
+</body>
+</html>
