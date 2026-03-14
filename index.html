@@ -1296,10 +1296,10 @@ function qzShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.rand
 
 const QZ_GROUPS={
   girl:[
-    {id:'newjeans',  name:'NewJeans',   emoji:'🐰', gen:'4th Gen · ADOR'},
-    {id:'lesserafim',name:'LE SSERAFIM',emoji:'🔥', gen:'4th Gen · HYBE'},
-    {id:'aespa',     name:'aespa',      emoji:'🤖', gen:'4th Gen · SM'},
-    {id:'ive',       name:'IVE',        emoji:'🌸', gen:'4th Gen · Starship'},
+    {id:'newjeans',  name:'NewJeans',   emoji:'🐰', gen:'4th Gen · ADOR',       pronoun:'she'},
+    {id:'lesserafim',name:'LE SSERAFIM',emoji:'🔥', gen:'4th Gen · HYBE',       pronoun:'she'},
+    {id:'aespa',     name:'aespa',      emoji:'🤖', gen:'4th Gen · SM',         pronoun:'she'},
+    {id:'ive',       name:'IVE',        emoji:'🌸', gen:'4th Gen · Starship',   pronoun:'she'},
     {id:'itzy',      name:'ITZY',       emoji:'⚡', gen:'Coming Soon', soon:true},
     {id:'gidle',     name:'(G)I-DLE',   emoji:'👑', gen:'Coming Soon', soon:true},
     {id:'nmixx',     name:'NMIXX',      emoji:'🎵', gen:'Coming Soon', soon:true},
@@ -1307,10 +1307,10 @@ const QZ_GROUPS={
     {id:'twice',     name:'TWICE',      emoji:'🐇', gen:'Coming Soon', soon:true},
   ],
   boy:[
-    {id:'straykids', name:'Stray Kids', emoji:'🐺', gen:'4th Gen · JYP'},
-    {id:'ateez',     name:'ATEEZ',      emoji:'🏴‍☠️', gen:'4th Gen · KQ'},
-    {id:'enhypen',   name:'ENHYPEN',    emoji:'🌙', gen:'4th Gen · HYBE'},
-    {id:'txt',       name:'TXT',        emoji:'🌌', gen:'4th Gen · HYBE'},
+    {id:'straykids', name:'Stray Kids', emoji:'🐺', gen:'4th Gen · JYP',        pronoun:'he'},
+    {id:'ateez',     name:'ATEEZ',      emoji:'🏴‍☠️', gen:'4th Gen · KQ',         pronoun:'he'},
+    {id:'enhypen',   name:'ENHYPEN',    emoji:'🌙', gen:'4th Gen · HYBE',       pronoun:'he'},
+    {id:'txt',       name:'TXT',        emoji:'🌌', gen:'4th Gen · HYBE',       pronoun:'he'},
     {id:'exo',       name:'EXO',        emoji:'❄️', gen:'Coming Soon', soon:true},
     {id:'seventeen', name:'SEVENTEEN',  emoji:'💎', gen:'Coming Soon', soon:true},
     {id:'nctdream',  name:'NCT Dream',  emoji:'🌙', gen:'Coming Soon', soon:true},
@@ -1401,6 +1401,10 @@ function qzShowResult(){
   const sorted=Object.entries(qzScores).sort((a,b)=>b[1]-a[1]);
   const topKey=sorted[0][0];
   const m=members[topKey];
+  const allGroups=[...QZ_GROUPS.girl,...QZ_GROUPS.boy];
+  const groupData=allGroups.find(g=>g.id===selGroup);
+  const pronoun=groupData&&groupData.pronoun?groupData.pronoun:'they';
+  const subjectCap=pronoun==='she'?'She':pronoun==='he'?'He':'They';
   const isMirror=sorted[0][1]>=sorted[1][1]+4;
   const dimScores={};DIMS.forEach(d=>dimScores[d]=0);
   sessionQs.forEach((q,i)=>{
@@ -1427,7 +1431,7 @@ function qzShowResult(){
         <div class="qz-divider"></div>
         <div class="qz-section">
           <div class="qz-section-label">Mirror or Aspiration?</div>
-          <h3>${isMirror?'She\'s a mirror':'She\'s who you\'re becoming'}</h3>
+          <h3>${isMirror?`${subjectCap}'s a mirror`:`${subjectCap}'s who you're becoming`}</h3>
           <div class="qz-mirror-grid">
             <div class="qz-mirror-box"><div class="qz-mirror-label">The Mirror</div><p>${m.mirror}</p></div>
             <div class="qz-mirror-box"><div class="qz-mirror-label">The Aspiration</div><p>${m.aspire}</p></div>
