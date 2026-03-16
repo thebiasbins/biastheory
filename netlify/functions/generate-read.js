@@ -21,12 +21,27 @@ exports.handler = async (event) => {
       })
     });
 
+    const responseText = await response.text();
+
     if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error?.message || 'Anthropic API error');
+      console.error('Anthropic API error status:', response.status);
+      console.error('Anthropic API error body:', responseText);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: `Anthropic API error ${response.status}: ${responseText}` })
+      };
     }
 
-    const data = await response.json();
+    const data = JSON.parse(responseText);
+
+    if (!data.content || !data.content.length) {
+      console.error('Unexpected Anthropic response:', JSON.stringify(data));
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Unexpected response format from Anthropic' })
+      };
+    }
+
     return {
       statusCode: 200,
       headers: { 'Content-Type': 'application/json' },
@@ -34,7 +49,7 @@ exports.handler = async (event) => {
     };
 
   } catch (err) {
-    console.error('Anthropic error:', err);
+    console.error('Function error:', err.message, err.stack);
     return {
       statusCode: 500,
       body: JSON.stringify({ error: err.message || 'Generation failed' })
