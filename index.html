@@ -527,8 +527,18 @@ section { position: relative; z-index: 1; padding: 100px 24px; }
 .qz-dim-row { display: flex; align-items: center; gap: 12px; font-size: 12px; }
 .qz-dim-label { width: 120px; color: var(--muted); flex-shrink: 0; }
 .qz-dim-track { flex: 1; height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; }
-.qz-dim-fill { height: 100%; background: linear-gradient(90deg, var(--violet), var(--pink)); border-radius: 99px; transition: width 0.7s ease; min-width: 8%; }
-.qz-mirror-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+.qz-dim-fill { height: 100%; background: linear-gradient(90deg, var(--violet), var(--pink)); border-radius: 99px; transition: width 0.7s ease; }
+.qz-result-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--violet); margin-bottom: 16px; }
+.qz-dual-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; width: 100%; }
+.qz-dual-box { background: var(--surface2); border: 1px solid var(--border); border-radius: 14px; padding: 16px 12px; text-align: center; }
+.qz-dual-mirror { border-color: rgba(167,139,250,0.3); }
+.qz-dual-aspire { border-color: rgba(244,114,182,0.3); }
+.qz-dual-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.qz-dual-divider { font-size: 20px; color: var(--muted); text-align: center; flex-shrink: 0; }
+.qz-dual-tag { display: inline-block; margin-top: 8px; padding: 3px 10px; border-radius: 99px; font-size: 10px; letter-spacing: 0.08em; }
+.mirror-tag { background: rgba(167,139,250,0.12); color: var(--violet); border: 1px solid rgba(167,139,250,0.25); }
+.aspire-tag { background: rgba(244,114,182,0.12); color: var(--pink); border: 1px solid rgba(244,114,182,0.25); }
+@media(max-width:480px){ .qz-dual-grid { grid-template-columns: 1fr; } .qz-dual-divider { transform: rotate(90deg); } }
 .qz-mirror-box { background: rgba(147,51,234,0.05); border: 1px solid rgba(167,139,250,0.15); border-radius: 12px; padding: 14px; }
 .qz-mirror-label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--violet); margin-bottom: 6px; }
 .qz-mirror-box p { font-size: 12px; color: var(--muted2); line-height: 1.65; margin: 0; }
@@ -1035,7 +1045,7 @@ const QZ_POOL=[
   {t:'Share something you went through so they feel less alone',w:{danielle:3,yunjin:2,hanni:1,felix:2,jake:2,sunoo:2,liz:2,yunho:2}},
   {t:'I step up when the vision is clear but hang back when it is not',w:{karina:2,ningning:2,soobin:2,taehyun:2,jungwon:2,sunghoon:2,jongho:2,yunho:2}},
   {t:'I lead by being the most prepared person in the room',w:{karina:3,winter:2,gaeul:2,taehyun:2,jungwon:2,seungmin:2,hongjoong:2,rei:2}}]},
-{dim:'How you lead',q:'The kind of leader you most admire is...',opts:[
+{dim:'How you lead',q:'The kind of leader you most admire is...',aspire:true,opts:[
   {t:'Steady — someone who never loses their composure',w:{chaewon:3,minji:2,bangchan:2,jungwon:3,soobin:2,taehyun:2,gaeul:2,rei:2}},
   {t:'Warm — someone who makes everyone feel included',w:{minji:3,danielle:3,eunchae:2,felix:3,wooyoung:2,sunoo:2,liz:2,yunho:2}},
   {t:'Bold — someone who says the thing nobody else will',w:{yunjin:3,hanni:2,san:3,changbin:2,hongjoong:2,wonyoung:2,karina:2,jay:2}},
@@ -1082,7 +1092,7 @@ const QZ_POOL=[
   {t:'Ask people around you how to handle it',w:{hyein:3,danielle:2,eunchae:2,niki:3,jake:2,huening:2,leeseo:2,liz:2}},
   {t:'I sit with it quietly until it becomes something I can use',w:{winter:3,ningning:2,taehyun:2,soobin:2,yeosang:2,sunghoon:2,rei:2,giselle:2}},
   {t:'I express it through performance or art before I can name it',w:{karina:2,winter:2,yeonjun:3,beomgyu:2,san:2,mingi:2,ningning:2,hyunjin:2}}]},
-{dim:'How you handle emotion',q:'The compliment that would mean the most to you is...',opts:[
+{dim:'How you handle emotion',q:'The compliment that would mean the most to you is...',aspire:true,opts:[
   {t:'"You make people feel safe around you"',w:{minji:3,chaewon:3,eunchae:2,bangchan:3,felix:3,jungwon:2,liz:2,yunho:2}},
   {t:'"You make everything more fun"',w:{hanni:3,danielle:2,eunchae:3,wooyoung:3,beomgyu:3,sunoo:3,felix:2,liz:2}},
   {t:'"There is something about you I cannot figure out"',w:{haerin:3,kazuha:3,lee_know:3,winter:3,yeosang:2,rei:2,giselle:2,wonyoung:2}},
@@ -1111,7 +1121,7 @@ const QZ_POOL=[
   {t:'I sit with it quietly until it becomes something I can use',w:{winter:3,ningning:2,taehyun:2,soobin:2,yeosang:2,sunghoon:2,rei:2,giselle:2}},
   {t:'I express it through performance or art before I can name it',w:{karina:2,winter:2,yeonjun:3,beomgyu:2,san:2,mingi:2,ningning:2,hyunjin:2}}]},
 // ── HOW YOU CONNECT WITH PEOPLE ──
-{dim:'How you connect with people',q:'The quality you most want people to feel around you...',opts:[
+{dim:'How you connect with people',q:'The quality you most want people to feel around you...',aspire:true,opts:[
   {t:'Safe — like things will be okay',w:{minji:3,chaewon:3,eunchae:2,bangchan:3,felix:3,jungwon:2,soobin:2,liz:2}},
   {t:'Alive — like something good is happening',w:{hanni:3,danielle:3,wooyoung:3,felix:2,beomgyu:3,sunoo:2,wonyoung:2,liz:2}},
   {t:'Curious — like there is more to you than they can see',w:{haerin:3,kazuha:3,lee_know:3,winter:3,yeosang:2,rei:2,giselle:2,wonyoung:2}},
@@ -1139,7 +1149,7 @@ const QZ_POOL=[
   {t:'Attach to one person you click with immediately',w:{hyein:3,danielle:2,niki:2,jake:2,huening:2,leeseo:2,sunoo:2,liz:2}},
   {t:'I connect deeply with very few people and am content with that',w:{winter:3,karina:2,taehyun:2,soobin:2,jongho:2,sunghoon:2,yeosang:2,giselle:2}},
   {t:'I show care through consistency and showing up rather than words',w:{karina:2,gaeul:2,seungmin:2,jungwon:2,soobin:2,taehyun:2,jongho:2,yunho:2}}]},
-{dim:'How you connect with people',q:'You feel most like yourself when...',opts:[
+{dim:'How you connect with people',q:'You feel most like yourself when...',aspire:true,opts:[
   {t:'You are needed and showing up for someone',w:{minji:3,chaewon:2,eunchae:3,bangchan:3,felix:3,wooyoung:2,jongho:2,liz:2}},
   {t:'You are in flow — creating, moving, expressing',w:{kazuha:3,yunjin:3,hanni:2,han:3,hyunjin:3,mingi:3,ningning:2,yeonjun:2}},
   {t:'You are with people who genuinely get you',w:{danielle:3,haerin:2,hyein:2,felix:2,wooyoung:2,jake:2,sunoo:2,giselle:2}},
@@ -1167,7 +1177,7 @@ const QZ_POOL=[
   {t:'I connect deeply with very few people and am content with that',w:{winter:3,karina:2,taehyun:2,soobin:2,jongho:2,sunghoon:2,yeosang:2,giselle:2}},
   {t:'I show care through consistency and showing up rather than words',w:{karina:2,gaeul:2,seungmin:2,jungwon:2,soobin:2,taehyun:2,jongho:2,yunho:2}}]},
 // ── HOW YOU APPROACH GROWTH ──
-{dim:'How you approach growth',q:'Your relationship to growth is...',opts:[
+{dim:'How you approach growth',q:'Your relationship to growth is...',aspire:true,opts:[
   {t:'I build slowly and trust the process',w:{sakura:3,kazuha:3,jongho:2,soobin:2,gaeul:3,taehyun:2,seungmin:2,rei:2}},
   {t:'I push hard and adjust fast',w:{chaewon:3,yunjin:2,karina:3,san:3,changbin:2,taehyun:2,yujin:2,wonyoung:2}},
   {t:'I grow through discomfort — I need to be challenged',w:{yunjin:3,chaewon:2,sakura:2,san:3,changbin:3,karina:2,taehyun:2,wonyoung:2}},
@@ -1187,7 +1197,7 @@ const QZ_POOL=[
   {t:'I need time before I can look at it clearly',w:{minji:2,danielle:2,hyein:3,niki:2,jake:2,huening:2,leeseo:2,liz:2}},
   {t:'I grow through mastery — I go deep on one thing until I own it',w:{karina:3,winter:2,taehyun:3,jongho:2,seungmin:2,rei:2,gaeul:2,soobin:2}},
   {t:'I grow by watching the best and then pushing past what I learned',w:{karina:2,yeonjun:2,heeseung:3,hyunjin:2,san:2,ningning:2,beomgyu:2,giselle:2}}]},
-{dim:'How you approach growth',q:'The version of success you are working toward is...',opts:[
+{dim:'How you approach growth',q:'The version of success you are working toward is...',aspire:true,opts:[
   {t:'Being someone people can count on completely',w:{minji:3,chaewon:3,bangchan:3,felix:2,jongho:2,yunho:2,gaeul:2,yujin:2}},
   {t:'Making something that only you could have made',w:{yunjin:3,kazuha:3,han:3,hyunjin:3,hongjoong:3,ningning:2,mingi:2,giselle:2}},
   {t:'Becoming fully, unapologetically myself',w:{hyein:3,yunjin:2,hanni:2,niki:3,jay:2,mingi:2,changbin:2,leeseo:2}},
@@ -1197,7 +1207,7 @@ const QZ_POOL=[
   {t:'Surprising myself with what I turn out to be capable of',w:{hyein:3,sakura:2,niki:3,leeseo:2,huening:3,jeongin:2,liz:2,wonyoung:1}},
   {t:'I grow through mastery — I go deep on one thing until I own it',w:{karina:3,winter:2,taehyun:3,jongho:2,seungmin:2,rei:2,gaeul:2,soobin:2}},
   {t:'I grow by watching the best and then pushing past what I learned',w:{karina:2,yeonjun:2,heeseung:3,hyunjin:2,san:2,ningning:2,beomgyu:2,giselle:2}}]},
-{dim:'How you approach growth',q:'You are most likely to hold yourself back by...',opts:[
+{dim:'How you approach growth',q:'You are most likely to hold yourself back by...',aspire:true,opts:[
   {t:'Waiting until you are ready — which never quite arrives',w:{sakura:3,hyein:3,leeseo:2,huening:2,gaeul:2,jake:2,liz:2,wonyoung:1}},
   {t:'Controlling everything instead of letting things evolve',w:{chaewon:3,minji:2,hongjoong:2,karina:3,taehyun:2,wonyoung:2,gaeul:2,rei:2}},
   {t:'Burning too hot and not pacing yourself',w:{yunjin:3,hanni:2,san:3,changbin:3,han:2,wonyoung:2,karina:2,mingi:2,jay:2,sunoo:1}},
@@ -1206,7 +1216,7 @@ const QZ_POOL=[
   {t:'Needing validation before you trust your own judgment',w:{hyein:3,danielle:2,eunchae:2,niki:3,leeseo:2,jake:2,huening:2,liz:2}},
   {t:'I grow through mastery — I go deep on one thing until I own it',w:{karina:3,winter:2,taehyun:3,jongho:2,seungmin:2,rei:2,gaeul:2,soobin:2}},
   {t:'I grow by watching the best and then pushing past what I learned',w:{karina:2,yeonjun:2,heeseung:3,hyunjin:2,san:2,ningning:2,beomgyu:2,giselle:2}}]},
-{dim:'How you approach growth',q:'What motivates you most is...',opts:[
+{dim:'How you approach growth',q:'What motivates you most is...',aspire:true,opts:[
   {t:'Proving something to yourself — not anyone else',w:{chaewon:3,yunjin:3,sakura:2,karina:3,taehyun:3,san:2,jongho:2,wonyoung:2}},
   {t:'The people who are counting on you',w:{minji:3,eunchae:3,chaewon:1,bangchan:3,felix:2,wooyoung:2,yunho:2,liz:2,jungwon:2,sunoo:2}},
   {t:'The feeling of being in flow with something you love',w:{kazuha:3,yunjin:2,hanni:2,han:3,hyunjin:3,mingi:3,ningning:2,yeonjun:2}},
@@ -1470,78 +1480,172 @@ function qzNext(){
 
 function qzShowResult(){
   const members=QZ_MEMBERS[selGroup];
-  const sorted=Object.entries(qzScores).sort((a,b)=>b[1]-a[1]);
-  const topKey=sorted[0][0];
-  const m=members[topKey];
+  const memberKeys=Object.keys(members);
   const allGroups=[...QZ_GROUPS.girl,...QZ_GROUPS.boy];
   const groupData=allGroups.find(g=>g.id===selGroup);
   const pronoun=groupData&&groupData.pronoun?groupData.pronoun:'they';
   const subjectCap=pronoun==='she'?'She':pronoun==='he'?'He':'They';
-  const isMirror=sorted[0][1]>=sorted[1][1]+4;
-  const dimScores={};DIMS.forEach(d=>dimScores[d]=0);
+
+  // ── Mirror scoring — all questions, full weights ──
+  const mirrorScores={};memberKeys.forEach(k=>mirrorScores[k]=0);
   sessionQs.forEach((q,i)=>{
     if(qzAnswers[i]===undefined||!q._opts)return;
     const opt=q._opts[qzAnswers[i]];
-    if(opt&&opt.w[topKey])dimScores[q.dim]+=opt.w[topKey];
+    if(opt)Object.entries(opt.w).forEach(([m,v])=>{ if(mirrorScores[m]!==undefined)mirrorScores[m]+=v; });
+  });
+  const mirrorSorted=Object.entries(mirrorScores).sort((a,b)=>b[1]-a[1]);
+  const mirrorKey=mirrorSorted[0][0];
+  const mirrorMember=members[mirrorKey];
+
+  // ── Aspiration scoring — forward-facing questions only, amplified ──
+  const aspireScores={};memberKeys.forEach(k=>aspireScores[k]=0);
+  sessionQs.forEach((q,i)=>{
+    if(!q.aspire||qzAnswers[i]===undefined||!q._opts)return;
+    const opt=q._opts[qzAnswers[i]];
+    if(opt)Object.entries(opt.w).forEach(([m,v])=>{ if(aspireScores[m]!==undefined)aspireScores[m]+=v*2; });
+  });
+  const aspireSorted=Object.entries(aspireScores).sort((a,b)=>b[1]-a[1]);
+  const aspireKey=aspireSorted[0][0];
+  const aspireMember=members[aspireKey];
+
+  // ── Determine if dual result is meaningful ──
+  // Only show two members if: different members, aspire score is meaningful,
+  // and group has enough members to support contrast
+  const aspireQsInSession=sessionQs.filter(q=>q.aspire).length;
+  const hasAspireSignal=aspireScores[aspireKey]>0&&aspireQsInSession>=1;
+  const isDualResult=aspireKey!==mirrorKey&&hasAspireSignal&&memberKeys.length>=4;
+
+  // ── Dimension scores — driven by all answer weights for natural variation ──
+  // Score each dimension by summing all weights from answers across all members
+  // This creates genuine variation even for low-scoring dimensions
+  const dimScores={};DIMS.forEach(d=>dimScores[d]=0);
+  const dimRawScores={};DIMS.forEach(d=>dimRawScores[d]=0);
+  sessionQs.forEach((q,i)=>{
+    if(qzAnswers[i]===undefined||!q._opts)return;
+    const opt=q._opts[qzAnswers[i]];
+    if(!opt)return;
+    // Primary: weight toward matched member for that dimension
+    if(opt.w[mirrorKey])dimScores[q.dim]+=opt.w[mirrorKey];
+    // Secondary: sum all weights in this answer to get a raw activity signal
+    const totalW=Object.values(opt.w).reduce((a,b)=>a+b,0);
+    dimRawScores[q.dim]+=totalW;
   });
   const maxD=Math.max(...Object.values(dimScores))||1;
+  const maxRaw=Math.max(...Object.values(dimRawScores))||1;
+  // Build final percentages — primary score scaled to 100, with a small raw
+  // activity signal added to low-scoring dims so no two zeroed dims look identical
+  const dimPct={};
+  DIMS.forEach(d=>{
+    const primary=Math.round((dimScores[d]/maxD)*100);
+    const rawBoost=primary<15?Math.round((dimRawScores[d]/maxRaw)*12):0;
+    dimPct[d]=Math.max(8+rawBoost, primary);
+  });
 
-  // Collect top answer texts for deep dive context
+  // ── Top answers for deep dive ──
   const topAnswers=sessionQs.map((q,i)=>{
     if(qzAnswers[i]===undefined||!q._opts)return null;
     return q._opts[qzAnswers[i]]?q._opts[qzAnswers[i]].t:null;
   }).filter(Boolean).slice(0,5);
 
-  // Build deep-dive URL
+  // ── Build deep-dive URL ──
   const ddParams=new URLSearchParams({
-    member: m.name,
-    group: m.group,
+    member: mirrorMember.name,
+    group: mirrorMember.group,
     groupKey: selGroup,
-    archetype: m.arch,
-    archetypeKey: topKey,
-    mirror: isMirror?'true':'false',
-    ms: sorted[0][1],
-    as: sorted[1]?sorted[1][1]:0,
-    d0: Math.round((dimScores[DIMS[0]]/maxD)*100),
-    d1: Math.round((dimScores[DIMS[1]]/maxD)*100),
-    d2: Math.round((dimScores[DIMS[2]]/maxD)*100),
-    d3: Math.round((dimScores[DIMS[3]]/maxD)*100),
-    d4: Math.round((dimScores[DIMS[4]]/maxD)*100),
+    archetype: mirrorMember.arch,
+    archetypeKey: mirrorKey,
+    mirror: 'true',
+    ms: mirrorSorted[0][1],
+    as: mirrorSorted[1]?mirrorSorted[1][1]:0,
+    d0: dimPct[DIMS[0]],
+    d1: dimPct[DIMS[1]],
+    d2: dimPct[DIMS[2]],
+    d3: dimPct[DIMS[3]],
+    d4: dimPct[DIMS[4]],
     ta: topAnswers.join('|'),
+    dual: isDualResult?'true':'false',
+    aspireMember: isDualResult?aspireMember.name:'',
+    aspireArch: isDualResult?aspireMember.arch:'',
+    aspireKey: isDualResult?aspireKey:'',
   });
   const ddUrl=`deep-dive.html?${ddParams.toString()}`;
   const dduBtn=document.getElementById('ddu-btn');
-  if(dduBtn){
-    // Keep Coming Soon until Stripe is configured — swap onclick to navigate when ready
-    dduBtn.dataset.href=ddUrl;
-  }
+  if(dduBtn)dduBtn.dataset.href=ddUrl;
 
-  document.getElementById('qz-result-output').innerHTML=`
+  // ── Render result card ──
+  const singleMirrorLabel=mirrorSorted[0][1]>=mirrorSorted[1][1]+4?
+    `${subjectCap}'s a mirror — you already carry this`:
+    `${subjectCap}'s who you're becoming`;
+
+  document.getElementById('qz-result-output').innerHTML=isDualResult?`
     <div class="qz-result-card">
       <div class="qz-result-header">
-        <div class="qz-result-initial">${m.name[0]}</div>
-        <div class="qz-result-member">${m.name}</div>
-        <div class="qz-result-group">${m.group} · ${m.role}</div>
-        <div class="qz-result-arch">${m.arch}</div>
+        <div class="qz-result-eyebrow">✦ Your Bias Theory Result</div>
+        <div class="qz-dual-grid">
+          <div class="qz-dual-box qz-dual-mirror">
+            <div class="qz-dual-label">You right now</div>
+            <div class="qz-result-initial">${mirrorMember.name[0]}</div>
+            <div class="qz-result-member">${mirrorMember.name}</div>
+            <div class="qz-result-group">${mirrorMember.group} · ${mirrorMember.role}</div>
+            <div class="qz-result-arch">${mirrorMember.arch}</div>
+            <div class="qz-dual-tag mirror-tag">Mirror</div>
+          </div>
+          <div class="qz-dual-divider">→</div>
+          <div class="qz-dual-box qz-dual-aspire">
+            <div class="qz-dual-label">You're becoming</div>
+            <div class="qz-result-initial">${aspireMember.name[0]}</div>
+            <div class="qz-result-member">${aspireMember.name}</div>
+            <div class="qz-result-group">${aspireMember.group} · ${aspireMember.role}</div>
+            <div class="qz-result-arch">${aspireMember.arch}</div>
+            <div class="qz-dual-tag aspire-tag">Aspiration</div>
+          </div>
+        </div>
       </div>
       <div class="qz-result-body">
-        <div class="qz-section"><div class="qz-section-label">Your Read</div><p>${m.insight}</p></div>
+        <div class="qz-section">
+          <div class="qz-section-label">Your Mirror — ${mirrorMember.name}</div>
+          <p>${mirrorMember.insight}</p>
+        </div>
+        <div class="qz-divider"></div>
+        <div class="qz-section">
+          <div class="qz-section-label">Your Aspiration — ${aspireMember.name}</div>
+          <p>${aspireMember.insight}</p>
+          <p style="margin-top:10px;font-size:13px;opacity:0.7">You're drawn to ${aspireMember.name}'s energy because you're building it — ${aspireMember.aspire}</p>
+        </div>
         <div class="qz-divider"></div>
         <div class="qz-section">
           <div class="qz-section-label">Your Personality Dimensions</div>
-          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${Math.max(8,Math.round((dimScores[d]/maxD)*100))}%"></div></div></div>`).join('')}</div>
+          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[d]}%"></div></div></div>`).join('')}</div>
+        </div>
+        <div class="qz-divider"></div>
+        <div class="qz-section"><div class="qz-section-label">Watch For This</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
+      </div>
+    </div>` : `
+    <div class="qz-result-card">
+      <div class="qz-result-header">
+        <div class="qz-result-initial">${mirrorMember.name[0]}</div>
+        <div class="qz-result-member">${mirrorMember.name}</div>
+        <div class="qz-result-group">${mirrorMember.group} · ${mirrorMember.role}</div>
+        <div class="qz-result-arch">${mirrorMember.arch}</div>
+      </div>
+      <div class="qz-result-body">
+        <div class="qz-section"><div class="qz-section-label">Your Read</div><p>${mirrorMember.insight}</p></div>
+        <div class="qz-divider"></div>
+        <div class="qz-section">
+          <div class="qz-section-label">Your Personality Dimensions</div>
+          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[d]}%"></div></div></div>`).join('')}</div>
         </div>
         <div class="qz-divider"></div>
         <div class="qz-section">
           <div class="qz-section-label">Mirror or Aspiration?</div>
-          <h3>${isMirror?`${subjectCap}'s a mirror`:`${subjectCap}'s who you're becoming`}</h3>
+          <h3>${singleMirrorLabel}</h3>
           <div class="qz-mirror-grid">
-            <div class="qz-mirror-box"><div class="qz-mirror-label">The Mirror</div><p>${m.mirror}</p></div>
-            <div class="qz-mirror-box"><div class="qz-mirror-label">The Aspiration</div><p>${m.aspire}</p></div>
+            <div class="qz-mirror-box"><div class="qz-mirror-label">The Mirror</div><p>${mirrorMember.mirror}</p></div>
+            <div class="qz-mirror-box"><div class="qz-mirror-label">The Aspiration</div><p>${mirrorMember.aspire}</p></div>
           </div>
         </div>
         <div class="qz-divider"></div>
-        <div class="qz-section"><div class="qz-section-label">Watch For This</div><div class="qz-shadow-box"><p>${m.shadow}</p></div></div>
+        <div class="qz-section"><div class="qz-section-label">Watch For This</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
       </div>
     </div>`;
   showQS('qs-result');
