@@ -7,7 +7,7 @@ exports.handler = async (event) => {
   }
 
   try {
-    const { amount, tier } = JSON.parse(event.body);
+    const { amount, tier, quizData } = JSON.parse(event.body);
 
     // Validate amount — only accept exactly 299 or 499
     if (amount !== 299 && amount !== 499) {
@@ -19,12 +19,37 @@ exports.handler = async (event) => {
 
     const tierLabel = amount === 299 ? 'Basic Deep Dive' : 'Premium Deep Dive';
 
+    // ── Log quiz data so we can manually recreate any failed read ──
+    console.log('DEEP DIVE PURCHASE:', JSON.stringify({
+      tier: tierLabel,
+      amount: `$${(amount/100).toFixed(2)}`,
+      timestamp: new Date().toISOString(),
+      member: quizData?.memberName || 'unknown',
+      group: quizData?.groupName || 'unknown',
+      archetype: quizData?.archetype || 'unknown',
+      isDual: quizData?.isDual || false,
+      aspireMember: quizData?.aspireMemberName || null,
+      aspireArch: quizData?.aspireArch || null,
+      dimScores: quizData?.dimScores || {},
+      topAnswers: quizData?.topAnswers || [],
+      isMirror: quizData?.isMirror || false,
+      mirrorScore: quizData?.mirrorScore || 0,
+      aspireScore: quizData?.aspireScore || 0,
+    }));
+
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency: 'usd',
       automatic_payment_methods: { enabled: true },
       description: `Bias Theory ${tierLabel}`,
-      metadata: { tier: tier || (amount === 299 ? 'basic' : 'premium') }
+      metadata: {
+        tier: tier || (amount === 299 ? 'basic' : 'premium'),
+        member: quizData?.memberName || 'unknown',
+        group: quizData?.groupName || 'unknown',
+        archetype: quizData?.archetype || 'unknown',
+        isDual: quizData?.isDual ? 'true' : 'false',
+        aspireMember: quizData?.aspireMemberName || '',
+      }
     });
 
     return {
