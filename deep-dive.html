@@ -259,6 +259,20 @@ main {
   margin-bottom: 24px;
   box-shadow: 0 0 60px rgba(167,139,250,0.06);
 }
+.read-dual-members { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin: 16px 0; }
+.read-dual-box { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px 12px; text-align: center; }
+.read-dual-label { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.read-dual-name { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.read-dual-arch { font-size: 11px; color: var(--muted2); margin-bottom: 8px; }
+.read-dual-tag { display: inline-block; padding: 3px 10px; border-radius: 99px; font-size: 10px; }
+.read-dual-arrow { font-size: 20px; color: var(--muted); text-align: center; }
+.mirror-tag { background: rgba(167,139,250,0.12); color: var(--violet); border: 1px solid rgba(167,139,250,0.25); }
+.aspire-tag { background: rgba(244,114,182,0.12); color: var(--pink); border: 1px solid rgba(244,114,182,0.25); }
+.read-practice-block { background: rgba(255,255,255,0.03); border-radius: 12px; padding: 16px 18px; margin: 12px 0; }
+.read-practice-block p { font-size: 14px; color: var(--muted2); line-height: 1.85; margin: 0; }
+.read-disclaimer { display: flex; align-items: flex-start; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); margin-top: 8px; }
+.disclaimer-icon { font-size: 12px; color: var(--muted); flex-shrink: 0; margin-top: 1px; }
+.read-disclaimer p { font-size: 11px; color: var(--muted); line-height: 1.6; margin: 0; }
 .read-preview-header {
   padding: 32px 36px 24px;
   background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(244,114,182,0.06));
@@ -361,6 +375,14 @@ main {
 <main>
 
   <!-- PAYMENT SCREEN -->
+  <!-- Standalone entry screen -->
+  <div id="screen-standalone" style="display:none;padding:80px 24px;text-align:center;max-width:560px;margin:0 auto;">
+    <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--violet);margin-bottom:16px">✦ Deep Dive Reads</div>
+    <h1 style="font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,42px);font-weight:400;margin-bottom:16px">Take the quiz first</h1>
+    <p style="font-size:15px;color:var(--muted2);line-height:1.8;margin-bottom:32px">Your Deep Dive Read is generated from your quiz results. Take the quiz, get your member match, then unlock your full read from the result screen.</p>
+    <a href="index.html#quiz-section" style="display:inline-block;padding:14px 32px;background:linear-gradient(135deg,#7c3aed,#be185d);color:white;border-radius:100px;font-size:14px;font-weight:500;text-decoration:none;letter-spacing:0.05em">Take the Quiz ✦</a>
+  </div>
+
   <div class="screen active" id="screen-payment">
     <div style="text-align:center;margin-bottom:36px">
       <div class="section-tag">✦ Deep Dive Read</div>
@@ -491,24 +513,43 @@ const params = new URLSearchParams(window.location.search);
 const quizData = {
   memberName: params.get('member') || 'Your Bias',
   groupName: params.get('group') || 'K-Pop',
+  groupKey: params.get('groupKey') || '',
   archetype: params.get('archetype') || 'The Watcher',
-  archetypeKey: params.get('archetypeKey') || 'mysterious_observer',
+  archetypeKey: params.get('archetypeKey') || '',
   isMirror: params.get('mirror') === 'true',
   mirrorScore: parseInt(params.get('ms') || '2'),
   aspireScore: parseInt(params.get('as') || '2'),
-  answers: (params.get('answers') || '').split(',').map(Number),
+  dimScores: {
+    lead: parseInt(params.get('d0') || '0'),
+    emotion: parseInt(params.get('d1') || '0'),
+    connect: parseInt(params.get('d2') || '0'),
+    growth: parseInt(params.get('d3') || '0'),
+    present: parseInt(params.get('d4') || '0'),
+  },
+  topAnswers: (params.get('ta') || '').split('|').filter(Boolean),
+  isDual: params.get('dual') === 'true',
+  aspireMemberName: params.get('aspireMember') || '',
+  aspireArch: params.get('aspireArch') || '',
+  aspireKey: params.get('aspireKey') || '',
 };
+
+// Standalone mode — if accessed directly without quiz data, show a group selector
+const isStandalone = !params.get('member');
 
 // Populate payment screen
 document.getElementById('pay-avatar').textContent = quizData.memberName[0] || '?';
-document.getElementById('pay-member-name').textContent = quizData.memberName;
+document.getElementById('pay-member-name').textContent = quizData.isDual
+  ? `${quizData.memberName} → ${quizData.aspireMemberName}`
+  : quizData.memberName;
 document.getElementById('pay-group-name').textContent = quizData.groupName;
-document.getElementById('pay-archetype').textContent = quizData.archetype;
+document.getElementById('pay-archetype').textContent = quizData.isDual
+  ? `${quizData.archetype} → ${quizData.aspireArch}`
+  : quizData.archetype;
 
 // ── Stripe setup ──
 // IMPORTANT: Replace with your actual Stripe publishable key
 // Get this from dashboard.stripe.com → Developers → API Keys → Publishable key
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_REPLACE_WITH_YOUR_STRIPE_KEY';
+const STRIPE_PUBLISHABLE_KEY = 'pk_live_51T9SJgLlkdbADZzqiv0epzXjaREi3Kpx0zxlV8he7xhPWrbYJvinSyZcmuJT61weAp9vX9SfYszqcwCxO33qilQE00g5TjYCrB';
 let stripe, cardElement, paymentReady = false;
 
 function initStripe() {
@@ -553,6 +594,12 @@ function initStripe() {
   }
 }
 initStripe();
+
+// ── Standalone mode ──
+if (isStandalone) {
+  document.getElementById('screen-payment').style.display = 'none';
+  document.getElementById('screen-standalone').style.display = 'block';
+}
 
 // ── Screen management ──
 function showScreen(id) {
@@ -637,21 +684,27 @@ You write structured deep dive personality reads in JSON format only. No preambl
 The JSON structure you must follow exactly:
 {
   "headline": "A poetic 6-10 word sentence that captures this person's core energy",
-  "extended_archetype": "3-4 paragraphs expanding on their archetype. Go deeper than the free result. Be specific about how this person moves through the world, what drives them, what they value, how others experience them.",
+  "extended_archetype": "3-4 paragraphs expanding on their archetype. Go deeper than the free result. Be specific about how this person moves through the world, what drives them, what they value, how others experience them. If a dual result is provided (mirror member AND aspiration member), open with the mirror member read then weave in what the aspiration member reveals about where this person is heading — frame it as a journey from one to the other.",
   "growth_path": {
     "title": "A poetic title for their growth chapter (6-8 words)",
-    "body": "2-3 paragraphs on what growth looks like for this archetype right now. What does moving from where they are to where they're going require? Be concrete and honest."
+    "body": "2-3 paragraphs on what growth looks like for this archetype right now. If a dual result is provided, frame the growth path explicitly as the journey from the mirror member's archetype to the aspiration member's archetype — what does that specific transition require? What needs to be built, released, or claimed? Be concrete and honest."
   },
   "compatibility": {
     "title": "Your Relationship Constellation",
-    "pairs_well_with": "Name 2-3 archetype types (from this list: The Watcher, The Connector, The Architect, The Open Nerve, The Stage, The Quiet Storm, The Devoted Craftsperson, The Steady Hand, The Fearless Newcomer, The Defined Outsider, The Hidden Force, The Feeling Seeker, The Unapologetic Truth-Teller, The Relentless Refiner, The Still Water) and briefly explain why the connection works. 2-3 sentences per type.",
+    "pairs_well_with": "First: name 1-2 members from the same group and why they work together well (2-3 sentences each). Then: name 2-3 archetypes from other groups and why these personality types connect (2-3 sentences each). Format as flowing paragraphs, not a list.",
     "challenged_by": "Name 1-2 archetype types and why they challenge this person. Honest but not harsh."
   },
   "shadow_work": {
     "title": "A poetic title for their shadow work (5-7 words)",
     "body": "2-3 paragraphs on the shadow side. Go deeper than 'watch out for X'. Explain where it comes from, what it protects, and what working with it (not against it) actually looks like."
   },
-  "closing": "A single closing paragraph — 3-5 sentences. Warm, direct, specific to this person's archetype and mirror/aspiration score. Should feel like the last line of a song."
+  "closing": "A single closing paragraph — 3-5 sentences. Warm, direct, specific to this person's archetype. If a dual result is provided, the closing should speak to the journey between mirror and aspiration — not where they are, not where they're going, but the fact that they are already moving. Should feel like the last line of a song.",
+  "if_you_want_to_do_something": {
+    "title": "A short poetic title (4-6 words) for the reflection practice",
+    "is_mirror": "Write a 2-3 sentence reflection practice for someone who IS the mirror member — they already carry these traits, so the practice is about claiming and becoming more conscious of what they have. Specific to their dimension profile. Frame it as an invitation, not an assignment.",
+    "is_aspiration": "Write a 2-3 sentence reflection practice for someone who ASPIRES to the member — they are building these traits, so the practice is about leaning into the becoming. Specific to their dimension profile. Frame it as an invitation, not an assignment.",
+    "disclaimer": "For entertainment and self-exploration only — not professional advice, therapy, or clinical guidance."
+  }
 }`,
         messages: [{ role: 'user', content: prompt }]
       })
@@ -674,38 +727,73 @@ The JSON structure you must follow exactly:
 
 function buildPrompt() {
   const ratio = quizData.mirrorScore > quizData.aspireScore
-    ? `strongly mirror (they see themselves in their bias — traits they already carry but may not have fully claimed)`
+    ? 'strongly mirror — they already carry these traits but may not have fully claimed them'
     : quizData.aspireScore > quizData.mirrorScore
-    ? `strongly aspiration (they see who they're becoming — qualities they're growing into)`
-    : `balanced mirror/aspiration (they see both themselves and their ideal in their bias)`;
+    ? 'strongly aspiration — they are growing toward these qualities, not yet fully settled in them'
+    : 'balanced mirror and aspiration — they see both themselves and their ideal in this person';
 
-  const answerLabels = [
-    ['The way they carry themselves — presence and confidence', 'Something familiar — I see parts of myself in them', 'Their vulnerability — moments where the real person shows through', 'Their power — something I want for myself'],
-    ['Calm, observant — sees everything', 'Intense, driven — high standards', 'Warm, magnetic — people are drawn to them', 'Hard to read — quietly powerful'],
-    ['Confidence to take up space without apology', 'Deeper, more honest connections', 'A stronger sense of identity', 'More freedom to be myself fully'],
-    ['They remind me of who I already am', 'They represent something I\'m working toward', 'I see both myself and my ideal in them', 'I honestly don\'t know'],
-  ];
+  const dimLabels = ['How they lead', 'How they handle emotion', 'How they connect with people', 'How they approach growth', 'How they present themselves'];
+  const dimValues = [quizData.dimScores.lead, quizData.dimScores.emotion, quizData.dimScores.connect, quizData.dimScores.growth, quizData.dimScores.present];
+  const maxDim = Math.max(...dimValues) || 1;
+  const dimSummary = dimLabels.map((l, i) => {
+    const pct = Math.round((dimValues[i] / maxDim) * 100);
+    const strength = pct >= 80 ? 'primary strength' : pct >= 50 ? 'notable' : pct >= 20 ? 'present' : 'least expressed';
+    return `${l}: ${strength} (${pct}%)`;
+  }).join(', ');
 
-  const readableAnswers = quizData.answers.map((a, i) => 
-    answerLabels[i] ? answerLabels[i][a] || 'No answer' : 'No answer'
-  ).join(' | ');
+  const topAnswers = quizData.topAnswers.length
+    ? quizData.topAnswers.slice(0, 4).join(' | ')
+    : 'No specific answers recorded';
+
+  const dualSection = quizData.isDual ? `
+DUAL RESULT: YES
+MIRROR MEMBER: ${quizData.memberName} — ${quizData.archetype} (who they are right now)
+ASPIRATION MEMBER: ${quizData.aspireMemberName} — ${quizData.aspireArch} (who they are becoming)
+The read should treat this as a journey — from the mirror member's energy toward the aspiration member's energy. The extended archetype, growth path, and closing should all speak to this specific transition. The "if_you_want_to_do_something" section should have distinct practices for mirror vs aspiration since this person has both.` : `
+SINGLE RESULT: The quiz found one clear match.
+MEMBER: ${quizData.memberName} — ${quizData.archetype}
+MIRROR/ASPIRATION: ${ratio}`;
 
   return `Generate a deep dive read for this person:
 
-BIAS: ${quizData.memberName} from ${quizData.groupName}
-ARCHETYPE: ${quizData.archetype}
-MIRROR/ASPIRATION: ${ratio}
-QUIZ ANSWERS: ${readableAnswers}
+GROUP: ${quizData.groupName}
+${dualSection}
+PERSONALITY DIMENSIONS: ${dimSummary}
+NOTABLE ANSWER CHOICES: ${topAnswers}
 
-Write their full deep dive read as a JSON object following the exact structure in your instructions. Make it feel like it was written specifically for them — reference their answers, their archetype, and their mirror/aspiration score naturally throughout. Do not be generic. Do not repeat the free result — go deeper.`;
+Write their full deep dive read as a JSON object following the exact structure in your instructions.
+
+For the compatibility section — include BOTH:
+1. Same-group compatibility: 1-2 other members from ${quizData.groupName} and why those relationships work or challenge. If dual result, consider how both the mirror AND aspiration member relate to the same-group members.
+2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Leader, The Long Game, The Unfiltered, The Still Point, The Pure One, The Relentless Refiner, The Controlled Fire, The Cool Outsider, The Soft Powerhouse, The Natural, The Dedicated One, The Precise One, The Untouchable, The Open Heart, The Quiet Surprise, The Protector, The Composed Edge, The Intensity, The Artist, The Open Nerve, The Connector, The Grounded One, The Understated, The Architect, The Graceful One, The Steady Giant, The Hidden Depth, The Expressive One, The Warmth, The Quiet Strength, The Centered One, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Standard, The Dreamer) and explain what draws these archetypes together.
+
+Make it feel written specifically for this person. Reference their dimension profile, answer patterns, and the mirror/aspiration journey naturally throughout. Do not repeat the free result — go significantly deeper. Do not be generic.`;
 }
 
 function renderRead(read) {
+  const dualHeader = quizData.isDual ? `
+    <div class="read-dual-members">
+      <div class="read-dual-box">
+        <div class="read-dual-label">You right now</div>
+        <div class="read-dual-name">${quizData.memberName}</div>
+        <div class="read-dual-arch">${quizData.archetype}</div>
+        <div class="read-dual-tag mirror-tag">Mirror</div>
+      </div>
+      <div class="read-dual-arrow">→</div>
+      <div class="read-dual-box">
+        <div class="read-dual-label">You're becoming</div>
+        <div class="read-dual-name">${quizData.aspireMemberName}</div>
+        <div class="read-dual-arch">${quizData.aspireArch}</div>
+        <div class="read-dual-tag aspire-tag">Aspiration</div>
+      </div>
+    </div>` : `
+    <div class="read-member-name">${quizData.memberName}</div>
+    <div class="read-archetype">${quizData.groupName} · ${quizData.archetype}</div>`;
+
   document.getElementById('read-preview').innerHTML = `
     <div class="read-preview-header">
       <div class="read-eyebrow">✦ Your Deep Dive Read</div>
-      <div class="read-member-name">${quizData.memberName}</div>
-      <div class="read-archetype">${quizData.groupName} · ${quizData.archetype}</div>
+      ${dualHeader}
       <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:#d8b4fe;margin-top:16px;line-height:1.4">"${read.headline}"</p>
     </div>
     <div class="read-body">
@@ -723,8 +811,14 @@ function renderRead(read) {
       <div class="read-section">
         <div class="read-section-label">Compatibility</div>
         <h3>${read.compatibility.title}</h3>
-        <p><strong style="color:var(--text)">Pairs well with:</strong> ${read.compatibility.pairs_well_with}</p>
-        <p style="margin-top:10px"><strong style="color:var(--text)">Challenged by:</strong> ${read.compatibility.challenged_by}</p>
+        <div style="margin-bottom:12px">
+          <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--violet);margin-bottom:6px">Pairs well with</div>
+          <p>${read.compatibility.pairs_well_with}</p>
+        </div>
+        <div>
+          <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:6px">Challenged by</div>
+          <p>${read.compatibility.challenged_by}</p>
+        </div>
       </div>
       <div class="read-divider"></div>
       <div class="read-section">
@@ -733,6 +827,22 @@ function renderRead(read) {
         <p>${read.shadow_work.body.replace(/\n\n/g, '</p><p style="margin-top:12px">').replace(/\n/g, ' ')}</p>
       </div>
       <div class="read-divider"></div>
+      ${read.if_you_want_to_do_something ? `
+      <div class="read-section">
+        <div class="read-section-label">If You Want To Do Something With This</div>
+        <h3>${read.if_you_want_to_do_something.title}</h3>
+        <div class="read-practice-block">
+          <p>${quizData.isDual
+            ? read.if_you_want_to_do_something.is_mirror + ' ' + read.if_you_want_to_do_something.is_aspiration
+            : (quizData.isMirror ? read.if_you_want_to_do_something.is_mirror : read.if_you_want_to_do_something.is_aspiration)
+          }</p>
+        </div>
+        <div class="read-disclaimer">
+          <span class="disclaimer-icon">ⓘ</span>
+          <p>${read.if_you_want_to_do_something.disclaimer}</p>
+        </div>
+      </div>
+      <div class="read-divider"></div>` : ''}
       <div class="read-section">
         <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:#d8b4fe;line-height:1.75">${read.closing}</p>
       </div>
@@ -851,7 +961,9 @@ async function downloadPDF() {
     headlineLines.forEach(l => { doc.text(l, W/2, hy, { align: 'center' }); hy += 7; });
 
     // Mirror/Aspiration badge
-    const badgeText = quizData.isMirror ? 'Mirror — You see yourself in them' : 'Aspiration — You see who you\'re becoming';
+    const badgeText = quizData.isDual
+      ? `Mirror: ${quizData.memberName} → Aspiration: ${quizData.aspireMemberName}`
+      : quizData.isMirror ? 'Mirror — You see yourself in them' : 'Aspiration — You see who you\'re becoming';
     doc.setFillColor(30, 20, 55);
     doc.roundedRect(margin + 20, hy + 8, contentW - 40, 14, 3, 3, 'F');
     doc.setDrawColor(...violet);
@@ -875,12 +987,21 @@ async function downloadPDF() {
     // ── PAGE 2+ — Content ──
     newPage();
 
+    const practiceBody = generatedRead.if_you_want_to_do_something
+      ? (quizData.isDual
+          ? (generatedRead.if_you_want_to_do_something.is_mirror + '\n\n' + generatedRead.if_you_want_to_do_something.is_aspiration)
+          : (quizData.isMirror
+              ? generatedRead.if_you_want_to_do_something.is_mirror
+              : generatedRead.if_you_want_to_do_something.is_aspiration))
+      : null;
+
     const sections = [
       { label: 'EXTENDED ARCHETYPE', title: null, body: generatedRead.extended_archetype },
       { label: 'YOUR GROWTH PATH', title: generatedRead.growth_path.title, body: generatedRead.growth_path.body },
       { label: 'COMPATIBILITY', title: generatedRead.compatibility.title,
         body: `Pairs well with: ${generatedRead.compatibility.pairs_well_with}\n\nChallenged by: ${generatedRead.compatibility.challenged_by}` },
       { label: 'SHADOW WORK', title: generatedRead.shadow_work.title, body: generatedRead.shadow_work.body },
+      ...(practiceBody ? [{ label: 'IF YOU WANT TO DO SOMETHING WITH THIS', title: generatedRead.if_you_want_to_do_something.title, body: practiceBody }] : []),
       { label: 'CLOSING', title: null, body: generatedRead.closing, italic: true },
     ];
 
