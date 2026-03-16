@@ -717,15 +717,7 @@ let generatedRead = null;
 
 async function generateRead(tier = 'basic') {
   const prompt = buildPrompt(tier);
-
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: `You are the voice of Bias Theory — a K-Pop psychology platform that explores what a person's bias reveals about their personality.
+  const systemPrompt = `You are the voice of Bias Theory — a K-Pop psychology platform that explores what a person's bias reveals about their personality.
 
 Your tone is: poetic but grounded, insightful without being clinical, deeply personal without being generic. You write like a perceptive friend who has studied psychology, not like a therapist or an astrology app. Every sentence should feel specific and earned — never vague, never filler.
 
@@ -755,10 +747,19 @@ The JSON structure you must follow exactly:
     "is_aspiration": "Write a 2-3 sentence reflection practice for someone who ASPIRES to the member — they are building these traits, so the practice is about leaning into the becoming. Specific to their dimension profile. Frame it as an invitation, not an assignment.",
     "disclaimer": "For entertainment and self-exploration only — not professional advice, therapy, or clinical guidance."
   }
-}`,
-        messages: [{ role: 'user', content: prompt }]
-      })
+}`;
+
+  try {
+    const response = await fetch('/.netlify/functions/generate-read', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, system: systemPrompt })
     });
+
+    if (!response.ok) {
+      const err = await response.json();
+      throw new Error(err.error || 'Generation failed');
+    }
 
     const data = await response.json();
     const raw = data.content.map(b => b.text || '').join('');
