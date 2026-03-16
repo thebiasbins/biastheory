@@ -1,0 +1,11 @@
+[build]
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+[functions."generate-read"]
+  timeout = 26
+
+[functions."create-payment-intent"]
+  timeout = 10
