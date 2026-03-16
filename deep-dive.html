@@ -225,6 +225,19 @@ main {
 }
 .pay-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(167,139,250,0.35); }
 .pay-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+.tier-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 28px 20px; }
+.tier-option { border: 1px solid var(--border2); border-radius: 16px; padding: 18px 16px; cursor: pointer; transition: all 0.2s; position: relative; }
+.tier-option:hover { border-color: rgba(167,139,250,0.3); }
+.tier-option.active { border-color: rgba(167,139,250,0.5); background: rgba(167,139,250,0.06); }
+.tier-option-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
+.tier-option-name { font-size: 15px; font-weight: 500; color: var(--text); }
+.tier-option-price { font-size: 20px; font-weight: 600; color: var(--violet); }
+.tier-badge-best { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, var(--violet), var(--pink)); color: white; font-size: 10px; padding: 3px 12px; border-radius: 99px; white-space: nowrap; letter-spacing: 0.06em; }
+.tier-item { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--muted2); line-height: 1.5; margin-bottom: 6px; }
+.tier-item:last-child { margin-bottom: 0; }
+.ti-check { color: var(--violet); font-size: 9px; margin-top: 2px; flex-shrink: 0; }
+.ti-premium { color: var(--pink); }
+@media(max-width:480px){ .tier-selector { grid-template-columns: 1fr; } }
 .pay-secure {
   display: flex; align-items: center; justify-content: center; gap: 6px;
   font-size: 11px; color: var(--muted); margin-top: 14px;
@@ -407,21 +420,36 @@ main {
     <div class="payment-card">
       <div class="payment-header">
         <div class="payment-title">Deep Dive <em>Read</em></div>
-        <div class="payment-subtitle">Your archetype expanded · Growth path · Compatibility · Shadow work · Personalized PDF</div>
-        <div class="payment-price">
-          <span class="price-amount" id="price-display">$2.99</span>
-          <span class="price-label">one-time · instant download</span>
-        </div>
+        <div class="payment-subtitle">Choose your tier — both are AI-generated and personal to your quiz results</div>
       </div>
 
-      <div class="what-you-get">
-        <div class="wye-title">What's Inside</div>
-        <div class="wye-items">
-          <div class="wye-item"><div class="wye-check">✦</div><span><strong style="color:var(--text)">Extended Archetype Read</strong> — 3× deeper than the free result. More nuance, more specificity, more of those "how did they know that" moments.</span></div>
-          <div class="wye-item"><div class="wye-check">✦</div><span><strong style="color:var(--text)">Your Growth Path</strong> — Based on your mirror/aspiration score, what does your next chapter actually look like and what does it require?</span></div>
-          <div class="wye-item"><div class="wye-check">✦</div><span><strong style="color:var(--text)">Compatibility Read</strong> — Which archetypes you pair well with and which challenge you. Highly shareable.</span></div>
-          <div class="wye-item"><div class="wye-check">✦</div><span><strong style="color:var(--text)">Shadow Work Section</strong> — A deeper look at your shadow side — why it develops, what it protects, how to work with it.</span></div>
-          <div class="wye-item"><div class="wye-check">✦</div><span><strong style="color:var(--text)">Branded PDF</strong> — Beautifully formatted, yours to keep and revisit.</span></div>
+      <div class="tier-selector">
+        <div class="tier-option active" id="tier-basic" onclick="selectTier('basic')">
+          <div class="tier-option-top">
+            <div class="tier-option-name">Basic</div>
+            <div class="tier-option-price">$2.99</div>
+          </div>
+          <div class="tier-option-items">
+            <div class="tier-item"><span class="ti-check">✦</span>Extended archetype read</div>
+            <div class="tier-item"><span class="ti-check">✦</span>Growth path</div>
+            <div class="tier-item"><span class="ti-check">✦</span>Shadow work deep dive</div>
+            <div class="tier-item"><span class="ti-check">✦</span>If you want to do something with this</div>
+            <div class="tier-item"><span class="ti-check">✦</span>Branded PDF download</div>
+          </div>
+        </div>
+        <div class="tier-option" id="tier-premium" onclick="selectTier('premium')">
+          <div class="tier-badge-best">Most Complete</div>
+          <div class="tier-option-top">
+            <div class="tier-option-name">Premium</div>
+            <div class="tier-option-price">$4.99</div>
+          </div>
+          <div class="tier-option-items">
+            <div class="tier-item"><span class="ti-check">✦</span>Everything in Basic</div>
+            <div class="tier-item"><span class="ti-check ti-premium">✦</span>Your Constellation — dimension combination read</div>
+            <div class="tier-item"><span class="ti-check ti-premium">✦</span>Compatibility — groupmates + cross-group matches</div>
+            <div class="tier-item"><span class="ti-check ti-premium">✦</span>Archetype card — shareable image for stories</div>
+            <div class="tier-item"><span class="ti-check ti-premium">✦</span>Type label — your archetype codename</div>
+          </div>
         </div>
       </div>
 
@@ -431,9 +459,10 @@ main {
         <div id="card-errors"></div>
         <button class="pay-btn" id="pay-btn" onclick="handlePayment()">
           <span>✦</span>
-          <span id="pay-btn-text">Get My Deep Dive Read — $2.99</span>
+          <span id="pay-btn-text">Get Basic Deep Dive — $2.99</span>
         </button>
-        <div class="pay-secure">🔒 Secured by Stripe · Instant PDF download</div>
+        <div class="pay-secure">🔒 Secured by Stripe · Instant PDF download · No subscription</div>
+        <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">For entertainment and self-reflection only · Not professional advice</p>
       </div>
     </div>
   </div>
@@ -608,10 +637,23 @@ function showScreen(id) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// ── Tier selection ──
+let selectedTier = 'basic';
+let selectedAmount = 299;
+
+function selectTier(tier) {
+  selectedTier = tier;
+  selectedAmount = tier === 'premium' ? 499 : 299;
+  document.querySelectorAll('.tier-option').forEach(el => el.classList.remove('active'));
+  document.getElementById('tier-' + tier).classList.add('active');
+  const label = tier === 'premium' ? 'Premium Deep Dive — $4.99' : 'Basic Deep Dive — $2.99';
+  document.getElementById('pay-btn-text').textContent = `Get ${label}`;
+}
+
 // ── Payment handling ──
 async function handlePayment() {
   if (!paymentReady) {
-    showError('Stripe is not configured yet. Add your Stripe publishable key to enable payments.');
+    showError('Payment is not ready. Please refresh and try again.');
     return;
   }
 
@@ -620,25 +662,33 @@ async function handlePayment() {
   document.getElementById('pay-btn-text').textContent = 'Processing...';
 
   try {
-    // In production: call your backend to create a PaymentIntent
-    // const res = await fetch('/api/create-payment-intent', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ amount: 299, currency: 'usd', quizData })
-    // });
-    // const { clientSecret } = await res.json();
-    // const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-    //   payment_method: { card: cardElement }
-    // });
-    // if (error) throw new Error(error.message);
+    // Call Netlify serverless function to create PaymentIntent
+    const res = await fetch('/.netlify/functions/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: selectedAmount, tier: selectedTier })
+    });
 
-    // ── Demo flow (replace with real Stripe flow above) ──
-    await new Promise(r => setTimeout(r, 1200));
+    if (!res.ok) {
+      const errData = await res.json();
+      throw new Error(errData.error || 'Could not connect to payment server');
+    }
+
+    const { clientSecret } = await res.json();
+
+    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: { card: cardElement }
+    });
+
+    if (error) throw new Error(error.message);
+    if (paymentIntent.status !== 'succeeded') throw new Error('Payment was not completed');
+
     onPaymentSuccess();
 
   } catch(err) {
     btn.disabled = false;
-    document.getElementById('pay-btn-text').textContent = 'Get My Deep Dive Read — $2.99';
+    const label = selectedTier === 'premium' ? 'Premium Deep Dive — $4.99' : 'Basic Deep Dive — $2.99';
+    document.getElementById('pay-btn-text').textContent = `Get ${label}`;
     document.getElementById('card-errors').textContent = err.message || 'Payment failed. Please try again.';
   }
 }
@@ -648,7 +698,7 @@ async function onPaymentSuccess() {
   showScreen('screen-loading');
   await animateLoadingSteps();
   showScreen('screen-result');
-  generateRead();
+  generateRead(selectedTier);
 }
 
 async function animateLoadingSteps() {
@@ -665,8 +715,8 @@ async function animateLoadingSteps() {
 // ── AI Read Generation ──
 let generatedRead = null;
 
-async function generateRead() {
-  const prompt = buildPrompt();
+async function generateRead(tier = 'basic') {
+  const prompt = buildPrompt(tier);
 
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -725,7 +775,7 @@ The JSON structure you must follow exactly:
   }
 }
 
-function buildPrompt() {
+function buildPrompt(tier = 'basic') {
   const ratio = quizData.mirrorScore > quizData.aspireScore
     ? 'strongly mirror — they already carry these traits but may not have fully claimed them'
     : quizData.aspireScore > quizData.mirrorScore
@@ -767,7 +817,9 @@ For the compatibility section — include BOTH:
 1. Same-group compatibility: 1-2 other members from ${quizData.groupName} and why those relationships work or challenge. If dual result, consider how both the mirror AND aspiration member relate to the same-group members.
 2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Leader, The Long Game, The Unfiltered, The Still Point, The Pure One, The Relentless Refiner, The Controlled Fire, The Cool Outsider, The Soft Powerhouse, The Natural, The Dedicated One, The Precise One, The Untouchable, The Open Heart, The Quiet Surprise, The Protector, The Composed Edge, The Intensity, The Artist, The Open Nerve, The Connector, The Grounded One, The Understated, The Architect, The Graceful One, The Steady Giant, The Hidden Depth, The Expressive One, The Warmth, The Quiet Strength, The Centered One, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Standard, The Dreamer) and explain what draws these archetypes together.
 
-Make it feel written specifically for this person. Reference their dimension profile, answer patterns, and the mirror/aspiration journey naturally throughout. Do not repeat the free result — go significantly deeper. Do not be generic.`;
+Make it feel written specifically for this person. Reference their dimension profile, answer patterns, and the mirror/aspiration journey naturally throughout. Do not repeat the free result — go significantly deeper. Do not be generic.
+
+TIER: ${tier === 'premium' ? 'PREMIUM — include the full compatibility section (same-group members AND cross-group archetype matches) and the constellation dimension combination read.' : 'BASIC — skip the compatibility section entirely. Focus depth on archetype, growth path, shadow work, and the reflection practice.'}`;
 }
 
 function renderRead(read) {
