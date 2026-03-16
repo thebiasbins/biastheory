@@ -794,7 +794,7 @@ footer {
         <div class="ddu-glyph">✦</div>
         <div class="ddu-title">Want to go deeper?</div>
         <p class="ddu-body">Your free read is just the surface. The Deep Dive unlocks your full growth path, compatibility with other members, extended shadow work, and a personalized PDF — all generated specifically for you.</p>
-        <a class="ddu-btn" id="ddu-btn" href="#" onclick="return false;" style="opacity:0.6;cursor:not-allowed">Coming Soon</a>
+        <a class="ddu-btn" id="ddu-btn" href="#">Get Your Deep Dive Read ✦</a>
         <p class="ddu-note">Currently in development · Check back soon</p>
         <p class="ddu-note" style="margin-top:8px;opacity:0.6">For entertainment & self-reflection only · Not professional advice</p>
       </div>
@@ -1570,7 +1570,10 @@ function qzShowResult(){
   });
   const ddUrl=`deep-dive.html?${ddParams.toString()}`;
   const dduBtn=document.getElementById('ddu-btn');
-  if(dduBtn)dduBtn.dataset.href=ddUrl;
+  if(dduBtn){
+    dduBtn.href=ddUrl;
+    dduBtn.onclick=null;
+  }
 
   // ── Render result card ──
   const singleMirrorLabel=mirrorSorted[0][1]>=mirrorSorted[1][1]+4?
