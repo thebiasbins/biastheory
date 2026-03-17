@@ -574,50 +574,16 @@ document.getElementById('pay-archetype').textContent = quizData.isDual
 const STRIPE_PUBLISHABLE_KEY = 'pk_test_51T9SJgLlkdbADZzqWUhEsZszlg9r3ThBVQCrGTnhkQBOy2Xu38wApwmEbJdqlKgD9ojO1T1Z1EXJxlg1q5KzUoLV00xmLstnxx';
 let stripe, stripeElements, paymentElement, paymentReady = false;
 
-async function initStripe() {
+function initStripe() {
   try {
     stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-
-    // Create a preliminary PaymentIntent to initialize the Payment Element
-    // We'll create a real one when the user clicks pay
-    const res = await fetch('/api/payment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: selectedAmount, tier: selectedTier, quizData })
-    });
-
-    if (!res.ok) throw new Error('Could not initialize payment');
-    const { clientSecret } = await res.json();
-    pendingClientSecret = clientSecret;
-
-    stripeElements = stripe.elements({
-      clientSecret,
-      appearance: {
-        theme: 'night',
-        variables: {
-          colorPrimary: '#a78bfa',
-          colorBackground: '#16162e',
-          colorText: '#ece9f8',
-          colorDanger: '#f87171',
-          fontFamily: 'Outfit, sans-serif',
-          borderRadius: '12px',
-          spacingUnit: '4px',
-        }
-      }
-    });
-
-    paymentElement = stripeElements.create('payment', {
-      layout: 'tabs',
-    });
-    paymentElement.mount('#payment-element');
     paymentReady = true;
-
   } catch(e) {
     console.error('Stripe init error:', e);
-    document.getElementById('payment-element').innerHTML =
-      '<p style="font-size:13px;color:var(--muted);padding:12px 0">Payment unavailable — please refresh and try again.</p>';
+    paymentReady = false;
   }
 }
+initStripe();
 
 // ── Standalone mode ──
 if (isStandalone) {
@@ -627,9 +593,6 @@ if (isStandalone) {
 
 // ── Screen management ──
 function showScreen(id) {
-  if (id === 'screen-payment' && !paymentReady) {
-    setTimeout(initStripe, 100);
-  }
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -638,7 +601,7 @@ function showScreen(id) {
 // ── Tier selection ──
 let selectedTier = 'basic';
 let selectedAmount = 299;
-let pendingClientSecret = null;
+
 
 function selectTier(tier) {
   selectedTier = tier;
@@ -647,31 +610,80 @@ function selectTier(tier) {
   document.getElementById('tier-' + tier).classList.add('active');
   const label = tier === 'premium' ? 'Premium Deep Dive — $4.99' : 'Basic Deep Dive — $2.99';
   document.getElementById('pay-btn-text').textContent = `Get ${label}`;
-  // Reinitialize payment element with new amount
-  paymentReady = false;
-  pendingClientSecret = null;
+  // Reset payment element for new amount
+  if (paymentElement) {
+    paymentElement.destroy();
+    paymentElement = null;
+    stripeElements = null;
+  }
   document.getElementById('payment-element').innerHTML = '';
-  initStripe();
 }
 
 // ── Payment handling ──
 async function handlePayment() {
-  if (!paymentReady || !pendingClientSecret) {
-    document.getElementById('card-errors').textContent = 'Payment is still loading. Please wait a moment and try again.';
+  if (!paymentReady) {
+    document.getElementById('card-errors').textContent = 'Payment is not ready. Please refresh and try again.';
     return;
   }
 
   const btn = document.getElementById('pay-btn');
   btn.disabled = true;
-  document.getElementById('pay-btn-text').textContent = 'Processing...';
   document.getElementById('card-errors').textContent = '';
+
+  // If payment element not yet mounted, create PaymentIntent and mount it first
+  if (!stripeElements || !paymentElement) {
+    document.getElementById('pay-btn-text').textContent = 'Loading payment form...';
+    try {
+      const res = await fetch('/api/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: selectedAmount, tier: selectedTier, quizData })
+      });
+      if (!res.ok) {
+        const errData = await res.json();
+        throw new Error(errData.error || 'Could not connect to payment server');
+      }
+      const { clientSecret } = await res.json();
+
+      stripeElements = stripe.elements({
+        clientSecret,
+        appearance: {
+          theme: 'night',
+          variables: {
+            colorPrimary: '#a78bfa',
+            colorBackground: '#16162e',
+            colorText: '#ece9f8',
+            colorDanger: '#f87171',
+            fontFamily: 'Outfit, sans-serif',
+            borderRadius: '12px',
+          }
+        }
+      });
+
+      paymentElement = stripeElements.create('payment', { layout: 'tabs' });
+      paymentElement.mount('#payment-element');
+
+      // Let element render then prompt user to complete payment
+      btn.disabled = false;
+      document.getElementById('pay-btn-text').textContent = 'Complete Payment ✦';
+      return;
+
+    } catch(err) {
+      btn.disabled = false;
+      const label = selectedTier === 'premium' ? 'Premium Deep Dive — $4.99' : 'Basic Deep Dive — $2.99';
+      document.getElementById('pay-btn-text').textContent = `Get ${label}`;
+      document.getElementById('card-errors').textContent = err.message || 'Could not load payment form. Please try again.';
+      return;
+    }
+  }
+
+  // Payment element is mounted — confirm payment
+  document.getElementById('pay-btn-text').textContent = 'Processing...';
 
   try {
     const { error, paymentIntent } = await stripe.confirmPayment({
       elements: stripeElements,
-      confirmParams: {
-        return_url: window.location.href,
-      },
+      confirmParams: { return_url: window.location.href },
       redirect: 'if_required',
     });
 
