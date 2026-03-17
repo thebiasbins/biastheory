@@ -1035,10 +1035,7 @@ function renderRead(read) {
 
     <div class="print-page" style="${pageStyle}">
       <div style="${lStyle}">Extended Archetype</div>
-      <p style="${pStyle}">${read.extended_archetype.replace(/
-
-/g,'</p><p style="'+pStyle+'">').replace(/
-/g,' ')}</p>
+      <p style="${pStyle}">${read.extended_archetype.replace(/\n\n/g,'</p><p style="'+pStyle+'">').replace(/\n/g,' ')}</p>
       <hr style="${divStyle}">
       <div style="${lStyle}">Your Personality Dimensions</div>
       ${dimBars(d)}
@@ -1048,18 +1045,12 @@ function renderRead(read) {
     <div class="print-page" style="${pageStyle}">
       <div style="${lStyle}">Your Growth Path</div>
       <div style="${hStyle}">${read.growth_path.title}</div>
-      <p style="${pStyle}">${read.growth_path.body.replace(/
-
-/g,'</p><p style="'+pStyle+'">').replace(/
-/g,' ')}</p>
+      <p style="${pStyle}">${read.growth_path.body.replace(/\n\n/g,'</p><p style="'+pStyle+'">').replace(/\n/g,' ')}</p>
       <hr style="${divStyle}">
       <div style="${lStyle}">Shadow Work</div>
       <div style="${hStyle}">${read.shadow_work.title}</div>
       <div style="background:#0f0f24;border-left:2px solid #a78bfa;padding:14px 16px;margin-top:10px;border-radius:0 8px 8px 0">
-        <p style="${pStyle};margin:0">${read.shadow_work.body.replace(/
-
-/g,'</p><p style="'+pStyle+'margin-top:10px">').replace(/
-/g,' ')}</p>
+        <p style="${pStyle};margin:0">${read.shadow_work.body.replace(/\n\n/g,'</p><p style="'+pStyle+'margin-top:10px">').replace(/\n/g,' ')}</p>
       </div>
       <div style="${footerStyle}">biastheory.net</div>
     </div>
