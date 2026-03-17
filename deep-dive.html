@@ -578,7 +578,7 @@ document.getElementById('pay-archetype').textContent = quizData.isDual
 // ── Stripe setup ──
 // IMPORTANT: Replace with your actual Stripe publishable key
 // Get this from dashboard.stripe.com → Developers → API Keys → Publishable key
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51T9SJgLlkdbADZzqWUhEsZszlg9r3ThBVQCrGTnhkQBOy2Xu38wApwmEbJdqlKgD9ojO1T1Z1EXJxlg1q5KzUoLV00xmLstnxx';
+const STRIPE_PUBLISHABLE_KEY = 'pk_live_51T9SJgLlkdbADZzqiv0epzXjaREi3Kpx0zxlV8he7xhPWrbYJvinSyZcmuJT61weAp9vX9SfYszqcwCxO33qilQE00g5TjYCrB';
 let stripe, cardElement, paymentReady = false;
 
 function initStripe() {
@@ -973,9 +973,7 @@ async function downloadPDF() {
     doc.setFontSize(11);
     doc.setTextColor(...mutedColor);
     doc.setFont('helvetica', 'normal');
-    doc.setLetterSpacing(3);
     doc.text('BIAS THEORY', margin, 14);
-    doc.setLetterSpacing(0);
 
     // Member initial circle
     const cx = W / 2, cy = 95;
@@ -1027,9 +1025,7 @@ async function downloadPDF() {
     doc.setFontSize(9);
     doc.setTextColor(...violet);
     doc.setFont('helvetica', 'normal');
-    doc.setLetterSpacing(1);
     doc.text(badgeText.toUpperCase(), W/2, hy + 17, { align: 'center' });
-    doc.setLetterSpacing(0);
 
     // Bottom line
     doc.setDrawColor(...pink);
@@ -1066,9 +1062,7 @@ async function downloadPDF() {
       doc.setFontSize(8);
       doc.setTextColor(...violet);
       doc.setFont('helvetica', 'normal');
-      doc.setLetterSpacing(2.5);
       doc.text(section.label, margin, y);
-      doc.setLetterSpacing(0);
       y += 3;
 
       // Accent line
