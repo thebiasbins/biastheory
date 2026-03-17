@@ -6,7 +6,7 @@
 <title>Deep Dive Read — Bias Theory</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://js.stripe.com/v3/"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root {
   --bg: #07070e;
@@ -280,6 +280,44 @@ main {
 .read-disclaimer { display: flex; align-items: flex-start; gap: 8px; padding: 10px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); margin-top: 8px; }
 .disclaimer-icon { font-size: 12px; color: var(--muted); flex-shrink: 0; margin-top: 1px; }
 .read-disclaimer p { font-size: 11px; color: var(--muted); line-height: 1.6; margin: 0; }
+@media print {
+  body { background: #07070e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .nav, .screen:not(#screen-result), #screen-result > *:not(#read-print-area), .download-btn, .share-btn, .back-link, .result-success-icon, .result-success-title, .result-success-sub { display: none !important; }
+  #read-print-area { display: block !important; }
+  .print-page { page-break-after: always; padding: 48px; background: #07070e; }
+  .print-page:last-child { page-break-after: avoid; }
+}
+#read-print-area { display: none; }
+.share-btn { background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.25); color: #a78bfa; padding: 14px 28px; border-radius: 12px; font-size: 14px; cursor: pointer; font-family: inherit; margin-top: 12px; width: 100%; }
+.share-btn:hover { background: rgba(167,139,250,0.15); }
+#share-card-wrap { display: none; }
+.share-card { width: 320px; background: #07070e; border-radius: 16px; border: 1px solid #1e1e38; overflow: hidden; font-family: 'Outfit', sans-serif; margin: 0 auto; }
+.sc-top { padding: 24px 20px 18px; text-align: center; border-bottom: 1px solid #1e1e38; }
+.sc-eyebrow { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #6b6890; margin-bottom: 14px; }
+.sc-initial { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 300; margin: 0 auto 12px; }
+.sc-initial.mirror { background: rgba(167,139,250,.12); border: 1px solid rgba(167,139,250,.3); color: #a78bfa; }
+.sc-initial.aspire { background: rgba(244,114,182,.12); border: 1px solid rgba(244,114,182,.3); color: #f472b6; }
+.sc-name { font-size: 20px; color: #ece9f8; margin-bottom: 3px; }
+.sc-group { font-size: 10px; color: #6b6890; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
+.sc-arch { font-size: 12px; color: #a78bfa; margin-bottom: 12px; }
+.sc-tag { display: inline-block; padding: 3px 12px; border-radius: 99px; font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+.sc-tag.mirror { background: rgba(167,139,250,.1); color: #a78bfa; border: 1px solid rgba(167,139,250,.2); }
+.sc-tag.aspire { background: rgba(244,114,182,.1); color: #f472b6; border: 1px solid rgba(244,114,182,.2); }
+.sc-dual-row { display: flex; gap: 10px; align-items: center; justify-content: center; margin-bottom: 14px; }
+.sc-dual-member { text-align: center; }
+.sc-dual-initial { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; margin: 0 auto 6px; }
+.sc-dual-name { font-size: 12px; color: #ece9f8; margin-bottom: 2px; }
+.sc-dual-arch { font-size: 9px; color: #6b6890; }
+.sc-dual-arrow { font-size: 16px; color: #3d3a55; }
+.sc-headline { font-size: 11px; color: #d8b4fe; font-style: italic; line-height: 1.65; font-family: 'Playfair Display', serif; text-align: center; }
+.sc-body { padding: 14px 18px; }
+.sc-dims { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+.sc-dim-row { display: flex; align-items: center; gap: 8px; }
+.sc-dim-label { font-size: 9px; color: #6b6890; width: 60px; flex-shrink: 0; }
+.sc-dim-track { flex: 1; height: 3px; background: #1e1e38; border-radius: 99px; overflow: hidden; }
+.sc-dim-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, #a78bfa, #f472b6); }
+.sc-footer { padding: 10px 18px; border-top: 1px solid #1e1e38; display: flex; justify-content: space-between; }
+.sc-footer span { font-size: 9px; color: #3d3a55; letter-spacing: .1em; text-transform: uppercase; }
 .read-preview-header {
   padding: 32px 36px 24px;
   background: linear-gradient(135deg, rgba(167,139,250,0.1), rgba(244,114,182,0.06));
@@ -489,10 +527,14 @@ main {
       </div>
     </div>
 
-    <button class="download-btn" id="download-btn" onclick="downloadPDF()" disabled>
-      ↓ Download Your PDF
-    </button>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
+      <button class="download-btn" id="download-btn" onclick="downloadPDF()" disabled>↓ Download Your PDF</button>
+      <button class="share-btn" id="share-btn" onclick="downloadShareCard()" disabled>✦ Download Share Card</button>
+    </div>
     <a class="back-link" href="index.html">← Take another bias read</a>
+
+    <div id="read-print-area"></div>
+    <div id="share-card-wrap"><div class="share-card" id="share-card"></div></div>
   </div>
 
   <!-- ERROR SCREEN -->
@@ -838,8 +880,47 @@ ${tier === 'premium' ? `For the compatibility section — include BOTH:
 2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Leader, The Long Game, The Unfiltered, The Still Point, The Pure One, The Relentless Refiner, The Controlled Fire, The Cool Outsider, The Soft Powerhouse, The Natural, The Dedicated One, The Precise One, The Untouchable, The Open Heart, The Quiet Surprise, The Protector, The Composed Edge, The Intensity, The Artist, The Open Nerve, The Connector, The Grounded One, The Understated, The Architect, The Graceful One, The Steady Giant, The Hidden Depth, The Expressive One, The Warmth, The Quiet Strength, The Centered One, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Standard, The Dreamer) and explain what draws these archetypes together.` : `Do not write a compatibility section.`}`;
 }
 
+function dimBars(scores) {
+  const dims = [
+    ['Lead', scores.lead || 0],
+    ['Emotion', scores.emotion || 0],
+    ['Connect', scores.connect || 0],
+    ['Growth', scores.growth || 0],
+    ['Present', scores.present || 0],
+  ];
+  return dims.map(([label, pct]) => `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+      <span style="font-size:11px;color:#6b6890;width:60px;flex-shrink:0;font-family:'Outfit',sans-serif">${label}</span>
+      <div style="flex:1;height:4px;background:#1e1e38;border-radius:99px;overflow:hidden">
+        <div style="height:100%;border-radius:99px;background:linear-gradient(90deg,#a78bfa,#f472b6);width:${pct}%"></div>
+      </div>
+      <span style="font-size:11px;color:#6b6890;width:30px;text-align:right;font-family:'Outfit',sans-serif">${pct}%</span>
+    </div>`).join('');
+}
+
+function compatCards(compat) {
+  if (!compat || !compat.pairs_well_with) return '';
+  const pairsText = compat.pairs_well_with;
+  const challengedText = compat.challenged_by;
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
+      <div style="background:#0f0f24;border:1px solid #1e1e38;border-radius:10px;padding:14px;grid-column:1/-1">
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#a78bfa;font-family:'Outfit',sans-serif;margin-bottom:6px">Pairs well with</div>
+        <p style="font-size:12px;color:#9893b8;line-height:1.75">${pairsText}</p>
+      </div>
+      <div style="background:#0f0f24;border:1px solid #1e1e38;border-radius:10px;padding:14px;grid-column:1/-1">
+        <div style="font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:#f472b6;font-family:'Outfit',sans-serif;margin-bottom:6px">Challenged by</div>
+        <p style="font-size:12px;color:#9893b8;line-height:1.75">${challengedText}</p>
+      </div>
+    </div>`;
+}
+
 function renderRead(read) {
-  const dualHeader = quizData.isDual ? `
+  const isDual = quizData.isDual;
+  const d = quizData.dimScores;
+
+  // ── On-screen read ──
+  const dualHeader = isDual ? `
     <div class="read-dual-members">
       <div class="read-dual-box">
         <div class="read-dual-label">You right now</div>
@@ -867,33 +948,33 @@ function renderRead(read) {
     <div class="read-body">
       <div class="read-section">
         <div class="read-section-label">Extended Archetype</div>
-        <p>${read.extended_archetype.replace(/\n\n/g, '</p><p style="margin-top:12px">').replace(/\n/g, ' ')}</p>
+        <p>${read.extended_archetype.replace(/\n\n/g,'</p><p style="margin-top:12px">').replace(/\n/g,' ')}</p>
+      </div>
+      <div class="read-divider"></div>
+      <div class="read-section">
+        <div class="read-section-label">Your Personality Dimensions</div>
+        ${dimBars(d)}
       </div>
       <div class="read-divider"></div>
       <div class="read-section">
         <div class="read-section-label">Your Growth Path</div>
         <h3>${read.growth_path.title}</h3>
-        <p>${read.growth_path.body.replace(/\n\n/g, '</p><p style="margin-top:12px">').replace(/\n/g, ' ')}</p>
+        <p>${read.growth_path.body.replace(/\n\n/g,'</p><p style="margin-top:12px">').replace(/\n/g,' ')}</p>
       </div>
       <div class="read-divider"></div>
       ${read.compatibility && read.compatibility.pairs_well_with ? `
       <div class="read-section">
         <div class="read-section-label">Your Constellation</div>
         <h3>${read.compatibility.title || 'Your Relationship Constellation'}</h3>
-        <div style="margin-bottom:12px">
-          <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--violet);margin-bottom:6px">Pairs well with</div>
-          <p>${read.compatibility.pairs_well_with}</p>
-        </div>
-        <div>
-          <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--pink);margin-bottom:6px">Challenged by</div>
-          <p>${read.compatibility.challenged_by}</p>
-        </div>
+        ${compatCards(read.compatibility)}
       </div>
       <div class="read-divider"></div>` : ''}
       <div class="read-section">
         <div class="read-section-label">Shadow Work</div>
         <h3>${read.shadow_work.title}</h3>
-        <p>${read.shadow_work.body.replace(/\n\n/g, '</p><p style="margin-top:12px">').replace(/\n/g, ' ')}</p>
+        <div style="background:#0f0f24;border-left:2px solid #a78bfa;border-radius:0 8px 8px 0;padding:14px 16px;margin-top:10px">
+          <p>${read.shadow_work.body.replace(/\n\n/g,'</p><p style="margin-top:10px">').replace(/\n/g,' ')}</p>
+        </div>
       </div>
       <div class="read-divider"></div>
       ${read.if_you_want_to_do_something ? `
@@ -901,7 +982,7 @@ function renderRead(read) {
         <div class="read-section-label">If You Want To Do Something With This</div>
         <h3>${read.if_you_want_to_do_something.title}</h3>
         <div class="read-practice-block">
-          <p>${quizData.isDual
+          <p>${isDual
             ? read.if_you_want_to_do_something.is_mirror + ' ' + read.if_you_want_to_do_something.is_aspiration
             : (quizData.isMirror ? read.if_you_want_to_do_something.is_mirror : read.if_you_want_to_do_something.is_aspiration)
           }</p>
@@ -916,228 +997,172 @@ function renderRead(read) {
         <p style="font-family:'Playfair Display',serif;font-style:italic;font-size:16px;color:#d8b4fe;line-height:1.75">${read.closing}</p>
       </div>
     </div>`;
+
+  // ── Print area (PDF) ──
+  const practiceBody = read.if_you_want_to_do_something
+    ? (isDual
+        ? read.if_you_want_to_do_something.is_mirror + '<br><br>' + read.if_you_want_to_do_something.is_aspiration
+        : (quizData.isMirror ? read.if_you_want_to_do_something.is_mirror : read.if_you_want_to_do_something.is_aspiration))
+    : null;
+
+  const badgeHtml = isDual
+    ? `<div style="display:flex;gap:8px;justify-content:center;margin-top:16px">
+        <span style="display:inline-block;padding:4px 14px;border-radius:99px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.25);font-family:'Outfit',sans-serif">Mirror: ${quizData.memberName}</span>
+        <span style="color:#3d3a55;font-size:16px;display:flex;align-items:center">→</span>
+        <span style="display:inline-block;padding:4px 14px;border-radius:99px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:rgba(244,114,182,.1);color:#f472b6;border:1px solid rgba(244,114,182,.25);font-family:'Outfit',sans-serif">Aspiration: ${quizData.aspireMemberName}</span>
+      </div>`
+    : `<span style="display:inline-block;margin-top:16px;padding:4px 16px;border-radius:99px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.25);font-family:'Outfit',sans-serif">${quizData.isMirror ? 'Mirror' : 'Aspiration'}</span>`;
+
+  const pStyle = 'font-size:13px;color:#9893b8;line-height:1.85;margin-bottom:10px;font-family:Georgia,serif';
+  const lStyle = 'font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:#6b6890;margin-bottom:8px;font-family:Outfit,sans-serif';
+  const hStyle = 'font-size:17px;font-weight:400;color:#ece9f8;margin-bottom:12px;line-height:1.4;font-family:Georgia,serif';
+  const divStyle = 'border:none;border-top:1px solid #1e1e38;margin:24px 0';
+  const pageStyle = 'background:#07070e;color:#ece9f8;padding:48px;page-break-after:always';
+  const lastPageStyle = 'background:#07070e;color:#ece9f8;padding:48px';
+  const footerStyle = 'text-align:center;padding-top:20px;border-top:1px solid #1e1e38;margin-top:20px;font-size:10px;color:#3d3a55;font-family:Outfit,sans-serif;letter-spacing:.12em;text-transform:uppercase';
+
+  document.getElementById('read-print-area').innerHTML = `
+    <div class="print-page" style="${pageStyle};text-align:center">
+      <div style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#6b6890;margin-bottom:28px;font-family:Outfit,sans-serif">Bias Theory · Deep Dive Read</div>
+      <div style="width:72px;height:72px;border-radius:50%;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:300;color:#a78bfa;margin:0 auto 18px;font-family:Outfit,sans-serif">${quizData.memberName[0]}</div>
+      <div style="font-size:32px;font-weight:400;color:#ece9f8;margin-bottom:6px;font-family:Georgia,serif">${quizData.memberName}</div>
+      <div style="font-size:11px;color:#9893b8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;font-family:Outfit,sans-serif">${quizData.groupName}</div>
+      <div style="font-size:14px;color:#a78bfa;font-family:Outfit,sans-serif;margin-bottom:6px">${quizData.archetype}</div>
+      ${badgeHtml}
+      <p style="font-style:italic;font-size:16px;color:#d8b4fe;line-height:1.65;margin-top:24px;padding:0 20px;font-family:Georgia,serif">"${read.headline}"</p>
+      <div style="${footerStyle}">biastheory.net</div>
+    </div>
+
+    <div class="print-page" style="${pageStyle}">
+      <div style="${lStyle}">Extended Archetype</div>
+      <p style="${pStyle}">${read.extended_archetype.replace(/
+
+/g,'</p><p style="'+pStyle+'">').replace(/
+/g,' ')}</p>
+      <hr style="${divStyle}">
+      <div style="${lStyle}">Your Personality Dimensions</div>
+      ${dimBars(d)}
+      <div style="${footerStyle}">biastheory.net</div>
+    </div>
+
+    <div class="print-page" style="${pageStyle}">
+      <div style="${lStyle}">Your Growth Path</div>
+      <div style="${hStyle}">${read.growth_path.title}</div>
+      <p style="${pStyle}">${read.growth_path.body.replace(/
+
+/g,'</p><p style="'+pStyle+'">').replace(/
+/g,' ')}</p>
+      <hr style="${divStyle}">
+      <div style="${lStyle}">Shadow Work</div>
+      <div style="${hStyle}">${read.shadow_work.title}</div>
+      <div style="background:#0f0f24;border-left:2px solid #a78bfa;padding:14px 16px;margin-top:10px;border-radius:0 8px 8px 0">
+        <p style="${pStyle};margin:0">${read.shadow_work.body.replace(/
+
+/g,'</p><p style="'+pStyle+'margin-top:10px">').replace(/
+/g,' ')}</p>
+      </div>
+      <div style="${footerStyle}">biastheory.net</div>
+    </div>
+
+    ${read.compatibility && read.compatibility.pairs_well_with ? `
+    <div class="print-page" style="${pageStyle}">
+      <div style="${lStyle}">Your Constellation</div>
+      <div style="${hStyle}">${read.compatibility.title || 'Your Relationship Constellation'}</div>
+      ${compatCards(read.compatibility)}
+      <div style="${footerStyle}">biastheory.net</div>
+    </div>` : ''}
+
+    <div style="${lastPageStyle}">
+      ${practiceBody ? `
+      <div style="${lStyle}">If You Want To Do Something With This</div>
+      <div style="${hStyle}">${read.if_you_want_to_do_something.title}</div>
+      <div style="background:#0f0f24;border-radius:10px;padding:16px;border:1px solid #1e1e38;margin-bottom:24px">
+        <p style="${pStyle};margin:0">${practiceBody}</p>
+      </div>
+      <hr style="${divStyle}">` : ''}
+      <p style="font-style:italic;font-size:15px;color:#d8b4fe;line-height:1.75;text-align:center;padding:0 12px;font-family:Georgia,serif">${read.closing}</p>
+      <div style="${footerStyle}">biastheory.net · For entertainment and self-exploration only · Not professional advice</div>
+    </div>`;
+
+  // ── Share card ──
+  const scDims = ['Lead','Emotion','Connect','Growth','Present'];
+  const scVals = [d.lead||0, d.emotion||0, d.connect||0, d.growth||0, d.present||0];
+  const dimHtml = scDims.map((l,i) => `
+    <div class="sc-dim-row">
+      <span class="sc-dim-label">${l}</span>
+      <div class="sc-dim-track"><div class="sc-dim-fill" style="width:${scVals[i]}%"></div></div>
+    </div>`).join('');
+
+  const scHeader = isDual ? `
+    <div class="sc-dual-row">
+      <div class="sc-dual-member">
+        <div class="sc-dual-initial mirror">${quizData.memberName[0]}</div>
+        <div class="sc-dual-name">${quizData.memberName}</div>
+        <div class="sc-dual-arch">${quizData.archetype}</div>
+        <span class="sc-tag mirror" style="margin-top:4px;display:inline-block">Mirror</span>
+      </div>
+      <div class="sc-dual-arrow">→</div>
+      <div class="sc-dual-member">
+        <div class="sc-dual-initial aspire">${quizData.aspireMemberName[0]}</div>
+        <div class="sc-dual-name">${quizData.aspireMemberName}</div>
+        <div class="sc-dual-arch">${quizData.aspireArch}</div>
+        <span class="sc-tag aspire" style="margin-top:4px;display:inline-block">Aspiration</span>
+      </div>
+    </div>
+    <p class="sc-headline">"${read.headline}"</p>` : `
+    <div class="sc-initial mirror">${quizData.memberName[0]}</div>
+    <div class="sc-name">${quizData.memberName}</div>
+    <div class="sc-group">${quizData.groupName}</div>
+    <div class="sc-arch">${quizData.archetype}</div>
+    <span class="sc-tag ${quizData.isMirror ? 'mirror' : 'aspire'}">${quizData.isMirror ? 'Mirror' : 'Aspiration'}</span>`;
+
+  document.getElementById('share-card').innerHTML = `
+    <div class="sc-top">
+      <div class="sc-eyebrow">My Bias Theory Result</div>
+      ${scHeader}
+    </div>
+    <div class="sc-body">
+      <div class="sc-dims">${dimHtml}</div>
+    </div>
+    <div class="sc-footer">
+      <span>Bias Theory</span>
+      <span>biastheory.net</span>
+    </div>`;
+
+  document.getElementById('download-btn').disabled = false;
+  document.getElementById('share-btn').disabled = false;
 }
 
 // ── PDF Generation ──
 async function downloadPDF() {
   if (!generatedRead) return;
+  window.print();
+}
 
-  const btn = document.getElementById('download-btn');
+// ── Share Card Download ──
+async function downloadShareCard() {
+  const card = document.getElementById('share-card');
+  if (!card) return;
+  const btn = document.getElementById('share-btn');
   btn.disabled = true;
-  btn.textContent = 'Generating PDF...';
-
+  btn.textContent = 'Generating...';
   try {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-    const W = 210, H = 297, margin = 22, contentW = W - margin * 2;
-
-    // Colors
-    const darkBg = [7, 7, 14];
-    const violet = [167, 139, 250];
-    const pink = [244, 114, 182];
-    const textColor = [236, 233, 248];
-    const mutedColor = [152, 147, 184];
-    const surfaceColor = [17, 17, 36];
-    const borderColor = [35, 35, 60];
-
-    let y = 0;
-
-    function newPage() {
-      doc.addPage();
-      // Dark background
-      doc.setFillColor(...darkBg);
-      doc.rect(0, 0, W, H, 'F');
-      // Subtle top gradient line
-      doc.setDrawColor(...violet);
-      doc.setLineWidth(0.5);
-      doc.line(margin, 10, W - margin, 10);
-      y = 24;
-    }
-
-    function checkY(needed = 20) {
-      if (y + needed > H - 20) newPage();
-    }
-
-    function wrapText(text, x, startY, maxW, lineH, color, size, bold = false, italic = false) {
-      doc.setFontSize(size);
-      doc.setTextColor(...color);
-      if (bold && italic) doc.setFont('helvetica', 'bolditalic');
-      else if (bold) doc.setFont('helvetica', 'bold');
-      else if (italic) doc.setFont('helvetica', 'italic');
-      else doc.setFont('helvetica', 'normal');
-      const lines = doc.splitTextToSize(text, maxW);
-      lines.forEach(line => {
-        checkY(lineH);
-        doc.text(line, x, y);
-        y += lineH;
-      });
-      return y;
-    }
-
-    // ── PAGE 1 — Cover ──
-    doc.setFillColor(...darkBg);
-    doc.rect(0, 0, W, H, 'F');
-
-    // Top accent line
-    doc.setDrawColor(...violet);
-    doc.setLineWidth(0.5);
-    doc.line(margin, 18, W - margin, 18);
-
-    // Brand name
-    doc.setFontSize(11);
-    doc.setTextColor(...mutedColor);
-    doc.setFont('helvetica', 'normal');
-    doc.text('BIAS THEORY', margin, 14);
-
-    // Member initial circle
-    const cx = W / 2, cy = 95;
-    doc.setFillColor(35, 25, 70);
-    doc.circle(cx, cy, 22, 'F');
-    doc.setDrawColor(...violet);
-    doc.setLineWidth(0.6);
-    doc.circle(cx, cy, 22, 'S');
-    doc.setFontSize(28);
-    doc.setTextColor(...violet);
-    doc.setFont('helvetica', 'normal');
-    doc.text(quizData.memberName[0], cx, cy + 5, { align: 'center' });
-
-    // Member name
-    doc.setFontSize(32);
-    doc.setTextColor(...textColor);
-    doc.setFont('helvetica', 'bold');
-    doc.text(quizData.memberName, W / 2, 130, { align: 'center' });
-
-    // Group
-    doc.setFontSize(12);
-    doc.setTextColor(...mutedColor);
-    doc.setFont('helvetica', 'normal');
-    doc.text(quizData.groupName, W / 2, 140, { align: 'center' });
-
-    // Archetype
-    doc.setFontSize(14);
-    doc.setTextColor(...violet);
-    doc.setFont('helvetica', 'italic');
-    doc.text(quizData.archetype, W / 2, 154, { align: 'center' });
-
-    // Headline
-    doc.setFontSize(12);
-    doc.setTextColor(212, 180, 254);
-    doc.setFont('helvetica', 'italic');
-    const headlineLines = doc.splitTextToSize(`"${generatedRead.headline}"`, contentW - 20);
-    let hy = 172;
-    headlineLines.forEach(l => { doc.text(l, W/2, hy, { align: 'center' }); hy += 7; });
-
-    // Mirror/Aspiration badge
-    const badgeText = quizData.isDual
-      ? `Mirror: ${quizData.memberName} → Aspiration: ${quizData.aspireMemberName}`
-      : quizData.isMirror ? 'Mirror — You see yourself in them' : 'Aspiration — You see who you\'re becoming';
-    doc.setFillColor(30, 20, 55);
-    doc.roundedRect(margin + 20, hy + 8, contentW - 40, 14, 3, 3, 'F');
-    doc.setDrawColor(...violet);
-    doc.setLineWidth(0.3);
-    doc.roundedRect(margin + 20, hy + 8, contentW - 40, 14, 3, 3, 'S');
-    doc.setFontSize(9);
-    doc.setTextColor(...violet);
-    doc.setFont('helvetica', 'normal');
-    doc.text(badgeText.toUpperCase(), W/2, hy + 17, { align: 'center' });
-
-    // Bottom line
-    doc.setDrawColor(...pink);
-    doc.setLineWidth(0.3);
-    doc.line(margin, H - 18, W - margin, H - 18);
-    doc.setFontSize(9);
-    doc.setTextColor(...mutedColor);
-    doc.text('biastheory.net', W/2, H - 12, { align: 'center' });
-
-    // ── PAGE 2+ — Content ──
-    newPage();
-
-    const practiceBody = generatedRead.if_you_want_to_do_something
-      ? (quizData.isDual
-          ? (generatedRead.if_you_want_to_do_something.is_mirror + '\n\n' + generatedRead.if_you_want_to_do_something.is_aspiration)
-          : (quizData.isMirror
-              ? generatedRead.if_you_want_to_do_something.is_mirror
-              : generatedRead.if_you_want_to_do_something.is_aspiration))
-      : null;
-
-    const sections = [
-      { label: 'EXTENDED ARCHETYPE', title: null, body: generatedRead.extended_archetype },
-      { label: 'YOUR GROWTH PATH', title: generatedRead.growth_path.title, body: generatedRead.growth_path.body },
-      { label: 'COMPATIBILITY', title: generatedRead.compatibility.title,
-        body: `Pairs well with: ${generatedRead.compatibility.pairs_well_with}\n\nChallenged by: ${generatedRead.compatibility.challenged_by}` },
-      { label: 'SHADOW WORK', title: generatedRead.shadow_work.title, body: generatedRead.shadow_work.body },
-      ...(practiceBody ? [{ label: 'IF YOU WANT TO DO SOMETHING WITH THIS', title: generatedRead.if_you_want_to_do_something.title, body: practiceBody }] : []),
-      { label: 'CLOSING', title: null, body: generatedRead.closing, italic: true },
-    ];
-
-    sections.forEach((section, idx) => {
-      // Section label
-      checkY(30);
-      doc.setFontSize(8);
-      doc.setTextColor(...violet);
-      doc.setFont('helvetica', 'normal');
-      doc.text(section.label, margin, y);
-      y += 3;
-
-      // Accent line
-      doc.setDrawColor(...violet);
-      doc.setLineWidth(0.3);
-      doc.line(margin, y, margin + 30, y);
-      y += 8;
-
-      // Section title
-      if (section.title) {
-        checkY(12);
-        doc.setFontSize(16);
-        doc.setTextColor(...textColor);
-        doc.setFont('helvetica', 'bold');
-        const titleLines = doc.splitTextToSize(section.title, contentW);
-        titleLines.forEach(l => { doc.text(l, margin, y); y += 8; });
-        y += 4;
-      }
-
-      // Body text
-      const bodyParagraphs = section.body.split('\n\n');
-      bodyParagraphs.forEach(para => {
-        if (!para.trim()) return;
-        doc.setFontSize(10.5);
-        doc.setTextColor(...mutedColor);
-        doc.setFont('helvetica', section.italic ? 'italic' : 'normal');
-        const lines = doc.splitTextToSize(para.trim(), contentW);
-        lines.forEach(line => {
-          checkY(6);
-          doc.text(line, margin, y);
-          y += 5.8;
-        });
-        y += 4;
-      });
-
-      // Divider between sections
-      if (idx < sections.length - 1) {
-        checkY(16);
-        y += 4;
-        doc.setDrawColor(...borderColor);
-        doc.setLineWidth(0.3);
-        doc.line(margin, y, W - margin, y);
-        y += 12;
-      }
+    const canvas = await html2canvas(card, {
+      backgroundColor: '#07070e',
+      scale: 3,
+      useCORS: true,
+      logging: false,
     });
-
-    // Final page footer
-    doc.setFontSize(9);
-    doc.setTextColor(...mutedColor);
-    doc.setFont('helvetica', 'normal');
-    doc.text('biastheory.net · Your read is personal. Keep it close.', W/2, H - 12, { align: 'center' });
-
-    doc.save(`BiasTheory_${quizData.memberName.replace(/ /g,'_')}_DeepDive.pdf`);
-
+    const link = document.createElement('a');
+    link.download = `BiasTheory_${quizData.memberName.replace(/ /g,'_')}_Card.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
   } catch(err) {
-    console.error('PDF error:', err);
-    alert('PDF generation failed — try refreshing and downloading again.');
+    console.error('Share card error:', err);
+    alert('Could not generate share card — try again.');
   }
-
   btn.disabled = false;
-  btn.textContent = '↓ Download Your PDF';
+  btn.textContent = '✦ Download Share Card';
 }
 
 function showError(msg) {
