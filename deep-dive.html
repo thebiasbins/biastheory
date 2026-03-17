@@ -578,7 +578,7 @@ document.getElementById('pay-archetype').textContent = quizData.isDual
 // ── Stripe setup ──
 // IMPORTANT: Replace with your actual Stripe publishable key
 // Get this from dashboard.stripe.com → Developers → API Keys → Publishable key
-const STRIPE_PUBLISHABLE_KEY = 'pk_test_51T9SJgLlkdbADZzqWUhEsZszlg9r3ThBVQCrGTnhkQBOy2Xu38wApwmEbJdqlKgD9ojO1T1Z1EXJxlg1q5KzUoLV00xmLstnxx';
+const STRIPE_PUBLISHABLE_KEY = 'pk_live_51T9SJgLlkdbADZzqiv0epzXjaREi3Kpx0zxlV8he7xhPWrbYJvinSyZcmuJT61weAp9vX9SfYszqcwCxO33qilQE00g5TjYCrB';
 let stripe, cardElement, paymentReady = false;
 
 function initStripe() {
@@ -822,7 +822,11 @@ For the compatibility section — include BOTH:
 
 Make it feel written specifically for this person. Reference their dimension profile, answer patterns, and the mirror/aspiration journey naturally throughout. Do not repeat the free result — go significantly deeper. Do not be generic.
 
-TIER: ${tier === 'premium' ? 'PREMIUM — include the full compatibility section (same-group members AND cross-group archetype matches) and the constellation dimension combination read.' : 'BASIC — skip the compatibility section entirely. Focus depth on archetype, growth path, shadow work, and the reflection practice.'}`;
+TIER: ${tier === 'premium' ? `PREMIUM — you MUST include the full compatibility section with pairs_well_with and challenged_by fully populated. You MUST include the constellation dimension combination read. These sections are required and paid for. Do not skip them or return empty strings.` : `BASIC — return the compatibility object with empty strings for all fields. Do not write compatibility content. Focus entirely on archetype, growth path, shadow work, and the reflection practice.`}
+
+${tier === 'premium' ? `For the compatibility section — include BOTH:
+1. Same-group compatibility: 1-2 other members from ${quizData.groupName} and why those relationships work or challenge
+2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Leader, The Long Game, The Unfiltered, The Still Point, The Pure One, The Relentless Refiner, The Controlled Fire, The Cool Outsider, The Soft Powerhouse, The Natural, The Dedicated One, The Precise One, The Untouchable, The Open Heart, The Quiet Surprise, The Protector, The Composed Edge, The Intensity, The Artist, The Open Nerve, The Connector, The Grounded One, The Understated, The Architect, The Graceful One, The Steady Giant, The Hidden Depth, The Expressive One, The Warmth, The Quiet Strength, The Centered One, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Standard, The Dreamer) and explain what draws these archetypes together.` : `Do not write a compatibility section.`}`;
 }
 
 function renderRead(read) {
@@ -863,9 +867,10 @@ function renderRead(read) {
         <p>${read.growth_path.body.replace(/\n\n/g, '</p><p style="margin-top:12px">').replace(/\n/g, ' ')}</p>
       </div>
       <div class="read-divider"></div>
+      ${read.compatibility && read.compatibility.pairs_well_with ? `
       <div class="read-section">
-        <div class="read-section-label">Compatibility</div>
-        <h3>${read.compatibility.title}</h3>
+        <div class="read-section-label">Your Constellation</div>
+        <h3>${read.compatibility.title || 'Your Relationship Constellation'}</h3>
         <div style="margin-bottom:12px">
           <div style="font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--violet);margin-bottom:6px">Pairs well with</div>
           <p>${read.compatibility.pairs_well_with}</p>
@@ -875,7 +880,7 @@ function renderRead(read) {
           <p>${read.compatibility.challenged_by}</p>
         </div>
       </div>
-      <div class="read-divider"></div>
+      <div class="read-divider"></div>` : ''}
       <div class="read-section">
         <div class="read-section-label">Shadow Work</div>
         <h3>${read.shadow_work.title}</h3>
