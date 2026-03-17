@@ -6,7 +6,6 @@
 <title>Deep Dive Read — Bias Theory</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@200;300;400;500;600&display=swap" rel="stylesheet">
 <script src="https://js.stripe.com/v3/"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 :root {
   --bg: #07070e;
@@ -285,7 +284,7 @@ main {
   body, html { background: #07070e !important; margin: 0; padding: 0; }
   .nav, #screen-payment, #screen-loading, #screen-error, #screen-standalone,
   .result-success-icon, .result-success-title, .result-success-sub,
-  .download-btn, .share-btn, .back-link, .read-preview, #share-card-wrap,
+  .download-btn, .back-link, .read-preview,
   header, footer { display: none !important; }
   #screen-result { display: block !important; background: #07070e !important; }
   #read-print-area { display: block !important; }
@@ -294,10 +293,6 @@ main {
   a[href]::after { content: none !important; }
 }
 #read-print-area { display: none; }
-#share-card-wrap { position: fixed; left: -9999px; top: 0; visibility: hidden; }
-.share-btn { background: rgba(167,139,250,0.08); border: 1px solid rgba(167,139,250,0.25); color: #a78bfa; padding: 14px 28px; border-radius: 12px; font-size: 14px; cursor: pointer; font-family: inherit; margin-top: 12px; width: 100%; }
-.share-btn:hover { background: rgba(167,139,250,0.15); }
-#share-card-wrap { display: none; }
 .share-card { width: 320px; background: #07070e; border-radius: 16px; border: 1px solid #1e1e38; overflow: hidden; font-family: 'Outfit', sans-serif; margin: 0 auto; }
 .sc-top { padding: 24px 20px 18px; text-align: center; border-bottom: 1px solid #1e1e38; }
 .sc-eyebrow { font-size: 9px; letter-spacing: .2em; text-transform: uppercase; color: #6b6890; margin-bottom: 14px; }
@@ -535,13 +530,11 @@ main {
     </div>
 
     <div style="display:flex;flex-direction:column;gap:8px;margin-top:20px">
-      <button class="download-btn" id="download-btn" onclick="downloadPDF()" disabled>↓ Download Your PDF</button>
-      <button class="share-btn" id="share-btn" onclick="downloadShareCard()" disabled>✦ Download Share Card</button>
+      <button class="download-btn" id="download-btn" onclick="downloadPDF()" disabled>↓ Download PDF + Share Card</button>
     </div>
     <a class="back-link" href="index.html">← Take another bias read</a>
 
     <div id="read-print-area"></div>
-    <div id="share-card-wrap"><div class="share-card" id="share-card"></div></div>
   </div>
 
   <!-- ERROR SCREEN -->
@@ -1080,55 +1073,53 @@ function renderRead(read) {
       <hr style="${divStyle}">` : ''}
       <p style="font-style:italic;font-size:15px;color:#d8b4fe;line-height:1.75;text-align:center;padding:0 12px;font-family:Georgia,serif">${read.closing}</p>
       <div style="${footerStyle}">biastheory.net · For entertainment and self-exploration only · Not professional advice</div>
-    </div>`;
+    </div>
 
-  // ── Share card ──
-  const scDims = ['Lead','Emotion','Connect','Growth','Present'];
-  const scVals = [d.lead||0, d.emotion||0, d.connect||0, d.growth||0, d.present||0];
-  const dimHtml = scDims.map((l,i) => `
-    <div class="sc-dim-row">
-      <span class="sc-dim-label">${l}</span>
-      <div class="sc-dim-track"><div class="sc-dim-fill" style="width:${scVals[i]}%"></div></div>
-    </div>`).join('');
-
-  const scHeader = isDual ? `
-    <div class="sc-dual-row">
-      <div class="sc-dual-member">
-        <div class="sc-dual-initial mirror">${quizData.memberName[0]}</div>
-        <div class="sc-dual-name">${quizData.memberName}</div>
-        <div class="sc-dual-arch">${quizData.archetype}</div>
-        <span class="sc-tag mirror" style="margin-top:4px;display:inline-block">Mirror</span>
+    <div style="background:#07070e;color:#ece9f8;padding:48px 48px 40px;page-break-after:avoid;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px">
+      <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#6b6890;margin-bottom:24px;font-family:Outfit,sans-serif">Your Share Card</div>
+      <div style="width:280px;background:#07070e;border-radius:14px;border:1px solid #1e1e38;overflow:hidden;font-family:Outfit,sans-serif">
+        <div style="padding:22px 20px 16px;text-align:center;border-bottom:1px solid #1e1e38">
+          <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#6b6890;margin-bottom:12px">My Bias Theory Result</div>
+          ${isDual ? `
+          <div style="display:flex;gap:10px;align-items:center;justify-content:center;margin-bottom:12px">
+            <div style="text-align:center">
+              <div style="width:44px;height:44px;border-radius:50%;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);display:flex;align-items:center;justify-content:center;font-size:16px;color:#a78bfa;margin:0 auto 6px">${quizData.memberName[0]}</div>
+              <div style="font-size:12px;color:#ece9f8;margin-bottom:2px">${quizData.memberName}</div>
+              <div style="font-size:9px;color:#6b6890;margin-bottom:4px">${quizData.archetype}</div>
+              <span style="display:inline-block;padding:2px 10px;border-radius:99px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.2)">Mirror</span>
+            </div>
+            <div style="font-size:16px;color:#3d3a55">→</div>
+            <div style="text-align:center">
+              <div style="width:44px;height:44px;border-radius:50%;background:rgba(244,114,182,.12);border:1px solid rgba(244,114,182,.3);display:flex;align-items:center;justify-content:center;font-size:16px;color:#f472b6;margin:0 auto 6px">${quizData.aspireMemberName[0]}</div>
+              <div style="font-size:12px;color:#ece9f8;margin-bottom:2px">${quizData.aspireMemberName}</div>
+              <div style="font-size:9px;color:#6b6890;margin-bottom:4px">${quizData.aspireArch}</div>
+              <span style="display:inline-block;padding:2px 10px;border-radius:99px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:rgba(244,114,182,.1);color:#f472b6;border:1px solid rgba(244,114,182,.2)">Aspiration</span>
+            </div>
+          </div>` : `
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);display:flex;align-items:center;justify-content:center;font-size:20px;color:#a78bfa;margin:0 auto 10px">${quizData.memberName[0]}</div>
+          <div style="font-size:18px;color:#ece9f8;margin-bottom:3px">${quizData.memberName}</div>
+          <div style="font-size:10px;color:#6b6890;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">${quizData.groupName}</div>
+          <div style="font-size:12px;color:#a78bfa;margin-bottom:10px">${quizData.archetype}</div>
+          <span style="display:inline-block;padding:3px 12px;border-radius:99px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.2)">${quizData.isMirror ? 'Mirror' : 'Aspiration'}</span>`}
+        </div>
+        <div style="padding:14px 18px">
+          ${['Lead','Emotion','Connect','Growth','Present'].map((l,i) => {
+            const vals = [d.lead||0,d.emotion||0,d.connect||0,d.growth||0,d.present||0];
+            return `<div style="display:flex;align-items:center;gap:8px;margin-bottom:7px">
+              <span style="font-size:9px;color:#6b6890;width:55px;flex-shrink:0">${l}</span>
+              <div style="flex:1;height:3px;background:#1e1e38;border-radius:99px;overflow:hidden">
+                <div style="height:100%;background:#a78bfa;border-radius:99px;width:${vals[i]}%"></div>
+              </div>
+            </div>`;
+          }).join('')}
+        </div>
+        <div style="padding:10px 18px;border-top:1px solid #1e1e38;display:flex;justify-content:space-between">
+          <span style="font-size:9px;color:#3d3a55;letter-spacing:.1em;text-transform:uppercase">Bias Theory</span>
+          <span style="font-size:9px;color:#3d3a55;letter-spacing:.1em;text-transform:uppercase">biastheory.net</span>
+        </div>
       </div>
-      <div class="sc-dual-arrow">→</div>
-      <div class="sc-dual-member">
-        <div class="sc-dual-initial aspire">${quizData.aspireMemberName[0]}</div>
-        <div class="sc-dual-name">${quizData.aspireMemberName}</div>
-        <div class="sc-dual-arch">${quizData.aspireArch}</div>
-        <span class="sc-tag aspire" style="margin-top:4px;display:inline-block">Aspiration</span>
-      </div>
-    </div>
-    <p class="sc-headline">"${read.headline}"</p>` : `
-    <div class="sc-initial mirror">${quizData.memberName[0]}</div>
-    <div class="sc-name">${quizData.memberName}</div>
-    <div class="sc-group">${quizData.groupName}</div>
-    <div class="sc-arch">${quizData.archetype}</div>
-    <span class="sc-tag ${quizData.isMirror ? 'mirror' : 'aspire'}">${quizData.isMirror ? 'Mirror' : 'Aspiration'}</span>`;
-
-  document.getElementById('share-card').innerHTML = `
-    <div class="sc-top">
-      <div class="sc-eyebrow">My Bias Theory Result</div>
-      ${scHeader}
-    </div>
-    <div class="sc-body">
-      <div class="sc-dims">${dimHtml}</div>
-    </div>
-    <div class="sc-footer">
-      <span>Bias Theory</span>
-      <span>biastheory.net</span>
+      <div style="font-size:10px;color:#3d3a55;margin-top:16px;font-family:Outfit,sans-serif;letter-spacing:.1em;text-transform:uppercase">Save this page to share</div>
     </div>`;
-
-  document.getElementById('download-btn').disabled = false;
-  document.getElementById('share-btn').disabled = false;
 }
 
 // ── PDF Generation ──
@@ -1137,41 +1128,6 @@ async function downloadPDF() {
   window.print();
 }
 
-// ── Share Card Download ──
-async function downloadShareCard() {
-  const wrap = document.getElementById('share-card-wrap');
-  const card = document.getElementById('share-card');
-  if (!card) return;
-  const btn = document.getElementById('share-btn');
-  btn.disabled = true;
-  btn.textContent = 'Generating...';
-  try {
-    // Temporarily make visible for capture
-    wrap.style.visibility = 'visible';
-    wrap.style.left = '-9999px';
-    wrap.style.position = 'fixed';
-    wrap.style.top = '0';
-    await new Promise(r => setTimeout(r, 100)); // let browser render
-    const canvas = await html2canvas(card, {
-      backgroundColor: '#07070e',
-      scale: 3,
-      useCORS: true,
-      logging: false,
-      allowTaint: true,
-    });
-    wrap.style.visibility = 'hidden';
-    const link = document.createElement('a');
-    link.download = `BiasTheory_${quizData.memberName.replace(/ /g,'_')}_Card.png`;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-  } catch(err) {
-    console.error('Share card error:', err);
-    wrap.style.visibility = 'hidden';
-    alert('Could not generate share card — try again.');
-  }
-  btn.disabled = false;
-  btn.textContent = '✦ Download Share Card';
-}
 
 function showError(msg) {
   document.getElementById('error-msg').textContent = msg;
