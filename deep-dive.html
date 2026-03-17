@@ -200,15 +200,9 @@ main {
   font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
   color: var(--muted); margin-bottom: 8px; display: block;
 }
-#card-element {
-  background: var(--surface2);
-  border: 1px solid var(--border2);
-  border-radius: 12px;
-  padding: 14px 16px;
+#payment-element {
   margin-bottom: 20px;
-  transition: border-color 0.2s;
 }
-#card-element.focused { border-color: rgba(167,139,250,0.5); }
 #card-errors {
   font-size: 12px; color: #f87171; margin-bottom: 16px; min-height: 18px;
 }
@@ -454,14 +448,13 @@ main {
       </div>
 
       <div class="payment-form-area">
-        <label class="field-label">Card Details</label>
-        <div id="card-element"></div>
+        <div id="payment-element"></div>
         <div id="card-errors"></div>
         <button class="pay-btn" id="pay-btn" onclick="handlePayment()">
           <span>✦</span>
           <span id="pay-btn-text">Get Basic Deep Dive — $2.99</span>
         </button>
-        <div class="pay-secure">🔒 Secured by Stripe · Instant PDF download · No subscription</div>
+        <div class="pay-secure">🔒 Powered by Stripe · Instant PDF download · No subscription</div>
         <p style="font-size:11px;color:var(--muted);text-align:center;margin-top:10px">For entertainment and self-reflection only · Not professional advice</p>
       </div>
     </div>
@@ -578,13 +571,27 @@ document.getElementById('pay-archetype').textContent = quizData.isDual
 // ── Stripe setup ──
 // IMPORTANT: Replace with your actual Stripe publishable key
 // Get this from dashboard.stripe.com → Developers → API Keys → Publishable key
-const STRIPE_PUBLISHABLE_KEY = 'pk_live_51T9SJgLlkdbADZzqiv0epzXjaREi3Kpx0zxlV8he7xhPWrbYJvinSyZcmuJT61weAp9vX9SfYszqcwCxO33qilQE00g5TjYCrB';
-let stripe, cardElement, paymentReady = false;
+const STRIPE_PUBLISHABLE_KEY = 'pk_test_51T9SJgLlkdbADZzqWUhEsZszlg9r3ThBVQCrGTnhkQBOy2Xu38wApwmEbJdqlKgD9ojO1T1Z1EXJxlg1q5KzUoLV00xmLstnxx';
+let stripe, stripeElements, paymentElement, paymentReady = false;
 
-function initStripe() {
+async function initStripe() {
   try {
     stripe = Stripe(STRIPE_PUBLISHABLE_KEY);
-    const elements = stripe.elements({
+
+    // Create a preliminary PaymentIntent to initialize the Payment Element
+    // We'll create a real one when the user clicks pay
+    const res = await fetch('/api/payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: selectedAmount, tier: selectedTier, quizData })
+    });
+
+    if (!res.ok) throw new Error('Could not initialize payment');
+    const { clientSecret } = await res.json();
+    pendingClientSecret = clientSecret;
+
+    stripeElements = stripe.elements({
+      clientSecret,
       appearance: {
         theme: 'night',
         variables: {
@@ -594,35 +601,23 @@ function initStripe() {
           colorDanger: '#f87171',
           fontFamily: 'Outfit, sans-serif',
           borderRadius: '12px',
+          spacingUnit: '4px',
         }
       }
     });
-    cardElement = elements.create('card', {
-      style: {
-        base: {
-          color: '#ece9f8',
-          fontFamily: 'Outfit, sans-serif',
-          fontSize: '15px',
-          fontWeight: '300',
-          '::placeholder': { color: '#6b6890' },
-        },
-        invalid: { color: '#f87171' }
-      }
+
+    paymentElement = stripeElements.create('payment', {
+      layout: 'tabs',
     });
-    cardElement.mount('#card-element');
-    cardElement.on('change', e => {
-      document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-    });
-    cardElement.on('focus', () => document.getElementById('card-element').classList.add('focused'));
-    cardElement.on('blur', () => document.getElementById('card-element').classList.remove('focused'));
+    paymentElement.mount('#payment-element');
     paymentReady = true;
+
   } catch(e) {
-    // Stripe key not yet configured - show demo mode
-    document.getElementById('card-element').innerHTML = 
-      '<p style="font-size:13px;color:var(--muted);padding:4px 0">⚙️ Configure your Stripe key to enable payments — see setup notes below.</p>';
+    console.error('Stripe init error:', e);
+    document.getElementById('payment-element').innerHTML =
+      '<p style="font-size:13px;color:var(--muted);padding:12px 0">Payment unavailable — please refresh and try again.</p>';
   }
 }
-initStripe();
 
 // ── Standalone mode ──
 if (isStandalone) {
@@ -632,6 +627,9 @@ if (isStandalone) {
 
 // ── Screen management ──
 function showScreen(id) {
+  if (id === 'screen-payment' && !paymentReady) {
+    setTimeout(initStripe, 100);
+  }
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
   window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -640,6 +638,7 @@ function showScreen(id) {
 // ── Tier selection ──
 let selectedTier = 'basic';
 let selectedAmount = 299;
+let pendingClientSecret = null;
 
 function selectTier(tier) {
   selectedTier = tier;
@@ -648,42 +647,40 @@ function selectTier(tier) {
   document.getElementById('tier-' + tier).classList.add('active');
   const label = tier === 'premium' ? 'Premium Deep Dive — $4.99' : 'Basic Deep Dive — $2.99';
   document.getElementById('pay-btn-text').textContent = `Get ${label}`;
+  // Reinitialize payment element with new amount
+  paymentReady = false;
+  pendingClientSecret = null;
+  document.getElementById('payment-element').innerHTML = '';
+  initStripe();
 }
 
 // ── Payment handling ──
 async function handlePayment() {
-  if (!paymentReady) {
-    showError('Payment is not ready. Please refresh and try again.');
+  if (!paymentReady || !pendingClientSecret) {
+    document.getElementById('card-errors').textContent = 'Payment is still loading. Please wait a moment and try again.';
     return;
   }
 
   const btn = document.getElementById('pay-btn');
   btn.disabled = true;
   document.getElementById('pay-btn-text').textContent = 'Processing...';
+  document.getElementById('card-errors').textContent = '';
 
   try {
-    // Call Netlify serverless function to create PaymentIntent
-    const res = await fetch('/api/payment', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ amount: selectedAmount, tier: selectedTier, quizData })
-    });
-
-    if (!res.ok) {
-      const errData = await res.json();
-      throw new Error(errData.error || 'Could not connect to payment server');
-    }
-
-    const { clientSecret } = await res.json();
-
-    const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-      payment_method: { card: cardElement }
+    const { error, paymentIntent } = await stripe.confirmPayment({
+      elements: stripeElements,
+      confirmParams: {
+        return_url: window.location.href,
+      },
+      redirect: 'if_required',
     });
 
     if (error) throw new Error(error.message);
-    if (paymentIntent.status !== 'succeeded') throw new Error('Payment was not completed');
-
-    onPaymentSuccess();
+    if (paymentIntent && paymentIntent.status === 'succeeded') {
+      onPaymentSuccess();
+    } else {
+      throw new Error('Payment was not completed');
+    }
 
   } catch(err) {
     btn.disabled = false;
