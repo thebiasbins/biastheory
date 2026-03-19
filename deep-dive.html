@@ -595,6 +595,10 @@ const quizData = {
   aspireMemberName: params.get('aspireMember') || '',
   aspireArch: params.get('aspireArch') || '',
   aspireKey: params.get('aspireKey') || '',
+  coreType: params.get('coreType') || '',
+  coreFamily: params.get('coreFamily') || '',
+  aspireCoreType: params.get('aspireCoreType') || '',
+  aspireCoreFamily: params.get('aspireCoreFamily') || '',
 };
 
 // Standalone mode — if accessed directly without quiz data, show a group selector
@@ -609,6 +613,16 @@ document.getElementById('pay-group-name').textContent = quizData.groupName;
 document.getElementById('pay-archetype').textContent = quizData.isDual
   ? `${quizData.archetype} → ${quizData.aspireArch}`
   : quizData.archetype;
+// Add coreType display
+const payCore = document.getElementById('pay-archetype');
+if(payCore && quizData.coreType) {
+  const coreEl = document.createElement('div');
+  coreEl.style.cssText = 'font-size:10px;color:rgba(167,139,250,0.6);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px;font-family:Outfit,sans-serif';
+  coreEl.textContent = quizData.isDual
+    ? `${quizData.coreType} · ${quizData.coreFamily} → ${quizData.aspireCoreType} · ${quizData.aspireCoreFamily}`
+    : `${quizData.coreType} · ${quizData.coreFamily}`;
+  payCore.parentNode.insertBefore(coreEl, payCore.nextSibling);
+}
 
 // ── Stripe setup ──
 // IMPORTANT: Replace with your actual Stripe publishable key
@@ -851,8 +865,8 @@ function buildPrompt(tier = 'basic') {
 
   const dualSection = quizData.isDual ? `
 DUAL RESULT: YES
-MIRROR MEMBER: ${quizData.memberName} — ${quizData.archetype} (who they are right now)
-ASPIRATION MEMBER: ${quizData.aspireMemberName} — ${quizData.aspireArch} (who they are becoming)
+MIRROR MEMBER: ${quizData.memberName} — ${quizData.archetype} | Core Type: ${quizData.coreType} · ${quizData.coreFamily} | Core Type: ${quizData.coreType} · ${quizData.coreFamily} (who they are right now)
+ASPIRATION MEMBER: ${quizData.aspireMemberName} — ${quizData.aspireArch} | Core Type: ${quizData.aspireCoreType} · ${quizData.aspireCoreFamily} (who they are becoming)
 The read should treat this as a journey — from the mirror member's energy toward the aspiration member's energy. The extended archetype, growth path, and closing should all speak to this specific transition. The "if_you_want_to_do_something" section should have distinct practices for mirror vs aspiration since this person has both.` : `
 SINGLE RESULT: The quiz found one clear match.
 MEMBER: ${quizData.memberName} — ${quizData.archetype}
@@ -869,7 +883,7 @@ Write their full deep dive read as a JSON object following the exact structure i
 
 For the compatibility section — include BOTH:
 1. Same-group compatibility: 1-2 other members from ${quizData.groupName} and why those relationships work or challenge. If dual result, consider how both the mirror AND aspiration member relate to the same-group members.
-2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Leader, The Long Game, The Unfiltered, The Still Point, The Pure One, The Relentless Refiner, The Controlled Fire, The Cool Outsider, The Soft Powerhouse, The Natural, The Dedicated One, The Precise One, The Untouchable, The Open Heart, The Quiet Surprise, The Protector, The Composed Edge, The Intensity, The Artist, The Open Nerve, The Connector, The Grounded One, The Understated, The Architect, The Graceful One, The Steady Giant, The Hidden Depth, The Expressive One, The Warmth, The Quiet Strength, The Centered One, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Standard, The Dreamer) and explain what draws these archetypes together.
+2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Force, The Blueprint, The Declaration, The Grace, The Unguarded, The Relentless Refiner, The Controlled Fire, The Global, The Soft Powerhouse, The Magnetic, The Committed, The Precise One, The Untouchable, The First Door, The Wonder, The Cornerstone, The Composed Edge, The Force, The Canvas, The Open Nerve, The Safe Place, The Grounded One, The Understated, The Captain, The Nurturer, The Steady Giant, The Hidden Depth, The Devotion, The Expressive One, The Warmth, The Quiet Strength, The Axis, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Measure, The Dreamer) and explain what draws these archetypes together.
 
 Make it feel written specifically for this person. Reference their dimension profile, answer patterns, and the mirror/aspiration journey naturally throughout. Do not repeat the free result — go significantly deeper. Do not be generic.
 
@@ -877,7 +891,7 @@ TIER: ${tier === 'premium' ? `PREMIUM — you MUST include the full compatibilit
 
 ${tier === 'premium' ? `For the compatibility section — include BOTH:
 1. Same-group compatibility: 1-2 other members from ${quizData.groupName} and why those relationships work or challenge
-2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Leader, The Long Game, The Unfiltered, The Still Point, The Pure One, The Relentless Refiner, The Controlled Fire, The Cool Outsider, The Soft Powerhouse, The Natural, The Dedicated One, The Precise One, The Untouchable, The Open Heart, The Quiet Surprise, The Protector, The Composed Edge, The Intensity, The Artist, The Open Nerve, The Connector, The Grounded One, The Understated, The Architect, The Graceful One, The Steady Giant, The Hidden Depth, The Expressive One, The Warmth, The Quiet Strength, The Centered One, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Standard, The Dreamer) and explain what draws these archetypes together.` : `Do not write a compatibility section.`}`;
+2. Cross-group archetypes: 2-3 archetypes from other groups (use these names: The Quiet Anchor, The Spark, The Bridge, The Watcher, The Becoming, The Quiet Force, The Blueprint, The Declaration, The Grace, The Unguarded, The Relentless Refiner, The Controlled Fire, The Global, The Soft Powerhouse, The Magnetic, The Committed, The Precise One, The Untouchable, The First Door, The Wonder, The Cornerstone, The Composed Edge, The Force, The Canvas, The Open Nerve, The Safe Place, The Grounded One, The Understated, The Captain, The Nurturer, The Steady Giant, The Hidden Depth, The Devotion, The Expressive One, The Warmth, The Quiet Strength, The Axis, The Everything, The Sharp Wit, The Sincere One, The Composed Beauty, The Sunshine, The Prodigy, The Stage, The Thoughtful One, The Bright One, The Measure, The Dreamer) and explain what draws these archetypes together.` : `Do not write a compatibility section.`}`;
 }
 
 function dimBars(scores) {
@@ -926,6 +940,7 @@ function renderRead(read) {
         <div class="read-dual-label">You right now</div>
         <div class="read-dual-name">${quizData.memberName}</div>
         <div class="read-dual-arch">${quizData.archetype}</div>
+        <div style="font-size:9px;color:rgba(167,139,250,0.6);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px">${quizData.coreType} · ${quizData.coreFamily}</div>
         <div class="read-dual-tag mirror-tag">Mirror</div>
       </div>
       <div class="read-dual-arrow">→</div>
@@ -933,11 +948,13 @@ function renderRead(read) {
         <div class="read-dual-label">You're becoming</div>
         <div class="read-dual-name">${quizData.aspireMemberName}</div>
         <div class="read-dual-arch">${quizData.aspireArch}</div>
+        <div style="font-size:9px;color:rgba(244,114,182,0.6);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:6px">${quizData.aspireCoreType} · ${quizData.aspireCoreFamily}</div>
         <div class="read-dual-tag aspire-tag">Aspiration</div>
       </div>
     </div>` : `
     <div class="read-member-name">${quizData.memberName}</div>
-    <div class="read-archetype">${quizData.groupName} · ${quizData.archetype}</div>`;
+    <div class="read-archetype">${quizData.groupName} · ${quizData.archetype}</div>
+    <div style="font-size:10px;color:rgba(167,139,250,0.6);letter-spacing:0.1em;text-transform:uppercase;margin-top:4px">${quizData.coreType} · ${quizData.coreFamily}</div>`;
 
   document.getElementById('read-preview').innerHTML = `
     <div class="read-preview-header">
@@ -1027,7 +1044,8 @@ function renderRead(read) {
       <div style="width:72px;height:72px;border-radius:50%;background:rgba(167,139,250,.1);border:1px solid rgba(167,139,250,.3);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:300;color:#a78bfa;margin:0 auto 18px;font-family:Outfit,sans-serif">${quizData.memberName[0]}</div>
       <div style="font-size:32px;font-weight:400;color:#ece9f8;margin-bottom:6px;font-family:Georgia,serif">${quizData.memberName}</div>
       <div style="font-size:11px;color:#9893b8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;font-family:Outfit,sans-serif">${quizData.groupName}</div>
-      <div style="font-size:14px;color:#a78bfa;font-family:Outfit,sans-serif;margin-bottom:6px">${quizData.archetype}</div>
+      <div style="font-size:14px;color:#a78bfa;font-family:Outfit,sans-serif;margin-bottom:2px">${quizData.archetype}</div>
+      <div style="font-size:10px;color:rgba(167,139,250,0.6);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;font-family:Outfit,sans-serif">${quizData.coreType} · ${quizData.coreFamily}</div>
       ${badgeHtml}
       <p style="font-style:italic;font-size:16px;color:#d8b4fe;line-height:1.65;margin-top:24px;padding:0 20px;font-family:Georgia,serif">"${read.headline}"</p>
       <div style="${footerStyle}">biastheory.net</div>
@@ -1099,7 +1117,8 @@ function renderRead(read) {
           <div style="width:52px;height:52px;border-radius:50%;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3);display:flex;align-items:center;justify-content:center;font-size:20px;color:#a78bfa;margin:0 auto 10px">${quizData.memberName[0]}</div>
           <div style="font-size:18px;color:#ece9f8;margin-bottom:3px">${quizData.memberName}</div>
           <div style="font-size:10px;color:#6b6890;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px">${quizData.groupName}</div>
-          <div style="font-size:12px;color:#a78bfa;margin-bottom:10px">${quizData.archetype}</div>
+          <div style="font-size:12px;color:#a78bfa;margin-bottom:2px">${quizData.archetype}</div>
+          <div style="font-size:9px;color:rgba(167,139,250,0.6);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:10px">${quizData.coreType} · ${quizData.coreFamily}</div>
           <span style="display:inline-block;padding:3px 12px;border-radius:99px;font-size:8px;letter-spacing:.1em;text-transform:uppercase;background:rgba(167,139,250,.1);color:#a78bfa;border:1px solid rgba(167,139,250,.2)">${quizData.isMirror ? 'Mirror' : 'Aspiration'}</span>`}
         </div>
         <div style="padding:14px 18px">
