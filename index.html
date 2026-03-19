@@ -1515,6 +1515,8 @@ function qzShowResult(){
     groupKey: selGroup,
     archetype: mirrorMember.arch,
     archetypeKey: mirrorKey,
+    coreType: mirrorMember.coreType||'',
+    coreFamily: mirrorMember.coreFamily||'',
     mirror: 'true',
     ms: mirrorSorted[0][1],
     as: mirrorSorted[1]?mirrorSorted[1][1]:0,
@@ -1527,6 +1529,8 @@ function qzShowResult(){
     dual: isDualResult?'true':'false',
     aspireMember: isDualResult?aspireMember.name:'',
     aspireArch: isDualResult?aspireMember.arch:'',
+    aspireCoreType: isDualResult?(aspireMember.coreType||''):'',
+    aspireCoreFamily: isDualResult?(aspireMember.coreFamily||''):'',
     aspireKey: isDualResult?aspireKey:'',
   });
   const ddUrl=`deep-dive.html?${ddParams.toString()}`;
@@ -1552,6 +1556,7 @@ function qzShowResult(){
             <div class="qz-result-member">${mirrorMember.name}</div>
             <div class="qz-result-group">${mirrorMember.group} · ${mirrorMember.role}</div>
             <div class="qz-result-arch">${mirrorMember.arch}</div>
+            <div style="font-size:10px;color:rgba(167,139,250,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px">${mirrorMember.coreType} · ${mirrorMember.coreFamily}</div>
             <div class="qz-dual-tag mirror-tag">Mirror</div>
           </div>
           <div class="qz-dual-divider">→</div>
@@ -1561,6 +1566,7 @@ function qzShowResult(){
             <div class="qz-result-member">${aspireMember.name}</div>
             <div class="qz-result-group">${aspireMember.group} · ${aspireMember.role}</div>
             <div class="qz-result-arch">${aspireMember.arch}</div>
+            <div style="font-size:10px;color:rgba(244,114,182,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px">${aspireMember.coreType} · ${aspireMember.coreFamily}</div>
             <div class="qz-dual-tag aspire-tag">Aspiration</div>
           </div>
         </div>
@@ -1582,7 +1588,7 @@ function qzShowResult(){
           <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[d]}%"></div></div></div>`).join('')}</div>
         </div>
         <div class="qz-divider"></div>
-        <div class="qz-section"><div class="qz-section-label">Watch For This</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
+        <div class="qz-section"><div class="qz-section-label">Shadow Type</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
       </div>
     </div>` : `
     <div class="qz-result-card">
@@ -1591,6 +1597,7 @@ function qzShowResult(){
         <div class="qz-result-member">${mirrorMember.name}</div>
         <div class="qz-result-group">${mirrorMember.group} · ${mirrorMember.role}</div>
         <div class="qz-result-arch">${mirrorMember.arch}</div>
+        <div style="font-size:10px;color:rgba(167,139,250,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">${mirrorMember.coreType} · ${mirrorMember.coreFamily}</div>
       </div>
       <div class="qz-result-body">
         <div class="qz-section"><div class="qz-section-label">Your Read</div><p>${mirrorMember.insight}</p></div>
@@ -1609,7 +1616,7 @@ function qzShowResult(){
           </div>
         </div>
         <div class="qz-divider"></div>
-        <div class="qz-section"><div class="qz-section-label">Watch For This</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
+        <div class="qz-section"><div class="qz-section-label">Shadow Type</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
       </div>
     </div>`;
   showQS('qs-result');
