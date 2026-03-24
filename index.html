@@ -1376,7 +1376,7 @@ const QZ_GROUPS={
     {id:'lesserafim',name:'LE SSERAFIM',emoji:'🔥', gen:'4th Gen · HYBE',       pronoun:'she'},
     {id:'aespa',     name:'aespa',      emoji:'🤖', gen:'4th Gen · SM',         pronoun:'she'},
     {id:'ive',       name:'IVE',        emoji:'🌸', gen:'4th Gen · Starship',   pronoun:'she'},
-    {id:'illit',     name:'ILLIT',      emoji:'🌷', gen:'4th Gen · HYBE',       pronoun:'she'},
+    {id:'illit',     name:'ILLIT',      emoji:'🌷', gen:'5th Gen · HYBE',       pronoun:'she'},
     {id:'itzy',      name:'ITZY',       emoji:'⚡', gen:'Coming Soon', soon:true},
     {id:'gidle',     name:'(G)I-DLE',   emoji:'👑', gen:'Coming Soon', soon:true},
     {id:'nmixx',     name:'NMIXX',      emoji:'🎵', gen:'Coming Soon', soon:true},
@@ -1389,7 +1389,7 @@ const QZ_GROUPS={
     {id:'enhypen',   name:'ENHYPEN',    emoji:'🌙', gen:'4th Gen · HYBE',       pronoun:'he'},
     {id:'txt',       name:'TXT',        emoji:'🌌', gen:'4th Gen · HYBE',       pronoun:'he'},
     {id:'exo',       name:'EXO',        emoji:'❄️', gen:'Coming Soon', soon:true},
-    {id:'seventeen', name:'SEVENTEEN',  emoji:'💎', gen:'4th Gen · PLEDIS', pronoun:'he'},
+    {id:'seventeen', name:'SEVENTEEN',  emoji:'💎', gen:'3rd Gen · PLEDIS', pronoun:'he'},
     {id:'nctdream',  name:'NCT Dream',  emoji:'🌙', gen:'Coming Soon', soon:true},
     {id:'bts',       name:'BTS',        emoji:'🔮', gen:'Coming Soon', soon:true},
   ]
@@ -1441,7 +1441,11 @@ function qzBegin(){
 function qzGetOpts(q){
   const members=QZ_MEMBERS[selGroup];
   const valid=q.opts.filter(o=>Object.keys(o.w).some(k=>members[k]!==undefined));
-  return qzShuffle([...valid]).slice(0,4);
+  if(valid.length>=4) return qzShuffle([...valid]).slice(0,4);
+  // Pad with remaining options if not enough group-specific ones
+  const rest=q.opts.filter(o=>!valid.includes(o));
+  const padded=[...valid,...qzShuffle([...rest])].slice(0,4);
+  return qzShuffle([...padded]);
 }
 
 function qzRender(){
