@@ -768,6 +768,24 @@ async function handlePayment() {
 
 // ── After successful payment ──
 async function onPaymentSuccess() {
+  // GA4 — purchase conversion
+  if(typeof gtag !== 'undefined'){
+    const price = selectedTier === 'premium' ? 4.99 : 2.99;
+    gtag('event', 'purchase', {
+      'event_category': 'conversion',
+      'transaction_id': Date.now().toString(),
+      'value': price,
+      'currency': 'USD',
+      'items': [{
+        'item_name': 'Deep Dive Read - ' + selectedTier,
+        'item_category': selectedTier,
+        'price': price,
+        'quantity': 1
+      }],
+      'member': quizData.memberName,
+      'arch': quizData.archetype
+    });
+  }
   showScreen('screen-loading');
   await animateLoadingSteps();
   showScreen('screen-result');
