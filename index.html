@@ -1576,6 +1576,16 @@ function qzShowResult(){
   if(dduBtn){
     dduBtn.href=ddUrl;
     dduBtn.onclick=null;
+    dduBtn.addEventListener('click', function(){
+      if(typeof gtag !== 'undefined'){
+        gtag('event', 'deep_dive_clicked', {
+          'event_category': 'conversion',
+          'member': mirrorMember.name,
+          'arch': mirrorMember.arch,
+          'group': selGroup
+        });
+      }
+    }, {once: true});
   }
 
   // ── Render result card ──
@@ -1583,6 +1593,16 @@ function qzShowResult(){
     `${subjectCap}'s a mirror — you already carry this`:
     `${subjectCap}'s who you're becoming`;
 
+  // GA4 — quiz completed
+  if(typeof gtag !== 'undefined'){
+    gtag('event', 'quiz_completed', {
+      'event_category': 'quiz',
+      'group': selGroup,
+      'result_member': mirrorMember.name,
+      'result_arch': mirrorMember.arch,
+      'is_dual': isDualResult
+    });
+  }
   document.getElementById('qz-result-output').innerHTML=isDualResult?`
     <div class="qz-result-card">
       <div class="qz-result-header">
