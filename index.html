@@ -606,6 +606,215 @@ footer {
   footer { flex-direction: column; align-items: flex-start; padding: 36px 24px; }
   .gender-select { flex-direction: column; }
 }
+
+/* ═══════════════════════════════════════════
+   MOBILE — comprehensive responsive pass
+   Breakpoints: 600px (tablets/large phones)
+                420px (small phones)
+═══════════════════════════════════════════ */
+
+@media (max-width: 600px) {
+
+  /* ── Nav ── */
+  nav { padding: 14px 20px; }
+  .nav-logo { font-size: 17px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .nav-cta { padding: 7px 14px; font-size: 11px; }
+
+  /* ── Global spacing ── */
+  section { padding: 64px 20px; }
+  .section-inner { padding: 0; }
+  .section-title { font-size: clamp(28px, 7vw, 42px); }
+  .section-body { font-size: 14px; max-width: 100%; }
+
+  /* ── Hero ── */
+  #hero { padding: 100px 20px 64px; }
+  .hero-title { font-size: clamp(36px, 9vw, 56px); }
+  .hero-sub { font-size: 14px; max-width: 100%; margin-bottom: 32px; }
+  .hero-cta { flex-direction: column; align-items: center; gap: 12px; }
+  .hero-cta a, .hero-cta button { width: 100%; max-width: 280px; text-align: center; justify-content: center; }
+  .stat-bar { gap: 20px; padding: 20px 16px; flex-wrap: wrap; }
+  .stat-num { font-size: 26px; }
+  .stat-label { font-size: 10px; }
+
+  /* ── How it works / psych grid ── */
+  .how-grid { grid-template-columns: 1fr; gap: 12px; }
+  .psych-grid { grid-template-columns: 1fr; gap: 12px; }
+  .intro-card { padding: 24px 20px; }
+  .intro-card p { max-width: 100%; }
+
+  /* ── Browse by generation ── */
+  .gen-tabs { gap: 8px; margin-bottom: 24px; }
+  .gen-tab { font-size: 11px; padding: 7px 14px; }
+  .group-pill { padding: 10px 16px; font-size: 13px; }
+  .more-pill { font-size: 12px; padding: 8px 14px; }
+
+  /* ── Quiz ── */
+  .quiz-wrap { padding: 0 4px; }
+  .quiz-header-block { margin-bottom: 32px; }
+  .gender-select { gap: 12px; }
+  .gender-card { padding: 20px 16px; }
+  .gender-card .gc-emoji { font-size: 28px; }
+  .gender-card .gc-label { font-size: 13px; }
+  .qz-group-grid { grid-template-columns: repeat(auto-fill, minmax(100px,1fr)); gap: 10px; }
+  .qz-group-card { padding: 14px 8px; border-radius: 14px; }
+  .qz-group-emoji { font-size: 22px; }
+  .qz-group-name { font-size: 11px; }
+  .qz-group-gen { font-size: 9px; }
+
+  /* ── Quiz questions ── */
+  .question-card { padding: 24px 18px; }
+  .q-text { font-size: clamp(16px, 4vw, 20px); margin-bottom: 24px; }
+  .option { padding: 14px 16px; font-size: 13px; min-height: 52px; }
+  .option-letter { width: 26px; height: 26px; font-size: 11px; flex-shrink: 0; }
+  .nav-row { margin-top: 20px; }
+  #btn-qz-next { padding: 13px 28px; font-size: 13px; width: 100%; }
+  .progress-wrap { margin-bottom: 24px; }
+
+  /* ── Result card ── */
+  .qz-result-header { padding: 24px 18px; }
+  .qz-result-initial { width: 52px; height: 52px; font-size: 22px; }
+  .qz-result-member { font-size: 22px; }
+  .qz-result-group { font-size: 12px; }
+  .qz-result-arch { font-size: 13px; letter-spacing: 0.08em; }
+  .qz-result-body { padding: 0; }
+  .qz-section { padding: 20px 18px; }
+  .qz-section p { font-size: 14px; line-height: 1.75; }
+  .qz-section-label { font-size: 10px; margin-bottom: 10px; }
+  .qz-dim-bar { gap: 8px; }
+  .qz-dim-label { font-size: 11px; min-width: 80px; }
+
+  /* ── Dual result ── */
+  .qz-dual-grid { grid-template-columns: 1fr; gap: 16px; }
+  .qz-dual-divider { transform: rotate(90deg); text-align: center; }
+  .qz-dual-box { padding: 20px 16px; }
+  .qz-dual-label { font-size: 10px; }
+
+  /* ── Mirror / aspire section ── */
+  .qz-mirror-grid { grid-template-columns: 1fr; gap: 12px; }
+  .qz-mirror-box { padding: 18px 16px; }
+
+  /* ── Deep Dive CTA on result ── */
+  .ddu-wrap { padding: 24px 18px; }
+  .ddu-btn { width: 100%; text-align: center; padding: 16px 20px; font-size: 14px; }
+  .ddu-body { max-width: 100%; font-size: 13px; }
+
+  /* ── Support section ── */
+  .support-wrap { max-width: 100%; }
+  .support-grid { grid-template-columns: 1fr; gap: 12px; }
+  .support-card { padding: 24px 20px; }
+  .support-btn { width: 100%; text-align: center; }
+
+  /* ── Mailchimp ── */
+  .mc-form { flex-direction: column; gap: 10px; }
+  .mc-form input { width: 100%; }
+  .mc-form button { width: 100%; }
+
+  /* ── Suggestion section ── */
+  .suggest-tabs { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .suggest-input-row { flex-direction: column; gap: 10px; }
+  .suggest-input-row input { width: 100%; }
+  .suggest-input-row button { width: 100%; }
+
+  /* ── Footer ── */
+  footer { flex-direction: column; gap: 16px; padding: 32px 20px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; }
+}
+
+/* ── Very small phones (< 420px) ── */
+@media (max-width: 420px) {
+  .hero-title { font-size: clamp(30px, 9vw, 42px); }
+  .qz-group-grid { grid-template-columns: repeat(3, 1fr); }
+  .qz-group-card { padding: 12px 6px; }
+  .qz-group-name { font-size: 10px; }
+  .gender-card { padding: 16px 12px; }
+  .option { font-size: 12px; padding: 12px 14px; }
+  .stat-bar { gap: 16px; }
+  .stat-num { font-size: 22px; }
+}
+
+/* ── Hamburger nav ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none; border: none;
+  cursor: pointer; padding: 4px;
+  z-index: 1001;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--muted2);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--text); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--text); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 999;
+  padding-top: 72px;
+  background: rgba(7,7,14,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.nav-drawer.open {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
+.nav-drawer a {
+  font-size: 22px;
+  font-family: 'Playfair Display', serif;
+  color: var(--muted2);
+  text-decoration: none;
+  padding: 12px 24px;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  text-align: center;
+}
+.nav-drawer a:hover, .nav-drawer a.active { color: var(--text); }
+.nav-drawer .drawer-cta {
+  margin-top: 16px;
+  padding: 14px 36px;
+  border-radius: 100px;
+  background: rgba(167,139,250,0.12);
+  border: 1px solid rgba(167,139,250,0.3);
+  color: var(--violet2) !important;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px !important;
+  letter-spacing: 0.08em;
+}
+.nav-drawer .drawer-cta:hover {
+  background: rgba(167,139,250,0.2) !important;
+}
+.drawer-divider {
+  width: 40px; height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+
+@media (max-width: 600px) {
+  .nav-hamburger { display: flex; }
+  .nav-links { display: none !important; }
+  nav { padding: 14px 20px; z-index: 1000; }
+}
 </style>
 </head>
 <body>
@@ -619,9 +828,22 @@ footer {
     <a href="#groups">Groups</a>
     <a href="profiles.html">Profiles</a>
     <a href="archetype.html">Your Archetype</a>
-    <a href="#quiz-section" class="nav-cta">Take the Quiz</a>
+    <a href="quiz.html" class="nav-cta">Take the Quiz</a>
   </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+<div class="nav-drawer" id="nav-drawer">
+  <a href="#how">How It Works</a>
+  <a href="#psychology">The Psychology</a>
+  <a href="#groups">Groups</a>
+  <div class="drawer-divider"></div>
+  <a href="profiles.html">Profiles</a>
+  <a href="archetype.html">Your Archetype</a>
+  <div class="drawer-divider"></div>
+  <a href="quiz.html" class="drawer-cta">Take the Quiz ✦</a>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -738,79 +960,13 @@ footer {
   </div>
 </section>
 
-<!-- QUIZ -->
-<section id="quiz-section">
-  <div class="quiz-wrap">
-    <div class="quiz-header-block">
-      <div class="section-tag">✦ The Quiz</div>
-      <h2 class="section-title">Which Member <em>Are You?</em></h2>
-      <p class="section-body" style="margin:0 auto;text-align:center">Pick a group. Answer 10 personality questions. Find out which member matches you — and what that actually reveals. Every session pulls from a pool of 30 questions so it's different every time.</p>
-    </div>
-
-    <!-- Step 1: Gender -->
-    <div class="quiz-screen active" id="qs-intro">
-      <div class="question-card">
-        <div class="q-number">Step 01</div>
-        <div class="q-text">Is your group a girl group or boy group?</div>
-        <div class="gender-select">
-          <div class="gender-card" id="gc-girl" onclick="qzPickGender('girl')">
-            <div class="gender-card-emoji">✨</div>
-            <div class="gender-card-label">Girl Group</div>
-            <div class="gender-card-sub">aespa, NewJeans, IVE + more</div>
-          </div>
-          <div class="gender-card" id="gc-boy" onclick="qzPickGender('boy')">
-            <div class="gender-card-emoji">⚡</div>
-            <div class="gender-card-label">Boy Group</div>
-            <div class="gender-card-sub">Stray Kids, ATEEZ, ENHYPEN, TXT</div>
-          </div>
-        </div>
-      </div>
-      <div class="nav-row">
-        <span></span>
-        <button class="btn-nav-primary" id="btn-qz-gender" disabled onclick="qzShowGroups()">Next →</button>
-      </div>
-    </div>
-
-    <!-- Step 2: Group Select -->
-    <div class="quiz-screen" id="qs-groupsel">
-      <div class="question-card">
-        <div class="q-number">Step 02</div>
-        <div class="q-text">Which group do you want to explore?</div>
-        <div class="qz-group-grid" id="qz-group-grid"></div>
-      </div>
-      <div class="nav-row">
-        <button class="btn-nav-ghost" onclick="showQS('qs-intro')">Back</button>
-        <button class="btn-nav-primary" id="btn-qz-start" disabled onclick="qzBegin()">Start Quiz →</button>
-      </div>
-    </div>
-
-    <!-- Questions -->
-    <div class="quiz-screen" id="qs-questions">
-      <div class="progress-wrap" id="qz-progress"></div>
-      <div class="q-number" id="qz-dim" style="color:var(--violet);margin-bottom:4px"></div>
-      <div class="q-number" id="qz-num" style="margin-bottom:16px"></div>
-      <div id="qz-body"></div>
-      <div class="nav-row">
-        <button class="btn-nav-ghost" id="btn-qz-back" onclick="qzBack()">Back</button>
-        <button class="btn-nav-primary" id="btn-qz-next" disabled onclick="qzNext()">Next →</button>
-      </div>
-    </div>
-
-    <!-- Result -->
-    <div class="quiz-screen" id="qs-result">
-      <div id="qz-result-output"></div>
-      <div class="deepdive-upsell" id="deepdive-upsell">
-        <div class="ddu-glyph">✦</div>
-        <div class="ddu-title">Want to go deeper?</div>
-        <p class="ddu-body">Your free read is just the surface. The Deep Dive unlocks your full growth path, compatibility with other members, extended shadow work, and a personalized PDF — all generated specifically for you.</p>
-        <a class="ddu-btn" id="ddu-btn" href="#">Get Your Deep Dive Read ✦</a>
-        <p class="ddu-note" style="margin-top:8px;opacity:0.6">For entertainment & self-reflection only · Not professional advice</p>
-      </div>
-      <div class="restart-row" style="margin-top:16px">
-        <button class="btn-nav-ghost" onclick="qzRestart()">✦ Try Another Group</button>
-      </div>
-    </div>
-
+<!-- QUIZ CTA -->
+<section id="quiz-section" style="padding:80px 24px;text-align:center;position:relative;z-index:1;">
+  <div class="section-inner" style="max-width:640px;">
+    <div class="section-tag">✦ The Quiz</div>
+    <h2 class="section-title" style="margin-bottom:20px;">Which Member <em>Are You?</em></h2>
+    <p class="section-body" style="margin:0 auto 40px;text-align:center;">Pick a group. Answer 10 personality questions. Find out which member matches you — and what that actually reveals. Every session pulls from a pool of 30 questions so it's different every time.</p>
+    <a href="quiz.html" class="hero-btn" style="display:inline-flex;align-items:center;gap:10px;padding:16px 40px;border-radius:100px;background:linear-gradient(135deg,rgba(167,139,250,0.15),rgba(244,114,182,0.1));border:1px solid rgba(167,139,250,0.3);color:var(--violet2);font-size:15px;text-decoration:none;letter-spacing:0.04em;transition:all 0.25s;">Take the Quiz ✦</a>
   </div>
 </section>
 
@@ -947,7 +1103,7 @@ footer {
   <div class="footer-links">
     <a href="#how">About</a>
     <a href="#groups">Groups</a>
-    <a href="#quiz-section">Quiz</a>
+    <a href="quiz.html">Quiz</a>
     <a href="profiles.html">Profiles</a>
     <a href="#suggest-section">Suggest</a>
     <a href="terms.html">Terms</a>
@@ -956,852 +1112,45 @@ footer {
   <div class="footer-copy">© 2026 Bias Theory · For entertainment purposes only · Not professional advice</div>
 </footer>
 
+
 <script>
-// ── Starfield ──
-window.addEventListener('DOMContentLoaded', function() {
-  const canvas = document.getElementById('starfield');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let stars = [];
-  function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-  function initStars() {
-    stars = [];
-    for (let i = 0; i < 130; i++) stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.2, speed: 0.003+Math.random()*0.008, phase: Math.random()*Math.PI*2 });
-  }
-  function drawStars() {
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    const t = Date.now()*0.001;
-    stars.forEach(s => {
-      const op = 0.08 + 0.45*(0.5+0.5*Math.sin(t*s.speed*10+s.phase));
-      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle = `rgba(255,255,255,${op})`; ctx.fill();
-    });
-    requestAnimationFrame(drawStars);
-  }
-  resizeCanvas(); initStars(); drawStars();
-  window.addEventListener('resize', ()=>{ resizeCanvas(); initStars(); });
-});
+// ── Hamburger menu ──
+function initHamburger() {
+  const btn = document.getElementById('nav-hamburger');
+  const drawer = document.getElementById('nav-drawer');
+  if (!btn || !drawer) return;
 
-// ── State ──
-let selGroup=null, sessionQs=[], qzIdx=0, qzScores={}, qzAnswers=[];
-
-function showQS(id) {
-  document.querySelectorAll('.quiz-screen').forEach(s=>s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-function switchGroupTab(panel, btn) {
-  document.querySelectorAll('.gen-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.groups-panel').forEach(p=>p.classList.remove('active'));
-  btn.classList.add('active');
-  const el = document.getElementById('panel-'+panel);
-  if (el) el.classList.add('active');
-}
-
-function scrollToQuiz() {
-  showQS('qs-intro');
-  document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'});
-}
-
-function startQuiz() {
-  showQS('qs-intro');
-  document.getElementById('quiz-section').scrollIntoView({behavior:'smooth'});
-}
-
-// ── Quiz Data ──
-const DIMS=['How you lead','How you handle emotion','How you connect with people','How you approach growth','How you present yourself'];
-
-const QZ_POOL=[
-// ── HOW YOU LEAD (6 questions, 6-8 options each, all groups covered) ──
-{dim:'How you lead',q:'In a group, you naturally become...',opts:[
-  {t:'The one who keeps things stable when tension rises',w:{minji:3,chaewon:3,bangchan:3,jungwon:3,soobin:2,yujin:2,karina:1,hongjoong:1,s_coups:3,mingyu:2,yunah:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'The one who lifts the energy and gets people moving',w:{hanni:3,eunchae:3,felix:3,sunoo:3,beomgyu:2,liz:2,wooyoung:2,yeonjun:2,minju:2,dk:2,hoshi:3,nayeon:3,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'The one who watches and understands before speaking',w:{haerin:3,kazuha:3,yeosang:2,lee_know:2,rei:2,winter:2,taehyun:1,giselle:2,wonwoo:3,iroha:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'The one who says what everyone else is afraid to say',w:{yunjin:3,hanni:2,changbin:2,san:2,jay:2,wonyoung:1,ningning:1,mingi:2,seungkwan:3,the8:1,iz_yujin:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'The one who handles logistics everyone else forgets',w:{chaewon:3,minji:2,hongjoong:2,karina:2,gaeul:2,seungmin:2,jungwon:2,soobin:1,woozi:2,jeonghan:2,moka:2,eunbi:2,jihyo:3}},
-  {t:'The one still figuring out your role',w:{hyein:3,niki:3,leeseo:2,jeongin:2,huening:2,hyein:2,dino:2,hitomi:2,tzuyu:2}},
-  {t:'The one who connects people who would not otherwise meet',w:{danielle:3,felix:3,wooyoung:2,liz:2,sunoo:2,jake:2,yunho:2,eunchae:2,joshua:2,wonhee:2,yena:2,sana:2}},
-  {t:'The one who leads through creative vision',w:{hongjoong:3,karina:2,han:2,hyunjin:2,ningning:2,yeonjun:2,mingi:2,giselle:1,woozi:3,hoshi:2,nayeon:3,iz_minju:2,mina:3}},
-]},
-{dim:'How you lead',q:'When no one steps up, you...',opts:[
-  {t:'Step forward quietly — someone has to',w:{minji:3,chaewon:3,bangchan:3,jungwon:2,soobin:2,yujin:2,karina:2,hongjoong:2,s_coups:3,yunah:2,mingyu:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Rally people with energy and enthusiasm',w:{hanni:3,danielle:2,eunchae:2,felix:3,wooyoung:3,sunoo:2,beomgyu:2,liz:2,hoshi:3,dk:2,minju:2,yena:2,sana:2,nayeon:3,chaeyoung:2}},
-  {t:'Wait and observe who is best placed to lead',w:{haerin:2,kazuha:3,yeosang:2,lee_know:2,rei:2,winter:1,taehyun:2,giselle:2,wonwoo:3,jeonghan:2,iroha:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Suggest a direction without forcing it',w:{sakura:3,minji:2,kazuha:1,soobin:3,jungwon:2,gaeul:2,wonyoung:2,yunho:2,jeonghan:3,wonwoo:2,eunbi:2,jihyo:3,iz_yujin:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Take charge if urgent, otherwise let it unfold',w:{chaewon:3,yunjin:2,minji:1,karina:2,san:1,changbin:2,taehyun:2,rei:1,woozi:2,moka:2,eunbi:2,jihyo:3}},
-  {t:'Feel the pull to step up but second-guess yourself',w:{hyein:3,danielle:1,eunchae:2,niki:2,leeseo:2,huening:2,jake:2,liz:1,dino:2,minju:1,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Make a joke to break the tension first',w:{hanni:2,danielle:2,eunchae:3,beomgyu:3,felix:2,sunoo:3,wooyoung:2,jay:2,yena:2,sana:2,chaeyoung:2}},
-  {t:'I step up when the vision is clear but hang back when it is not',w:{karina:2,ningning:2,soobin:2,taehyun:2,jungwon:2,sunghoon:2,jongho:2,yunho:2}},
-  {t:'Overthinking everything until the moment has already passed',w:{sunghoon:3,jake:2,huening:2,leeseo:2,taehyun:2,soobin:2,rei:2,wonyoung:2,iz_yujin:2}}]},
-{dim:'How you lead',q:'Your leadership style is closest to...',opts:[
-  {t:'Leading by example — actions over words',w:{chaewon:3,minji:2,bangchan:2,jungwon:2,karina:2,yujin:2,taehyun:2,gaeul:2,s_coups:2,moka:2,woozi:2,mingyu:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Leading through connection — people follow because they like you',w:{hanni:3,danielle:3,eunchae:2,felix:3,wooyoung:3,sunoo:2,liz:2,yunho:2,dk:2,hoshi:2,minju:2,yunah:2,yena:2,sana:2,nayeon:3,chaeyoung:2}},
-  {t:'Leading through vision — you see where things should go',w:{sakura:3,minji:1,hongjoong:3,karina:2,soobin:2,yujin:1,ningning:1,yeonjun:2,jeonghan:2,woozi:2,eunbi:2,jihyo:3,iz_minju:2,mina:3}},
-  {t:'Leading through competence — you earn trust by being reliable',w:{chaewon:3,sakura:2,bangchan:3,seungmin:2,gaeul:3,taehyun:2,rei:2,wonyoung:2,karina:2,winter:2,woozi:3,moka:2,s_coups:2,nako:2,jeongyeon:2,iz_yujin:2}},
-  {t:'Leading by creating space for others to shine',w:{minji:3,eunchae:2,danielle:2,bangchan:2,felix:2,jungwon:2,soobin:2,yunho:2,winter:2,s_coups:2,yunah:3,joshua:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Leading through creative force — your ideas set the direction',w:{hongjoong:3,yunjin:2,karina:2,han:2,hyunjin:2,mingi:2,ningning:2,giselle:2}},
-  {t:'I do not think of myself as a leader yet',w:{hyein:3,niki:3,jeongin:2,leeseo:2,huening:2,jake:1,dino:2,iroha:1,hitomi:2,tzuyu:2}},
-  {t:'I step up when the vision is clear but hang back when it is not',w:{karina:2,ningning:2,soobin:2,taehyun:2,jungwon:2,sunghoon:2,jongho:2,yunho:2}}]},
-{dim:'How you lead',q:'When someone in your group is struggling, you...',opts:[
-  {t:'Check in privately — no audience needed',w:{minji:3,chaewon:2,bangchan:3,soobin:2,karina:1,jungwon:2,rei:2,gaeul:2,s_coups:3,jeonghan:2,wonwoo:2,yunah:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Make them laugh or lighten the mood first',w:{hanni:3,danielle:2,eunchae:3,felix:3,wooyoung:2,beomgyu:3,sunoo:2,liz:2,dk:3,seungkwan:2,hoshi:2,yena:2,sana:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Watch and wait until they are ready to talk',w:{haerin:3,kazuha:3,lee_know:2,yeosang:2,rei:2,winter:2,taehyun:1,giselle:2,wonwoo:3,iroha:3,jeonghan:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Ask directly what they need',w:{yunjin:3,chaewon:2,minji:1,hongjoong:2,taehyun:2,san:1,karina:1,wonyoung:2,seungkwan:2,moka:2,eunbi:2,jihyo:3,iz_yujin:2,hyewon:2,dahyun:2}},
-  {t:'Do something practical without making it a big deal',w:{chaewon:3,seungmin:3,gaeul:2,jungwon:2,yujin:2,leeseo:1,soobin:2,rei:2,winter:2,karina:2,woozi:2,moka:3,s_coups:2}},
-  {t:'Share something you went through so they feel less alone',w:{danielle:3,yunjin:2,hanni:1,felix:2,jake:2,sunoo:2,liz:2,yunho:2,joshua:3,dk:2,wonhee:2,jun:2,yena:2,sana:2,iz_minju:2,mina:3,chaeyoung:2}}]},
-{dim:'How you lead',q:'The kind of leader you most admire is...',aspire:true,opts:[
-  {t:'Steady — someone who never loses their composure',w:{chaewon:3,minji:2,bangchan:2,jungwon:3,soobin:2,taehyun:2,gaeul:2,rei:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Warm — someone who makes everyone feel included',w:{minji:3,danielle:3,eunchae:2,felix:3,wooyoung:2,sunoo:2,liz:2,yunho:2,ningning:2,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Bold — someone who says the thing nobody else will',w:{yunjin:3,hanni:2,san:3,changbin:2,hongjoong:2,wonyoung:2,karina:2,jay:2,iz_yujin:2,chaeyoung:2}},
-  {t:'Visionary — someone who sees further than the room',w:{sakura:3,yunjin:2,hongjoong:3,karina:2,soobin:2,yeonjun:1,ningning:1,giselle:1,iz_minju:2,mina:3}},
-  {t:'Humble — someone who lifts others without needing credit',w:{minji:3,kazuha:2,eunchae:2,bangchan:3,felix:2,jungwon:2,soobin:1,yunho:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Adaptive — someone who reads what the moment needs',w:{danielle:3,hanni:2,lee_know:2,jay:2,yujin:2,wonyoung:2,wooyoung:2,liz:2,ningning:2,iz_yujin:2,yena:2,sana:2,chaeyoung:2}},
-  {t:'I lead by being the most prepared person in the room',w:{karina:3,winter:2,gaeul:2,taehyun:2,jungwon:2,seungmin:2,hongjoong:2,rei:2}}]},
-{dim:'How you lead',q:'When a plan falls apart, your instinct is to...',opts:[
-  {t:'Stay calm and reassess — panic does not help',w:{chaewon:3,kazuha:3,bangchan:3,jungwon:3,soobin:2,taehyun:2,gaeul:2,rei:2,karina:2,winter:2,s_coups:3,jeonghan:2,woozi:2,yunah:2,nako:2,jeongyeon:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Find the humor in it and reset the mood',w:{hanni:3,danielle:2,eunchae:3,felix:2,wooyoung:2,beomgyu:3,sunoo:2,liz:2,dk:3,seungkwan:2,hoshi:2,yena:2,sana:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Get frustrated briefly, then get back to work',w:{yunjin:3,chaewon:2,changbin:3,san:2,karina:2,wonyoung:2,leeseo:1,gaeul:2,moka:2,woozi:2,hoshi:2,iz_yujin:2,nayeon:3}},
-  {t:'Look for what can be salvaged before declaring it a loss',w:{sakura:3,minji:2,kazuha:2,hongjoong:2,gaeul:3,seungmin:2,rei:2,taehyun:2,winter:2,karina:2,jeonghan:2,s_coups:2,woozi:3,moka:2,eunbi:2,jihyo:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Quietly figure out the next move on your own',w:{haerin:2,winter:2,lee_know:3,hongjoong:2,karina:2,taehyun:2,ningning:1,giselle:2,wonwoo:3,woozi:2,iroha:2,jeonghan:3}},
-  {t:'Honestly spiral a little before finding your footing',w:{hyein:3,danielle:1,eunchae:2,niki:3,huening:2,han:2,liz:2,leeseo:2,dino:2,wonhee:2,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Talk it through with someone you trust',w:{yunjin:2,danielle:3,hyein:2,felix:2,jake:2,sunoo:2,liz:2,yunho:2,ningning:2,hitomi:2,tzuyu:2,yena:2,sana:2}}]},
-// ── HOW YOU HANDLE EMOTION ──
-{dim:'How you handle emotion',q:'When something goes wrong, you...',opts:[
-  {t:'Absorb it, handle it, process alone later',w:{minji:3,chaewon:3,bangchan:2,lee_know:2,karina:2,taehyun:2,soobin:2,giselle:2,s_coups:2,woozi:2,wonwoo:2,iroha:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Let the feeling out and move forward fast',w:{yunjin:3,hanni:2,eunchae:2,san:2,changbin:2,wonyoung:1,jay:2,liz:2,seungkwan:2,hoshi:2,wonhee:3,iz_yujin:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Go quiet and observe until you understand it',w:{haerin:3,kazuha:3,yeosang:2,winter:2,rei:2,huening:2,taehyun:2,giselle:2,wonwoo:3,jeonghan:2,iroha:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Process it with someone you trust',w:{danielle:3,eunchae:2,hyein:2,felix:2,jake:2,sunoo:2,liz:2,yunho:2,joshua:2,dk:2,yunah:2,minju:2,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Feel it fully in private, then show up like nothing happened',w:{minji:3,bangchan:2,karina:2,soobin:2,lee_know:2,winter:2,gaeul:2,rei:2,s_coups:2,woozi:2,moka:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Ask what you could have done differently',w:{sakura:3,chaewon:2,taehyun:3,gaeul:2,hongjoong:2,jungwon:2,wonyoung:2,rei:2,karina:2,woozi:3,moka:3,jeonghan:2,iz_yujin:2}},
-  {t:'I sit with it quietly until it becomes something I can use',w:{winter:3,ningning:2,taehyun:2,soobin:2,yeosang:2,sunghoon:2,rei:2,giselle:2}},
-  {t:'I express it through performance or art before I can name it',w:{karina:2,winter:2,yeonjun:3,beomgyu:2,san:2,mingi:2,ningning:2,hyunjin:2,iz_minju:2,mina:3}}]},
-{dim:'How you handle emotion',q:'Your emotional default when stressed is...',opts:[
-  {t:'Inward — I go quiet and need space',w:{haerin:3,kazuha:3,lee_know:3,winter:3,yeosang:2,rei:2,taehyun:2,giselle:2,jungwon:2,sunghoon:2,wonwoo:3,the8:2,vernon:2,iroha:3,woozi:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Outward — I need to talk or move or do something',w:{hanni:3,yunjin:3,eunchae:2,san:3,changbin:2,wonyoung:2,jay:2,liz:2,seungkwan:3,hoshi:2,wonhee:2,iz_yujin:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Controlled — I keep it together until I cannot',w:{chaewon:3,bangchan:2,karina:3,taehyun:2,soobin:2,minji:2,gaeul:2,rei:2,s_coups:2,woozi:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Creative — it comes out in what I make',w:{yunjin:3,haerin:2,han:3,hyunjin:3,ningning:2,mingi:2,giselle:2,leeseo:1,woozi:3,jun:2,hoshi:2,nayeon:3,iz_minju:2,mina:3}},
-  {t:'Physical — I need to move, walk, do something with my body',w:{kazuha:3,hanni:2,eunchae:2,felix:2,yunho:2,gaeul:2,wonyoung:2,liz:2,hoshi:2,moka:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3,nayeon:3,chaeyoung:2}},
-  {t:'Dependent on who is around me',w:{danielle:2,hyein:3,eunchae:1,niki:3,jake:2,huening:2,leeseo:2,sunoo:2,dino:2,minju:1,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'I sit with it quietly until it becomes something I can use',w:{winter:3,ningning:2,taehyun:2,soobin:2,yeosang:2,sunghoon:2,rei:2,giselle:2}},
-  {t:'I express it through performance or art before I can name it',w:{karina:2,winter:2,yeonjun:3,beomgyu:2,san:2,mingi:2,ningning:2,hyunjin:2,iz_minju:2,mina:3}}]},
-{dim:'How you handle emotion',q:'When you are hurt by someone, you...',opts:[
-  {t:'Do not say anything — but do not forget',w:{haerin:3,minji:2,lee_know:3,winter:2,karina:2,rei:2,giselle:2,taehyun:2,wonwoo:3,woozi:2,the8:2,eunbi:2,jihyo:3}},
-  {t:'Say it directly — you believe in honesty',w:{yunjin:3,hanni:2,chaewon:2,san:2,changbin:2,wonyoung:2,jay:3,liz:2,seungkwan:3,hoshi:1,wonhee:1,iz_yujin:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Give it time and decide if it is worth addressing',w:{kazuha:3,sakura:3,soobin:3,jungwon:2,gaeul:2,taehyun:2,rei:2,ningning:2,seonghwa:2,yunho:2,jeonghan:3,wonwoo:2,iroha:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Pull back and become quieter without explaining why',w:{haerin:3,kazuha:2,winter:3,lee_know:2,karina:1,yeosang:2,giselle:2,wonyoung:2,sunghoon:2,wonwoo:2,the8:3,vernon:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Address it quickly — you hate unresolved tension',w:{chaewon:3,yunjin:2,hanni:1,bangchan:2,taehyun:2,yujin:2,karina:2,wonyoung:2,jongho:2,wooyoung:2,s_coups:2,moka:2,nako:2,jeongyeon:2,iz_yujin:2,chaeyoung:2}},
-  {t:'Ask people around you how to handle it',w:{hyein:3,danielle:2,eunchae:2,niki:3,jake:2,huening:2,leeseo:2,liz:2,dino:2,yunah:1,hitomi:2,tzuyu:2,yena:2,sana:2}}]},
-{dim:'How you handle emotion',q:'The compliment that would mean the most to you is...',aspire:true,opts:[
-  {t:'"You make people feel safe around you"',w:{minji:3,chaewon:3,eunchae:2,bangchan:3,felix:3,jungwon:2,liz:2,yunho:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'"You make everything more fun"',w:{hanni:3,danielle:2,eunchae:3,wooyoung:3,beomgyu:3,sunoo:3,felix:2,liz:2,yena:2,sana:2,chaeyoung:2}},
-  {t:'"There is something about you I cannot figure out"',w:{haerin:3,kazuha:3,lee_know:3,winter:3,yeosang:2,rei:2,giselle:2,wonyoung:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'"You are so real — you never pretend"',w:{yunjin:3,hyein:2,hanni:1,han:2,changbin:2,mingi:2,jay:2,ningning:2,giselle:2,hitomi:2,tzuyu:2,chaeyoung:2}},
-  {t:'"You always know what to do"',w:{chaewon:3,minji:2,sakura:2,bangchan:3,hongjoong:2,taehyun:2,karina:2,gaeul:2,jeonghan:2,s_coups:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'"You are growing into something really rare"',w:{hyein:3,sakura:2,danielle:1,niki:3,leeseo:2,huening:2,jeongin:2,liz:2,karina:2,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'"You make people feel like they matter"',w:{minji:3,danielle:3,eunchae:2,felix:3,wooyoung:3,sunoo:2,jake:2,liz:2,soobin:2,eunbi:2,jihyo:3,yena:2,sana:2}}]},
-{dim:'How you handle emotion',q:'Joy for you usually looks like...',opts:[
-  {t:'A quiet moment that feels exactly right',w:{kazuha:3,haerin:3,lee_know:2,winter:2,rei:2,taehyun:2,soobin:2,giselle:2,sunghoon:2,wonwoo:3,woozi:2,iroha:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Laughing with people you love until it hurts',w:{hanni:3,danielle:3,eunchae:2,felix:3,wooyoung:3,sunoo:3,beomgyu:2,liz:2,dk:3,joshua:2,seungkwan:2,yunah:2,minju:2,yena:2,sana:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Creating something and feeling it come together',w:{yunjin:3,kazuha:2,han:3,hyunjin:3,hongjoong:2,ningning:2,mingi:2,giselle:2,huening:2,woozi:3,jun:3,hoshi:2,chaeyeon:2,yuri:2,momo:3,nayeon:3,iz_minju:2,mina:3}},
-  {t:'Achieving something you worked hard for',w:{chaewon:3,sakura:3,taehyun:3,karina:3,gaeul:3,bangchan:2,wonyoung:2,rei:2,heeseung:2,sunghoon:2,woozi:3,moka:2,dino:2,nako:2,jeongyeon:2,iz_yujin:2}},
-  {t:'Being fully understood by someone',w:{haerin:2,yunjin:2,danielle:3,han:2,yeosang:2,winter:2,ningning:2,leeseo:2,the8:2,vernon:3,wonhee:2,yena:2,sana:2}},
-  {t:'A shared moment that did not need planning',w:{eunchae:3,danielle:2,hanni:2,felix:2,wooyoung:2,sunoo:2,jake:2,liz:2,dk:2,joshua:2,minju:3,yunah:2,yena:2,sana:2,chaeyoung:2}}]},
-{dim:'How you handle emotion',q:'Your relationship to vulnerability is...',opts:[
-  {t:'Private — I protect it carefully',w:{haerin:3,minji:2,lee_know:3,winter:3,karina:2,yeosang:2,taehyun:2,giselle:2,wonwoo:3,woozi:2,the8:2,iroha:2,eunbi:2,jihyo:3}},
-  {t:'Selective — I share with a very short list',w:{kazuha:3,sakura:3,bangchan:2,soobin:2,jungwon:2,rei:2,wonyoung:2,gaeul:2,karina:2,winter:2,jeonghan:2,s_coups:2,moka:2,nako:2,jeongyeon:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Expressive — I would rather be open than guarded',w:{yunjin:3,hanni:2,eunchae:2,han:3,mingi:3,jay:2,liz:2,ningning:2,yeonjun:2,wonhee:3,seungkwan:2,hyewon:2,dahyun:2,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'I show it through what I create more than what I say',w:{yunjin:2,kazuha:3,han:3,hyunjin:3,ningning:2,mingi:2,giselle:2,leeseo:2,woozi:3,jun:3,chaeyeon:2,yuri:2,momo:3,iz_minju:2,mina:3}},
-  {t:'Still being figured out — I am learning to open up',w:{hyein:3,danielle:2,eunchae:1,niki:3,huening:2,leeseo:2,liz:2,jake:2,dino:2,minju:1,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Contextual — I can be vulnerable in the right environment',w:{danielle:3,sakura:2,hanni:1,jake:2,felix:2,sunoo:2,yunho:2,wonyoung:2,joshua:2,yunah:2,dk:2,iz_yujin:2,yena:2,sana:2,chaeyoung:2}}]},
-// ── HOW YOU CONNECT WITH PEOPLE ──
-{dim:'How you connect with people',q:'The quality you most want people to feel around you...',aspire:true,opts:[
-  {t:'Safe — like things will be okay',w:{minji:3,chaewon:3,eunchae:2,bangchan:3,felix:3,jungwon:2,soobin:2,liz:2,s_coups:2,joshua:2,yunah:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Alive — like something good is happening',w:{hanni:3,danielle:3,wooyoung:3,felix:2,beomgyu:3,sunoo:2,wonyoung:2,liz:2,iz_yujin:2,yena:2,sana:2,chaeyoung:2}},
-  {t:'Curious — like there is more to you than they can see',w:{haerin:3,kazuha:3,lee_know:3,winter:3,yeosang:2,rei:2,giselle:2,wonyoung:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Real — like you are not performing anything',w:{yunjin:3,hyein:3,han:3,jay:2,mingi:2,changbin:2,ningning:2,leeseo:2,hitomi:2,tzuyu:2}},
-  {t:'Warm — like you genuinely care about them',w:{eunchae:3,danielle:2,minji:2,felix:3,wooyoung:3,sunoo:3,jake:2,liz:3,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Calm — like the noise quiets when you are around',w:{kazuha:3,minji:2,haerin:2,soobin:3,jungwon:2,taehyun:2,rei:2,winter:2,eunbi:2,jihyo:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'I connect deeply with very few people and am content with that',w:{winter:3,karina:2,taehyun:2,soobin:2,jongho:2,sunghoon:2,yeosang:2,giselle:2}}]},
-{dim:'How you connect with people',q:'Your friendships tend to be...',opts:[
-  {t:'Few and deep — quality over quantity always',w:{haerin:3,minji:2,kazuha:3,lee_know:3,winter:3,yeosang:2,taehyun:2,rei:2,wonwoo:3,the8:2,vernon:2,woozi:2,eunbi:2,jihyo:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Wide and warm — you connect easily with most people',w:{danielle:3,hanni:3,eunchae:2,felix:3,wooyoung:3,sunoo:3,jake:2,liz:2,beomgyu:2,dk:2,joshua:2,seungkwan:2,minju:2,mingyu:2,yena:2,sana:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Loyal above all — once you are in you are in',w:{minji:3,chaewon:3,eunchae:2,bangchan:3,felix:2,jongho:3,yunho:2,liz:2,s_coups:3,jun:2,yunah:2,mingyu:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3,iz_minju:2,mina:3}},
-  {t:'Earned slowly — you take time to trust',w:{sakura:3,chaewon:2,bangchan:2,hongjoong:2,karina:2,rei:2,gaeul:2,wonyoung:2,jeonghan:2,woozi:2,s_coups:2,nako:2,jeongyeon:2,iz_yujin:2}},
-  {t:'Intense — your close relationships go very deep',w:{haerin:3,yunjin:2,minji:2,han:3,san:2,yeosang:2,winter:2,giselle:2,wonwoo:2,the8:2,woozi:2,eunbi:2,jihyo:3}},
-  {t:'Still forming — you are figuring out who your people are',w:{hyein:3,danielle:1,eunchae:2,niki:3,leeseo:2,huening:2,jeongin:2,liz:1,dino:2,iroha:1,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Situational — different people for different sides of you',w:{danielle:3,hanni:2,yunjin:1,jay:2,felix:2,wonyoung:2,ningning:2,giselle:2,iz_yujin:2,yena:2,sana:2,chaeyoung:2}},
-  {t:'I connect deeply with very few people and am content with that',w:{winter:3,karina:2,taehyun:2,soobin:2,jongho:2,sunghoon:2,yeosang:2,giselle:2}}]},
-{dim:'How you connect with people',q:'In a new social setting you...',opts:[
-  {t:'Observe first, then engage selectively',w:{haerin:3,kazuha:3,lee_know:3,winter:3,yeosang:2,rei:2,taehyun:2,giselle:2,jeonghan:2,s_coups:2,moka:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Warm up quickly and find the fun',w:{hanni:3,danielle:3,eunchae:2,felix:3,wooyoung:3,beomgyu:3,sunoo:2,liz:2,mingi:2,dk:3,hoshi:3,seungkwan:2,minju:2,mingyu:2,yena:2,sana:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Stay composed and let people come to you',w:{chaewon:3,sakura:2,bangchan:2,karina:3,wonyoung:3,soobin:2,jungwon:2,rei:2,hongjoong:2,seonghwa:2,wonwoo:2,woozi:2,mingyu:3,nako:2,jeongyeon:2,iz_yujin:2}},
-  {t:'Find a role — helping, organizing, being useful',w:{chaewon:2,minji:3,bangchan:2,jungwon:2,gaeul:2,seungmin:2,yujin:2,rei:2,ningning:1,giselle:1,s_coups:2,woozi:2,moka:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Adapt to whoever you are talking to',w:{danielle:3,hanni:2,jay:3,felix:2,wooyoung:2,liz:2,ningning:2,wonyoung:2,jeonghan:3,seungkwan:2,iz_yujin:2,yena:2,sana:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Attach to one person you click with immediately',w:{hyein:3,danielle:2,niki:2,jake:2,huening:2,leeseo:2,sunoo:2,liz:2,dino:2,yunah:1,minju:2,hitomi:2,tzuyu:2,yena:2,sana:2}}]},
-{dim:'How you connect with people',q:'You feel most like yourself when...',aspire:true,opts:[
-  {t:'You are needed and showing up for someone',w:{minji:3,chaewon:2,eunchae:3,bangchan:3,felix:3,wooyoung:2,jongho:2,liz:2,jungwon:2,heeseung:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'You are in flow — creating, moving, expressing',w:{kazuha:3,yunjin:3,hanni:2,han:3,hyunjin:3,mingi:3,ningning:2,yeonjun:3,beomgyu:2,yujin:2,chaeyeon:2,yuri:2,momo:3,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'You are with people who genuinely get you',w:{danielle:3,haerin:2,hyein:2,felix:2,wooyoung:2,jake:2,sunoo:2,giselle:2,soobin:2,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'You are alone, thinking, fully in your own world',w:{haerin:3,sakura:2,kazuha:2,yeosang:3,winter:2,taehyun:2,rei:2,huening:2,heeseung:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'You are doing something you are genuinely good at',w:{chaewon:3,sakura:2,taehyun:3,karina:3,gaeul:3,seungmin:2,jongho:2,wonyoung:3,leeseo:2,iz_yujin:2}},
-  {t:'You are being completely honest with no filter',w:{yunjin:3,hanni:2,hyein:2,han:2,jay:3,changbin:2,mingi:2,ningning:2,sunoo:2,niki:2,hitomi:2,tzuyu:2,chaeyoung:2}}]},
-{dim:'How you connect with people',q:'The thing that makes you feel closest to someone is...',opts:[
-  {t:'Shared silence that does not feel awkward',w:{haerin:3,kazuha:3,lee_know:3,winter:2,taehyun:2,rei:2,soobin:2,giselle:2,wonwoo:3,iroha:3,woozi:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Laughing so hard you forget everything else',w:{hanni:3,danielle:2,eunchae:3,felix:3,wooyoung:3,beomgyu:3,sunoo:2,liz:2,dk:3,seungkwan:2,hoshi:2,yena:2,sana:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Working through something hard together',w:{sakura:3,chaewon:3,bangchan:3,jungwon:2,gaeul:2,taehyun:2,yujin:2,rei:2,karina:2,s_coups:3,woozi:2,moka:2,yunah:2,nako:2,jeongyeon:2}},
-  {t:'Them showing up without being asked',w:{eunchae:3,danielle:2,minji:2,felix:3,wooyoung:2,jongho:2,liz:2,yunho:2,joshua:3,yunah:2,dk:2,mingyu:2,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Being completely unfiltered with each other',w:{yunjin:3,hanni:2,eunchae:1,han:3,jay:3,changbin:2,mingi:2,ningning:2,seungkwan:2,the8:2,vernon:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Being told something they have never told anyone else',w:{minji:3,yunjin:2,haerin:2,bangchan:2,yeosang:3,winter:2,soobin:2,wonyoung:2,wonwoo:2,the8:3,vernon:3,nako:2,jeongyeon:2,eunbi:2,jihyo:3,iz_yujin:2}},
-  {t:'I show care through consistency and showing up rather than words',w:{karina:2,gaeul:2,seungmin:2,jungwon:2,soobin:2,taehyun:2,jongho:2,yunho:2}}]},
-{dim:'How you connect with people',q:'What you find hardest to do with people is...',opts:[
-  {t:'Let them in past the surface',w:{haerin:3,kazuha:2,lee_know:3,winter:3,yeosang:2,karina:2,taehyun:2,giselle:2,the8:3,wonwoo:2,woozi:2,vernon:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Ask for help when you need it',w:{chaewon:3,minji:2,bangchan:3,taehyun:2,karina:2,hongjoong:2,wonyoung:2,gaeul:2,s_coups:3,woozi:2,moka:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3,iz_yujin:2}},
-  {t:'Say the hard thing instead of keeping the peace',w:{danielle:2,hyein:3,jake:2,sunoo:2,huening:2,leeseo:2,liz:3,eunchae:2,wonhee:1,joshua:1,dk:1,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Trust that they will stay even if you are not performing',w:{hyein:3,danielle:2,niki:3,leeseo:2,huening:2,wonyoung:2,leeseo:2,liz:2,dino:2,yunah:1,iroha:1,hitomi:2,tzuyu:2,iz_yujin:2,yena:2,sana:2}},
-  {t:'Set limits without feeling guilty',w:{minji:2,eunchae:3,danielle:2,felix:2,wooyoung:2,liz:3,jake:2,yunho:2,s_coups:1,woozi:2,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Slow down and be still with them',w:{hanni:2,danielle:2,yunjin:2,san:2,changbin:2,yeonjun:2,wonyoung:2,karina:2,seungkwan:1,hoshi:2,dk:1,iz_yujin:2,yena:2,sana:2,nayeon:3,hyewon:2,dahyun:2,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'I show care through consistency and showing up rather than words',w:{karina:2,gaeul:2,seungmin:2,jungwon:2,soobin:2,taehyun:2,jongho:2,yunho:2}}]},
-// ── HOW YOU APPROACH GROWTH ──
-{dim:'How you approach growth',q:'Your relationship to growth is...',aspire:true,opts:[
-  {t:'I build slowly and trust the process',w:{sakura:3,kazuha:3,jongho:2,soobin:2,gaeul:3,taehyun:2,seungmin:2,rei:2,winter:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'I push hard and adjust fast',w:{chaewon:3,yunjin:2,karina:3,san:3,changbin:2,taehyun:2,yujin:2,wonyoung:2,iz_yujin:2}},
-  {t:'I grow through discomfort — I need to be challenged',w:{yunjin:3,chaewon:2,sakura:2,san:3,changbin:3,karina:2,taehyun:2,wonyoung:2,iz_yujin:2}},
-  {t:'I grow through connection — other people change me',w:{danielle:3,eunchae:2,hanni:2,felix:3,jake:2,wooyoung:2,liz:2,yunho:2,ningning:2,yena:2,sana:2,chaeyoung:2}},
-  {t:'I am still finding the version of me I am becoming',w:{hyein:3,danielle:2,eunchae:1,niki:3,leeseo:2,huening:3,liz:2,jeongin:2,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'I grow in cycles — deep focus then rest then insight',w:{haerin:3,kazuha:2,yeosang:2,winter:2,han:2,huening:2,ningning:2,giselle:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'I grow by watching others and absorbing what works',w:{hyein:3,danielle:2,niki:2,leeseo:2,heeseung:2,jeongin:2,liz:2,wonyoung:1,hitomi:2,tzuyu:2,iz_yujin:2,yena:2,sana:2}},
-  {t:'I grow through mastery — I go deep on one thing until I own it',w:{karina:3,winter:2,taehyun:3,jongho:2,seungmin:2,rei:2,gaeul:2,soobin:2}},
-  {t:'I grow by watching the best and then pushing past what I learned',w:{karina:2,yeonjun:2,heeseung:3,hyunjin:2,san:2,ningning:2,beomgyu:2,giselle:2,iz_minju:2,mina:3}},
-  {t:'The gap between where I am and what I know I could be',w:{heeseung:3,sunghoon:2,jake:2,taehyun:2,soobin:2,karina:2,wonyoung:2,rei:2,iz_yujin:2}}]},
-{dim:'How you approach growth',q:'When you fail at something that matters to you...',opts:[
-  {t:'I reset quietly and try again — failure is data',w:{sakura:3,chaewon:2,kazuha:2,bangchan:2,taehyun:2,gaeul:2,jungwon:2,karina:2,yunho:2,wooyoung:2,s_coups:2,woozi:3,moka:3,nako:2,jeongyeon:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'I feel it hard, then channel it into something',w:{yunjin:3,hanni:2,han:3,hyunjin:2,mingi:3,san:2,ningning:2,giselle:2,jun:3,hoshi:2,wonhee:2,nayeon:3,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'I go quiet and sit with it longer than most would',w:{haerin:3,kazuha:3,sakura:1,yeosang:2,winter:2,soobin:2,rei:2,giselle:2,seungmin:2,wonwoo:3,woozi:2,iroha:3,the8:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'I analyze what went wrong before I let myself feel it',w:{chaewon:3,sakura:2,taehyun:3,hongjoong:2,karina:2,jungwon:2,wonyoung:2,gaeul:2,jeonghan:3,woozi:2,moka:2,iz_yujin:2}},
-  {t:'I catastrophize briefly, then recover stronger',w:{yunjin:2,hanni:2,hyein:2,han:2,changbin:2,wonyoung:2,jay:2,liz:2,seungkwan:1,wonhee:2,hitomi:2,tzuyu:2,iz_yujin:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'I need time before I can look at it clearly',w:{minji:2,danielle:2,hyein:3,niki:2,jake:2,huening:2,leeseo:2,liz:2,dino:2,yunah:1,minju:1,eunbi:2,jihyo:3,hitomi:2,tzuyu:2,yena:2,sana:2}}]},
-{dim:'How you approach growth',q:'The version of success you are working toward is...',aspire:true,opts:[
-  {t:'Being someone people can count on completely',w:{minji:3,chaewon:3,bangchan:3,felix:2,jongho:2,yunho:2,gaeul:2,yujin:2,jungwon:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Making something that only you could have made',w:{yunjin:3,kazuha:3,han:3,hyunjin:3,hongjoong:3,ningning:2,mingi:2,giselle:2,yeonjun:2,chaeyeon:2,yuri:2,momo:3,iz_minju:2,mina:3}},
-  {t:'Becoming fully, unapologetically myself',w:{hyein:3,yunjin:2,hanni:2,niki:3,jay:2,mingi:2,changbin:2,leeseo:2,giselle:2,hitomi:2,tzuyu:2,chaeyoung:2}},
-  {t:'Living at peace with who I am',w:{kazuha:3,haerin:2,sakura:2,soobin:3,jungwon:2,taehyun:3,rei:2,gaeul:2,winter:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Building something that lasts longer than the moment',w:{sakura:3,minji:2,hongjoong:3,jongho:2,taehyun:2,soobin:2,karina:2,gaeul:2,woozi:3,s_coups:2,eunbi:2,jihyo:3}},
-  {t:'Being loved for who I actually am, not who I perform',w:{yunjin:3,hyein:2,danielle:2,han:2,jay:2,mingi:2,wonyoung:2,leeseo:2,hitomi:2,tzuyu:2,iz_yujin:2,yena:2,sana:2}},
-  {t:'Surprising myself with what I turn out to be capable of',w:{hyein:3,sakura:2,niki:3,leeseo:2,huening:3,jeongin:2,liz:2,wonyoung:1,hitomi:2,tzuyu:2,iz_yujin:2}}]},
-{dim:'How you approach growth',q:'You are most likely to hold yourself back by...',aspire:true,opts:[
-  {t:'Waiting until you are ready — which never quite arrives',w:{sakura:3,hyein:3,leeseo:2,huening:2,gaeul:2,jake:2,liz:2,wonyoung:1,hitomi:2,tzuyu:2,iz_yujin:2}},
-  {t:'Controlling everything instead of letting things evolve',w:{chaewon:3,minji:2,hongjoong:2,karina:3,taehyun:2,wonyoung:2,gaeul:2,rei:2,eunbi:2,jihyo:3,iz_yujin:2}},
-  {t:'Burning too hot and not pacing yourself',w:{yunjin:3,hanni:2,san:3,changbin:3,han:2,wonyoung:2,karina:2,mingi:2,jay:2,sunoo:1,iz_yujin:2,chaeyoung:2}},
-  {t:'Disappearing into your own world and losing momentum',w:{haerin:3,kazuha:2,yeosang:2,winter:2,huening:3,han:2,ningning:2,giselle:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Being too hard on yourself when things are not perfect',w:{chaewon:2,minji:2,sakura:2,karina:3,taehyun:3,bangchan:2,gaeul:2,wonyoung:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3,iz_yujin:2}},
-  {t:'Needing validation before you trust your own judgment',w:{hyein:3,danielle:2,eunchae:2,niki:3,leeseo:2,jake:2,huening:2,liz:2,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'I grow by watching the best and then pushing past what I learned',w:{karina:2,yeonjun:2,heeseung:3,hyunjin:2,san:2,ningning:2,beomgyu:2,giselle:2,iz_minju:2,mina:3}}]},
-{dim:'How you approach growth',q:'What motivates you most is...',aspire:true,opts:[
-  {t:'Proving something to yourself — not anyone else',w:{chaewon:3,yunjin:3,sakura:2,karina:3,taehyun:3,san:2,jongho:2,wonyoung:2,changbin:2,sunghoon:2,woozi:3,dino:2,moka:2,iz_yujin:2}},
-  {t:'The people who are counting on you',w:{minji:3,eunchae:3,chaewon:1,bangchan:3,felix:2,wooyoung:2,yunho:2,liz:2,jungwon:2,sunoo:2,winter:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'The feeling of being in flow with something you love',w:{kazuha:3,yunjin:2,hanni:2,han:3,hyunjin:3,mingi:3,ningning:2,yeonjun:2,seungmin:2,chaeyeon:2,yuri:2,momo:3,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'The version of yourself you have not become yet',w:{hyein:3,sakura:2,yunjin:2,niki:3,leeseo:2,huening:3,heeseung:2,liz:2,dino:3,iroha:2,hitomi:2,tzuyu:2}},
-  {t:'Connection — you want to share what you make',w:{danielle:3,hanni:2,eunchae:2,felix:3,wooyoung:2,jake:3,ningning:2,liz:2,sunoo:2,yena:2,sana:2,chaeyoung:2}},
-  {t:'Making something that lasts',w:{sakura:3,minji:2,hongjoong:3,jongho:2,taehyun:2,soobin:2,gaeul:2,karina:2,eunbi:2,jihyo:3}}]},
-{dim:'How you approach growth',q:'Your biggest strength that can work against you is...',opts:[
-  {t:'Reliability — people forget you have needs too',w:{minji:3,chaewon:3,bangchan:3,felix:2,jongho:2,yunho:2,gaeul:2,yujin:2,s_coups:3,yunah:2,joshua:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Intensity — you go all in and it is too much sometimes',w:{yunjin:3,san:3,changbin:3,karina:2,han:2,wonyoung:2,mingi:2,yeonjun:2,niki:2,hoshi:2,wonhee:2,iz_yujin:2,nayeon:3,iz_minju:2,mina:3}},
-  {t:'Patience — you wait so long that opportunities pass',w:{sakura:3,kazuha:2,jongho:2,gaeul:2,soobin:2,taehyun:2,rei:2,wonyoung:1,winter:2,wonwoo:2,jeonghan:2,iroha:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Empathy — you absorb others feelings and lose your own',w:{danielle:3,eunchae:3,felix:3,wooyoung:2,jake:2,liz:3,yunho:2,minji:1,ningning:2,joshua:2,dk:2,yunah:2,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Observation — you see everything but act on very little',w:{haerin:3,kazuha:2,lee_know:2,yeosang:2,winter:2,rei:2,giselle:2,taehyun:2,wonwoo:3,the8:2,jeonghan:2,iroha:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Honesty — you say the true thing before the room is ready',w:{yunjin:3,hanni:2,jay:3,changbin:2,san:2,wonyoung:2,karina:1,mingi:2,sunoo:2,seungkwan:3,the8:1,vernon:2,iz_yujin:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Perfectionism — you push so hard for excellence that you forget to breathe',w:{heeseung:3,sunghoon:2,karina:2,taehyun:3,gaeul:2,seungmin:2,rei:2,wonyoung:2,beomgyu:2,iz_yujin:2}}]},
-// ── HOW YOU PRESENT YOURSELF ──
-{dim:'How you present yourself',q:'Your relationship to honesty is...',opts:[
-  {t:'I say what is true, even when it is uncomfortable',w:{yunjin:3,hanni:2,jay:3,changbin:2,san:2,wonyoung:1,karina:1,mingi:2,seungkwan:3,the8:1,vernon:2,iz_yujin:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'I choose words carefully — not everything needs to be said',w:{haerin:3,kazuha:3,lee_know:3,winter:3,soobin:2,taehyun:2,rei:2,giselle:2,jongho:2,seonghwa:2,wonwoo:3,jeonghan:3,woozi:2,iroha:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'I am honest but I wrap it in warmth first',w:{danielle:3,eunchae:3,sakura:1,felix:3,wooyoung:2,jake:2,sunoo:2,liz:2,ningning:2,joshua:3,dk:3,yunah:2,yena:2,sana:2}},
-  {t:'I am honest with people I trust, filtered with everyone else',w:{minji:3,chaewon:2,haerin:2,bangchan:2,jungwon:2,karina:2,taehyun:2,rei:2,s_coups:2,woozi:2,moka:2,jeonghan:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'I tend to be more honest in writing than in person',w:{yunjin:2,haerin:2,hyein:2,han:3,hyunjin:2,ningning:2,giselle:2,leeseo:2,wonwoo:2,the8:2,vernon:3,jun:2,hitomi:2,tzuyu:2,iz_minju:2,mina:3}},
-  {t:'I am still learning when to speak and when to hold back',w:{hyein:3,niki:3,leeseo:2,huening:2,danielle:1,liz:2,wonyoung:1,jeongin:2,dino:2,minju:1,iroha:1,hitomi:2,tzuyu:2,iz_yujin:2,yena:2,sana:2}},
-  {t:'I shut down socially and need to reset completely alone',w:{sunghoon:3,jungwon:2,taehyun:2,soobin:2,winter:2,rei:2,giselle:2,wonyoung:2,iz_yujin:2}},
-  {t:'Doing something I am genuinely good at, fully in my element',w:{heeseung:3,sunghoon:2,jongho:2,taehyun:2,seungmin:2,karina:2,gaeul:2,rei:2}}]},
-{dim:'How you present yourself',q:'The gap between your public and private self is...',opts:[
-  {t:'Large — very few people see the real version',w:{haerin:3,lee_know:3,winter:3,karina:3,yeosang:2,wonyoung:2,giselle:2,taehyun:2,the8:2,wonwoo:2,vernon:2,woozi:2,iz_yujin:2}},
-  {t:'Small — what you see is mostly what you get',w:{hanni:3,yunjin:3,eunchae:2,felix:3,jay:3,changbin:2,mingi:2,sunoo:2,seungkwan:3,dk:2,hoshi:2,minju:2,nayeon:3,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Intentional — you share in layers based on trust',w:{kazuha:3,sakura:3,bangchan:2,jongho:2,jungwon:2,rei:2,soobin:2,gaeul:2,karina:2,winter:2,s_coups:2,jeonghan:3,woozi:2,nako:2,jeongyeon:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Significant — most people only know one version of you',w:{haerin:3,chaewon:2,sakura:2,winter:3,lee_know:2,karina:2,wonyoung:3,giselle:2,wonwoo:2,the8:2,iz_yujin:2}},
-  {t:'Nonexistent by choice — you refuse to perform',w:{yunjin:3,hanni:2,eunchae:2,jay:3,han:2,mingi:2,changbin:2,ningning:2,the8:2,seungkwan:2,vernon:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Still being figured out',w:{hyein:3,danielle:2,eunchae:1,niki:3,leeseo:2,huening:2,liz:2,jeongin:2,dino:2,minju:1,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'A strong visual identity — people remember how I look and carry myself',w:{karina:3,winter:2,wonyoung:2,yeonjun:3,hongjoong:2,hyunjin:2,ningning:2,giselle:2,iz_yujin:2,iz_minju:2,mina:3}}]},
-{dim:'How you present yourself',q:'When you walk into a room, people probably notice...',opts:[
-  {t:'Your composure — you seem like you have it together',w:{chaewon:3,bangchan:2,karina:3,wonyoung:3,taehyun:2,soobin:2,jungwon:2,rei:2,s_coups:2,woozi:2,moka:2,nako:2,jeongyeon:2,iz_yujin:2}},
-  {t:'Your energy — you change the feel of a space',w:{hanni:3,danielle:3,eunchae:2,felix:3,wooyoung:3,beomgyu:3,yeonjun:3,sunoo:2,hoshi:3,minju:2,mingyu:2,dk:2,seungkwan:2,wonhee:2,yena:2,sana:2,nayeon:3,hyewon:2,dahyun:2,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'Your quiet — there is something magnetic about your stillness',w:{haerin:3,kazuha:2,lee_know:3,winter:3,yeosang:2,jongho:2,rei:2,giselle:2,wonwoo:3,iroha:3,the8:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Your confidence — you carry yourself like you belong',w:{chaewon:3,yunjin:2,san:3,changbin:2,karina:3,wonyoung:3,yeonjun:2,hongjoong:2,s_coups:2,mingyu:3,woozi:1,iz_yujin:2,iz_minju:2,mina:3}},
-  {t:'Your warmth — people feel welcomed immediately',w:{eunchae:3,danielle:2,minji:2,felix:3,wooyoung:3,sunoo:3,jake:2,liz:2,joshua:3,dk:2,yunah:3,wonhee:2,mingyu:2,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Honestly, I blend in more than I stand out',w:{hyein:3,danielle:1,sakura:2,niki:2,leeseo:2,jeongin:2,huening:2,gaeul:1,dino:2,iroha:2,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Controlled and precise — every detail is intentional',w:{karina:3,winter:3,taehyun:2,soobin:2,jungwon:2,hongjoong:2,wonyoung:2,rei:2,s_coups:2,woozi:2,iz_yujin:2}},
-  {t:'A strong visual identity — people remember how I look and carry myself',w:{karina:3,winter:2,wonyoung:2,yeonjun:3,hongjoong:2,hyunjin:2,ningning:2,giselle:2,iz_yujin:2,iz_minju:2,mina:3}}]},
-{dim:'How you present yourself',q:'The thing you are most protective of is...',opts:[
-  {t:'Your inner world — not everyone gets access',w:{haerin:3,minji:2,kazuha:3,lee_know:3,winter:3,yeosang:2,karina:2,taehyun:2,sunghoon:2,wonwoo:3,woozi:2,the8:3,vernon:2,iroha:2,eunbi:2,jihyo:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Your people — you would do a lot for them',w:{minji:3,chaewon:2,eunchae:3,bangchan:3,felix:3,wooyoung:2,jongho:2,yunho:2,seungmin:2,soobin:2,s_coups:3,joshua:2,yunah:3,dk:2,nako:2,jeongyeon:2,eunbi:2,jihyo:3}},
-  {t:'Your authenticity — you will not perform a version of yourself',w:{yunjin:3,hanni:2,hyein:2,han:3,jay:3,changbin:2,mingi:2,ningning:2,yujin:2,the8:3,seungkwan:2,vernon:3,hitomi:2,tzuyu:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'Your peace — you guard your energy carefully',w:{kazuha:3,sakura:3,soobin:3,jungwon:2,taehyun:2,rei:2,winter:2,gaeul:2,wonyoung:2,liz:2,hyunjin:2,hoshi:3,dk:2,seungkwan:2,wonhee:2,mingyu:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3,nayeon:3,hyewon:2,dahyun:2}},
-  {t:'Your standards — you will not lower them for comfort',w:{chaewon:3,yunjin:2,karina:3,taehyun:3,hongjoong:2,wonyoung:2,gaeul:2,rei:2,woozi:3,moka:3,s_coups:2,iz_yujin:2}},
-  {t:'Your softness — you have been hurt for being too open',w:{eunchae:2,hyein:3,danielle:2,niki:2,leeseo:2,jake:2,liz:2,sunoo:2,wonhee:2,minju:1,yunah:1,hitomi:2,tzuyu:2,yena:2,sana:2}}]},
-{dim:'How you present yourself',q:'How you handle being misunderstood...',opts:[
-  {t:'I let it go — I do not need everyone to get me',w:{haerin:3,kazuha:3,lee_know:3,winter:3,jongho:2,taehyun:2,rei:2,giselle:2,wonwoo:3,the8:3,woozi:2,iroha:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'I correct it immediately — I will not be misread if I can help it',w:{yunjin:3,chaewon:2,hanni:2,san:2,jay:3,changbin:2,wonyoung:2,karina:3,yeosang:2,mingi:2,seungkwan:3,s_coups:1,iz_yujin:2,hyewon:2,dahyun:2,chaeyoung:2}},
-  {t:'It bothers me more than I usually show',w:{minji:2,hyein:3,danielle:2,niki:2,huening:2,leeseo:2,jake:2,liz:2,wooyoung:2,seonghwa:2,wonhee:2,dino:2,yunah:1,eunbi:2,jihyo:3,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'I use it as information — maybe what I show does not match what I mean',w:{sakura:3,minji:2,soobin:3,jungwon:2,gaeul:2,taehyun:2,rei:2,ningning:2,winter:2,jeonghan:3,wonwoo:2,iroha:2,eunbi:2,jihyo:3}},
-  {t:'I try to explain then let go if they still do not see it',w:{danielle:3,eunchae:2,felix:2,jake:2,sunoo:2,yunho:2,liz:2,wonyoung:2,joshua:2,dk:2,yunah:2,iz_yujin:2,yena:2,sana:2}},
-  {t:'I am getting better at not needing everyone to understand',w:{hyein:3,danielle:2,sakura:2,niki:2,leeseo:2,huening:3,liz:2,jeongin:2,ningning:2,dino:3,the8:2,iroha:2,hitomi:2,tzuyu:2,yena:2,sana:2}}]},
-{dim:'How you present yourself',q:'Your aesthetic or style is...',opts:[
-  {t:'Intentional and consistent — it reflects something real',w:{chaewon:3,kazuha:3,haerin:2,karina:3,lee_know:3,wonyoung:3,taehyun:2,hongjoong:2,s_coups:2,jeonghan:3,woozi:2,iz_yujin:2,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Playful and shifting — you like surprising people',w:{hanni:3,danielle:2,eunchae:2,beomgyu:3,wooyoung:2,yeonjun:2,mingi:2,liz:2,hoshi:3,seungkwan:2,dk:2,yena:2,sana:2,nayeon:3,hyewon:2,dahyun:2,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'Understated — you would rather be underestimated',w:{haerin:3,minji:2,kazuha:2,lee_know:2,yeosang:2,winter:2,jongho:2,rei:2,wonwoo:3,the8:2,woozi:2,iroha:2,vernon:2,eunbi:2,jihyo:3,chaeyeon:2,yuri:2,momo:3}},
-  {t:'Bold and specific — you know exactly what you are doing',w:{yunjin:3,hanni:2,san:3,karina:2,changbin:2,wonyoung:2,yeonjun:2,hongjoong:2,seungkwan:2,s_coups:1,hoshi:2,iz_yujin:2,nayeon:3,hyewon:2,dahyun:2,iz_minju:2,mina:3,chaeyoung:2}},
-  {t:'Still evolving — you are figuring out what feels like you',w:{hyein:3,danielle:2,eunchae:1,niki:3,leeseo:2,huening:2,liz:2,jeongin:2,dino:3,iroha:2,minju:1,hitomi:2,tzuyu:2,yena:2,sana:2}},
-  {t:'Soft and approachable — you want people to feel comfortable',w:{eunchae:3,danielle:2,minji:1,felix:2,sunoo:2,jake:2,liz:2,yunho:2,joshua:2,yunah:3,dk:2,wonhee:2,eunbi:2,jihyo:3,yena:2,sana:2}},
-  {t:'Clean, polished, considered — you put thought into how you are perceived',w:{sunghoon:3,karina:2,wonyoung:2,taehyun:2,jungwon:2,soobin:2,rei:2,hongjoong:2,iz_yujin:2}},
-  {t:'Controlled and precise — every detail is intentional',w:{karina:3,winter:3,taehyun:2,soobin:2,jungwon:2,hongjoong:2,wonyoung:2,rei:2,s_coups:2,woozi:2,iz_yujin:2}},
-  {t:'A strong visual identity — people remember how I look and carry myself',w:{karina:3,winter:2,wonyoung:2,yeonjun:3,hongjoong:2,hyunjin:2,ningning:2,giselle:2,iz_yujin:2,iz_minju:2,mina:3}}]},
-];
-
-
-
-
-const QZ_MEMBERS={
-
-  newjeans:{
-    minji:   {name:'Minji',   role:'Leader · Vocalist',          arch:'The Foundation', coreType:'The Foundation', coreFamily:'Pillars',    group:'NewJeans',    insight:'Group identity runs through you. You\'re the structural core — the person everything else gets calibrated against. You carry more than your share and make it look like nothing, which means people rarely think to look.',                                                                                   shadow:'The shadow side? A presence that load-bearing can make people assume you\'re always fine. You feel things too, at exactly the same volume as everyone else.',                                                          mirror:'You\'ve been this person for a long time. You just haven\'t taken credit for how much that steadiness actually costs you.',                  aspire:'You\'re building toward this — learning to show up for others without disappearing in the process.'},
-    hanni:   {name:'Hanni',   role:'Vocalist',                   arch:'The Artist', coreType:'The Artist', coreFamily:'Depth',           group:'NewJeans',    insight:'You don\'t just perform — you translate. There\'s a creative intelligence to everything you do, a way of taking something internal and finding an unexpected form for it. People feel something specific when they watch you, and that specificity is yours.',                                                                                             shadow:'The shadow side? You give so much through what you create that the personal version of you can stay hidden longer than it should.',                                                               mirror:'You already have this warmth — you\'ve just been treating it like it\'s ordinary.',                                                          aspire:'You\'re drawn to this ease with people because you\'re building it in yourself.'},
-    danielle:{name:'Danielle',role:'Vocalist',                   arch:'The Spark', coreType:'The Spark', coreFamily:'Light',          group:'NewJeans',    insight:'You change the energy of a room the moment you walk in. That warmth isn\'t manufactured — it\'s just you, and people feel it before you\'ve said a word. The light you carry isn\'t something you turn on. It\'s just always there.',                                                                                shadow:'The shadow side? You light up every room you walk into — which means people rarely think to ask what lights you up.',                                                   mirror:'You\'ve always been this — the one who finds common ground where others see divide.',                                                         aspire:'You\'re growing toward this fluency — moving between worlds without losing yourself.'},
-    haerin:  {name:'Haerin',  role:'Vocalist',                   arch:'The Watcher', coreType:'The Watcher', coreFamily:'Depth',         group:'NewJeans',    insight:'You see everything and reveal almost nothing — and somehow that makes people more drawn to you, not less. Your quiet isn\'t absence. It\'s depth. Most people spend their whole lives trying to guess what\'s underneath, and that mystery is entirely yours to keep.',                                                                                                             shadow:'The shadow side? You see everything — which means you\'re very good at staying just far enough back that no one fully sees you.',                                                     mirror:'This is already you — you\'ve just never fully owned how compelling that stillness actually is.',                                             aspire:'You\'re drawn to this self-containment because you\'re still learning to trust your own interior world.'},
-    hyein:   {name:'Hyein',   role:'Maknae · Vocalist',          arch:'The Becoming', coreType:'The Becoming', coreFamily:'Pillars',        group:'NewJeans',    insight:'You\'re in the middle of becoming something — and you\'re doing it honestly, in front of everyone, which takes more courage than most realize. The version of you still forming right now is more interesting than any finished product could be.',                                                                                shadow:'The shadow side? You\'re so open to growth that you can forget the version of you right now is already worth something.',                                                  mirror:'You\'re living this right now — in the most important part of the process.',                                                                  aspire:'You\'re drawn to this openness because you want permission to still be figuring things out.'},
-  },
-
-  lesserafim:{
-    chaewon: {name:'Chaewon', role:'Leader · Vocalist',          arch:'The Standard', coreType:'The Standard', coreFamily:'Edge',    group:'LE SSERAFIM', insight:'You embody the ideal of what a performer should be — not by demanding it of anyone else, but by holding yourself to a bar that never moves. That standard is real and it\'s yours, and the people around you rise to meet it without being asked.',                                                                                  shadow:'The shadow side? The standard you hold yourself to is one most people will never see — which means the distance between where you are and where you want to be is one only you can feel.',                                    mirror:'You\'ve been this person for a long time — you\'ve just never taken credit for how much that steadiness costs you.',                          aspire:'You\'re building toward this — the kind of grounded authority that doesn\'t need to announce itself.'},
-    sakura:  {name:'Sakura',  role:'Vocalist',                   arch:'The Architect',       coreType:'The Architect', coreFamily:'Edge', group:'LE SSERAFIM', insight:'You\'ve built a career across countries, companies, and generations — not by following what existed but by deciding where you were going and making the industry adjust. That\'s not patience. That\'s architecture.',                                                                          shadow:'The shadow side? You see so clearly where things are going that it can be hard to slow down and just be in where things are.',                              mirror:'You already play this long game — you\'ve just never given yourself credit for how rare that endurance is.',                                  aspire:'You\'re drawn to this patience because you\'re still learning to trust a process you can\'t fully control.'},
-    yunjin:  {name:'Yunjin',  role:'Vocalist',                   arch:'The Open Heart', coreType:'The Open Heart', coreFamily:'Light',      group:'LE SSERAFIM', insight:'You love openly and without apology — and you say the honest thing because you believe vulnerability is a form of respect. That combination of openness and honesty is its own rare thing, and it\'s why people feel so seen around you.',                                                                                            shadow:'The shadow side? You lead with your whole heart, which means you feel the gap when the world doesn\'t meet you there.',                                                         mirror:'This is already who you are — you\'ve just been made to feel like it\'s too much.',                                                           aspire:'You\'re drawn to this directness because you\'re still giving yourself permission to mean it.'},
-    kazuha:  {name:'Kazuha',  role:'Dancer · Vocalist',          arch:'The Refiner', coreType:'The Refiner', coreFamily:'Edge',     group:'LE SSERAFIM', insight:'Everything you do has precision behind it — the way you move, the standard you hold yourself to, the gap between good enough and what you\'ll actually accept. That\'s not rigidity. It\'s respect for the work, built through years of ballet before most people your age had decided what they cared about.',                                                                                                               shadow:'The shadow side? The bar you set for yourself is one most people will never see — which means you\'re often the only one who knows when you\'ve fallen short of it.',                                            mirror:'You already carry this groundedness — people feel it even when you say nothing.',                                                             aspire:'You\'re building toward this kind of quiet presence — learning to be still without disappearing.'},
-    eunchae: {name:'Eunchae', role:'Maknae · Vocalist',          arch:'The Becoming', coreType:'The Becoming', coreFamily:'Pillars',        group:'LE SSERAFIM', insight:'You\'re growing up in front of cameras and doing it with more courage than most people realize. The openness you bring to being in-process — still figuring it out, still arriving — is one of the rarest things a person can offer publicly.',                                                                                          shadow:'The shadow side? You\'re so focused on becoming that you can forget the version of you right now already earned its place.',                               mirror:'You already live this way — you just haven\'t recognized it as strength yet.',                                                                aspire:'You\'re growing toward this lightness — learning to stay open without getting burned by it.'},
-  },
-
-  aespa:{
-    karina:  {name:'Karina',  role:'Leader · Main Dancer',       arch:'The Standard', coreType:'The Standard', coreFamily:'Edge', group:'aespa',    insight:'You don\'t demand more from other people — you demand more from yourself, in a way that makes everyone around you want to do the same. That\'s not pressure. It\'s a direction. The bar you set by existing is real and it moves the whole room.',                                          shadow:'The shadow side? Being the bar that everyone else gets measured against means you\'re never just performing — you\'re always being evaluated. That\'s an exhausting place to live.',            mirror:'You already live with this drive — you\'ve just never been sure if it was a gift or a burden. It\'s both.',                                   aspire:'You\'re drawn to this relentlessness because you want permission to demand more from yourself than people say is reasonable.'},
-    winter:  {name:'Winter',  role:'Main Vocalist',              arch:'The Intensity', coreType:'The Intensity', coreFamily:'Edge',    group:'aespa',    insight:'You perform like you\'re proving something — and then offstage you disappear entirely. The force you bring in specific contexts is real and specific and completely yours. Most people only ever see one version and spend a long time thinking about the one they didn\'t.',                                                                              shadow:'The shadow side? The crash after the performance is real. Giving everything every time means there\'s a version of you that only exists in the quiet after — and that version needs tending.',                            mirror:'You\'ve always had this interior fire — you\'ve just been selective about who gets to see it.',                                               aspire:'You want to be the kind of person whose depth surprises people — powerful without needing to announce it.'},
-    giselle: {name:'Giselle', role:'Main Rapper',                arch:'The Wit', coreType:'The Wit', coreFamily:'Depth',      group:'aespa',    insight:'You see what others miss — the angle nobody else is working from, the thing everyone was thinking but no one said. That multi-lingual, multi-cultural perspective is your superpower. You\'re never fully inside the frame, which is exactly why you can see the whole picture.',                                                                          shadow:'The shadow side? The sharpness that makes you so compelling is also how you keep a little distance — even from people you actually want close.',                                                 mirror:'You\'ve always been this — the one who sees the whole picture because you\'re never too deep in it.',                                         aspire:'You\'re drawn to this cool detachment because you want to stop caring so much what the inside looks like.'},
-    ningning:{name:'Ningning',role:'Main Vocalist',              arch:'The Hidden', coreType:'The Hidden', coreFamily:'Depth',    group:'aespa',    insight:'There\'s more underneath than people expect — and that\'s exactly how you like it. The cool exterior isn\'t distance. It\'s protection. You know exactly what you\'re holding and exactly who earns access to it.',                                                                                               shadow:'The shadow side? The depth you protect so well can start to feel like a distance even you can\'t always cross.',                                                   mirror:'You\'ve always had this depth — you\'ve just let people see the warmth first and the power later.',                                           aspire:'You\'re growing toward owning the full range of what you are — not choosing between soft and strong.'},
-  },
-
-  ive:{
-    yujin:   {name:'Yujin',   role:'Leader · Vocalist',          arch:'The Anchor', coreType:'The Anchor', coreFamily:'Pillars',         group:'IVE',         insight:'You hold the stage the way most people hold a room — without announcing it. There\'s a naturalness to your leadership that makes people feel steadier before they\'ve realized they were leaning on you. That\'s not performance. That\'s just who you are.',                                                             shadow:'The shadow side? You\'re so naturally the one people orient toward that needing direction yourself can feel like something you\'re not supposed to admit.',                                          mirror:'This ease is genuinely yours — you\'ve just been taught to second-guess things that come naturally.',                                         aspire:'You\'re drawn to this effortlessness because you\'re still learning to trust your own instincts without overthinking them.'},
-    gaeul:   {name:'Gaeul',   role:'Vocalist',                   arch:'The Hidden', coreType:'The Hidden', coreFamily:'Depth',   group:'IVE',         insight:'You keep your inner world private and you do it deliberately. What people see is real — it\'s just not complete. There\'s a depth and a reliability to you that shows up in the work long before it shows up in conversation.',                                                             shadow:'The shadow side? The independence that makes you compelling can become a wall between you and people who genuinely want in.',                                               mirror:'You\'ve always built things this way — you just haven\'t recognized discipline as a form of self-expression.',                               aspire:'You\'re building toward the version of yourself that trusts the work and stops waiting for external proof it\'s working.'},
-    rei:     {name:'Rei',     role:'Vocalist',                   arch:'The Artist', coreType:'The Artist', coreFamily:'Depth',     group:'IVE',         insight:'Everything you make has a distinct point of view — the way you move, how you style yourself, the creative choices that are unmistakably yours. You see the world at a higher resolution and you feel compelled to do something with that.',                                                                              shadow:'The shadow side? You translate so much of your inner world into what you create that the line between the work and yourself can get thin.',                                              mirror:'You\'ve always processed the world this carefully — you\'ve just never called it a strength.',                                               aspire:'You\'re growing toward trusting your sharp eye without letting it slow you down.'},
-    wonyoung:{name:'Wonyoung',role:'Center · Vocalist',          arch:'The Standard', coreType:'The Standard', coreFamily:'Edge',     group:'IVE',         insight:'You understand that presence is a choice, not a default. Everything you bring to a moment is considered — not out of vanity, but because you hold yourself to a standard most people don\'t even acknowledge exists. That\'s not performance. That\'s mastery.',                                                    shadow:'The shadow side? The cost of never being seen unpolished is that people stop thinking of you as someone who could be. The performance of perfection is exhausting to maintain alone.',                                                    mirror:'This care for presentation is genuinely you — you\'ve just been made to feel like it\'s shallow. It isn\'t.',                                aspire:'You\'re drawn to this standard because you\'re still learning to believe your best is already worth showing.'},
-    liz:     {name:'Liz',     role:'Main Vocalist',              arch:'The Open Heart', coreType:'The Open Heart', coreFamily:'Light',      group:'IVE',         insight:'You love fully and without apology. When you\'re in, you\'re completely in — for people, for things you care about, for experiences. That full-heartedness is rare and it\'s the reason people feel so seen around you.',                                                                                        shadow:'The shadow side? You make people feel so welcomed that they don\'t always think about whether you feel welcomed too.',                                            mirror:'You\'ve always felt things this fully — you\'ve just been made to feel like it was too much. It\'s not.',                                     aspire:'You\'re growing toward loving this way without losing yourself in the process.'},
-    leeseo:  {name:'Leeseo',  role:'Maknae · Vocalist',          arch:'The Spark', coreType:'The Spark', coreFamily:'Light',  group:'IVE',         insight:'There\'s an energetic, youthful brightness to you that changes what a room feels like. You don\'t try to lift the energy — you just do. That instinct is real and it\'s rare and it makes people feel something before they\'ve decided to.',                                                                             shadow:'The shadow side? Being the youngest and the brightest means people expect the energy to just be there. Nobody asks where it comes from or what it costs.',                                           mirror:'You\'ve always had this depth — you\'re just still finding the confidence to let people see it fully.',                                       aspire:'You\'re becoming the version of yourself that surprises people — starting with yourself.'},
-  },
-
-  straykids:{
-    bangchan:{name:'Bang Chan',role:'Leader · Vocalist · Rapper', arch:'The Anchor', coreType:'The Anchor', coreFamily:'Pillars', group:'Stray Kids',  insight:'You are the thing the group is built on. Not because you demanded it — because you were the steady one long enough that it stopped being a role and became just who you are. People feel safer when you\'re in the room. That groundedness is real.',                                                                               shadow:'The shadow side? You hold everything together so completely that the people around you sometimes forget you need holding too.',                        mirror:'You\'ve been this person longer than you realize — carrying weight quietly while making it look like nothing.',                               aspire:'You\'re building toward being the kind of strength that also knows how to receive.'},
-    lee_know:{name:'Lee Know', role:'Main Dancer',                arch:'The Refiner', coreType:'The Refiner', coreFamily:'Edge',  group:'Stray Kids',  insight:'There\'s a technical precision to everything you do — and you hold yourself to a standard most people can\'t even see. You don\'t overshare, you don\'t perform, and you let the work speak. It always does.',                                                                               shadow:'The shadow side? The control that makes you so compelling is also what makes it hard for people to know when you\'re not okay.',                                     mirror:'This control is genuinely yours — you\'ve built it carefully and it\'s earned.',                                                             aspire:'You\'re drawn to this precision because you\'re learning to trust that what you hold back is just as powerful as what you show.'},
-    changbin: {name:'Changbin',role:'Main Rapper',                arch:'The Wit', coreType:'The Wit', coreFamily:'Depth',      group:'Stray Kids',  insight:'You use honesty like a tool — not to wound, but to cut through. The sharpness in how you speak and perform is a form of care. You keep things real because you actually want things to be good.',                                                                                             shadow:'The shadow side? The directness that makes you so compelling can land harder than you intended — and you feel that more than you show.',                        mirror:'You\'ve always operated this way — all in, every time. You\'ve just been told it\'s too much.',                                              aspire:'You\'re growing toward the version of yourself that channels the intensity without burning the people around you.'},
-    hyunjin:  {name:'Hyunjin', role:'Main Dancer · Vocalist',    arch:'The Artist', coreType:'The Artist', coreFamily:'Depth',          group:'Stray Kids',  insight:'You don\'t just perform — you translate. Everything you make is a way of taking something internal and finding a form for it. You see beauty in things other people walk past and you feel compelled to do something about it.',                                                                              shadow:'The shadow side? The beauty you\'re chasing can become a world you disappear into. Creation is real but so is the life outside the work.',                                       mirror:'You\'ve always seen the world this way — at a higher resolution, with more feeling. It\'s not sensitivity. It\'s precision.',                aspire:'You want to make things that last — and you\'re learning that lasting means being willing to be seen in the work.'},
-    han:      {name:'Han',     role:'Main Rapper · Vocalist',    arch:'The Artist', coreType:'The Artist', coreFamily:'Depth',     group:'Stray Kids',  insight:'You feel everything and you put it directly into what you make. The emotional honesty in your work is its greatest quality and the thing that makes you most exposed. When you channel it right, it becomes something no one else could have made.',                                                       shadow:'The shadow side? Feeling everything as fully as you do is what makes the work real — it\'s also what makes rest harder to find.',                mirror:'You\'ve never been able to keep what you feel at a distance. Everything lands. Everything stays.',                                            aspire:'You want to turn what you feel into something that connects — to make others feel less alone in their own depth.'},
-    felix:    {name:'Felix',   role:'Vocalist',                  arch:'The Warmth', coreType:'The Warmth', coreFamily:'Light',       group:'Stray Kids',  insight:'You make every room feel safer. Not because you\'re trying to — because you\'re genuinely, completely present with people. You remember details. You make people feel like the most important person in the room without even trying.',                                                                          shadow:'The shadow side? You make everyone feel so at home that people rarely stop to ask if you feel at home too.',                             mirror:'You\'ve always been this — the one who makes belonging feel possible. You just haven\'t owned it yet.',                                       aspire:'You\'re growing toward receiving the same presence you give — learning to let people fully in.'},
-    seungmin: {name:'Seungmin',role:'Vocalist',                  arch:'The Standard', coreType:'The Standard', coreFamily:'Edge',    group:'Stray Kids',  insight:'You hold yourself to a vocal and personal standard that doesn\'t move. You don\'t need the spotlight to know where you stand — you have an internal bar that\'s entirely yours, and you return to it constantly.',                                                                                shadow:'The shadow side? Excellence lived mostly in private means the practice room is a very solitary place. The standard keeps you company, but it isn\'t the same as being known.',                                                       mirror:'This groundedness is genuinely yours — you\'ve built it and it\'s real.',                                                                     aspire:'You\'re building toward recognizing your own reliability as a strength, not just a default.'},
-    jeongin:  {name:'I.N',     role:'Maknae · Vocalist',         arch:'The Becoming', coreType:'The Becoming', coreFamily:'Pillars',     group:'Stray Kids',  insight:'You came in as the youngest and you\'ve grown into something that label can\'t contain anymore. That evolution is happening in real time and it\'s one of the most compelling things about you — the version arriving is clearly different from the one that started.',                                                                                     shadow:'The shadow side? You\'re so comfortable letting others take the spotlight that your own growth can happen quietly enough that even you don\'t notice it.',                                               mirror:'You\'ve always had this quiet sureness — you\'re just still giving yourself permission to own it.',                                           aspire:'You\'re becoming someone who surprises people — and the first person you\'ll surprise is yourself.'},
-  },
-
-  ateez:{
-    hongjoong:{name:'Hongjoong',role:'Leader · Main Rapper',     arch:'The Architect', coreType:'The Architect', coreFamily:'Edge',       group:'ATEEZ',       insight:'You don\'t fit into what already exists. You look at a blank space and see something that isn\'t there yet — and then you build it. The lane ATEEZ walks didn\'t exist before you decided it should.',                                                                                                            shadow:'The shadow side? The drive to build can make people feel like parts of the project rather than the point. The vision is real. Make sure the people matter more.',mirror:'You\'ve always seen the version of things that doesn\'t exist yet. That\'s not ambition — it\'s architecture.',                                     aspire:'You\'re growing toward building things that outlast the moment — and letting the people in them feel that too.'},
-    seonghwa: {name:'Seonghwa',role:'Vocalist',                  arch:'The Warmth', coreType:'The Warmth', coreFamily:'Light',    group:'ATEEZ',       insight:'You give without keeping score. The way you show up for people — quietly, consistently, without making it about you — is one of the rarest things in any group. The care you offer runs deep and it accumulates over time in ways people carry with them.',                                                                                   shadow:'The shadow side? You give so naturally and so consistently that people forget to look for what you might need in return.',                                             mirror:'This quality is genuinely yours — people feel it before they understand it.',                                                                 aspire:'You\'re building toward grace that includes vulnerability — beauty that doesn\'t require everything to be controlled.'},
-    yunho:    {name:'Yunho',   role:'Main Dancer · Vocalist',    arch:'The Foundation', coreType:'The Foundation', coreFamily:'Pillars',    group:'ATEEZ',       insight:'You\'re the steady performance baseline — the person the whole thing rests on. There\'s a warmth and a solidity to you that makes people feel like everything is going to be okay, and you carry that without ever making it about yourself.',                                                                                               shadow:'The shadow side? You hold so much space for everyone else that your own feelings can go unspoken for longer than they should.',                                                      mirror:'You\'ve always been this kind of presence — solid, warm, unhurried.',                                                                         aspire:'You\'re learning to take up the full space you deserve — not just the space other people leave for you.'},
-    yeosang:  {name:'Yeosang', role:'Vocalist',                  arch:'The Watcher', coreType:'The Watcher', coreFamily:'Depth',    group:'ATEEZ',       insight:'You\'re still and perceptive — there\'s a gap between what you\'re taking in and what you choose to show, and that gap is where your actual power lives. The people who\'ve earned your full attention know the difference.',                                                                                              shadow:'The shadow side? You see so much from the outside that fully stepping into moments can feel like a risk you don\'t always take.',                              mirror:'You\'ve always operated in depth — you\'ve just learned not to lead with it.',                                                               aspire:'You\'re drawn to this mystery because you\'re still deciding who deserves the full version of you.'},
-    san:      {name:'San',     role:'Main Dancer · Vocalist',    arch:'The Intensity', coreType:'The Intensity', coreFamily:'Edge',       group:'ATEEZ',       insight:'You don\'t do 80%. Every time — total commitment. When something matters to you, it matters completely, and that level of presence is rare and magnetic and the reason people can\'t look away when you\'re performing.',                                                                                                      shadow:'The shadow side? Total commitment is magnetic when it\'s on — but what happens when the thing you\'re committed to isn\'t there? The in-between is harder for you than most.',mirror:'You\'ve always lived at this volume — all in, every time. You\'ve been told it\'s too much. It\'s not.',                                          aspire:'You\'re growing toward channeling the intensity without burning what you love in the process.'},
-    mingi:    {name:'Mingi',   role:'Main Rapper',               arch:'The Artist', coreType:'The Artist', coreFamily:'Depth',  group:'ATEEZ',       insight:'You have a creative world that\'s completely your own — in how you move, what you make, how you exist on a stage. That expressiveness isn\'t extra. It\'s the whole thing. The people drawn to you are drawn to that aliveness.',                                                                                                      shadow:'The shadow side? You share yourself so fully that vulnerability feels natural — but that openness can leave you more exposed than you intended.',                                  mirror:'You\'ve always been this expressive — you\'ve just sometimes been made to feel like it\'s too much.',                                        aspire:'You\'re learning to be fully yourself without needing everyone in the room to be ready for it.'},
-    wooyoung: {name:'Wooyoung',role:'Vocalist',                  arch:'The Spark', coreType:'The Spark', coreFamily:'Light',          group:'ATEEZ',       insight:'You change the temperature of a space the moment you enter it. That energy isn\'t manufactured — it\'s genuine warmth that moves fast, pulls people in, and makes everything feel more alive. People remember how a room felt when you were in it.',                                                                                                                          shadow:'The shadow side? When you\'re the mood-maker, you\'re expected to bring it — even on the days when the room is heavy and you have nothing left. The performance of lightness has a hidden cost.',                                  mirror:'You\'ve always loved people this way — you\'ve just been waiting for someone to love you back the same way.',                                aspire:'You\'re growing toward giving this warmth without losing yourself in the giving.'},
-    jongho:   {name:'Jongho',  role:'Main Vocalist',             arch:'The Standard', coreType:'The Standard', coreFamily:'Edge',  group:'ATEEZ',       insight:'Your vocal standard is unshakable — not because you were told to hold it there, but because you set it yourself and refuse to let it move. That kind of internally driven excellence is rarer than talent.',                                                                             shadow:'The shadow side? A standard that high doesn\'t leave much room for the in-between moments — the attempts, the misses, the parts that are still being figured out.',                                        mirror:'This quiet strength is genuinely yours — built over time, earned, real.',                                                                     aspire:'You\'re building toward being fully known — letting the depth that\'s always been there be seen by the right people.'},
-  },
-
-  enhypen:{
-    jungwon: {name:'Jungwon', role:'Leader · Vocalist',          arch:'The Anchor', coreType:'The Anchor', coreFamily:'Pillars',    group:'ENHYPEN',     insight:'There\'s a stillness at your center that\'s unusual for someone your age. You lead not by demanding the room but by being the kind of person people naturally orient toward — calm, considered, consistently themselves.',                                                                                     shadow:'The shadow side? You keep everything so steady around you that people can forget you\'re the one doing the work.',                           mirror:'You\'ve always had this quality — you\'ve just been developing the confidence to trust it fully.',                                           aspire:'You\'re growing toward the kind of leadership that doesn\'t need to perform composure — because it actually is.'},
-    heeseung:{name:'Heeseung',role:'Vocalist · Dancer · Rapper', arch:'The Counsel', coreType:'The Counsel', coreFamily:'Pillars',      group:'ENHYPEN',     insight:'You\'re the one everyone looks to — not because you demanded the role, but because you\'ve been capable long enough that it became a given. The guidance you offer isn\'t loud. It\'s just always right, and people have learned to notice that.',                                                                       shadow:'The shadow side? You feel the full weight of what you\'re capable of — which means the gap between where you are and where you could be is never really quiet.',                    mirror:'You\'ve always operated this way — wider, deeper, more. You\'ve just been worried it makes you scattered.',                                  aspire:'You\'re becoming the version of yourself that channels everything without feeling like enough is never enough.'},
-    jay:     {name:'Jay',     role:'Vocalist',                   arch:'The Intensity', coreType:'The Intensity', coreFamily:'Edge',       group:'ENHYPEN',     insight:'You commit completely — to your craft, to your image, to the version of yourself you\'re building. That total investment isn\'t performance. It\'s a refusal to do anything halfway, and people feel the difference.',                                                                             shadow:'The shadow side? You bring everything — which means when you\'re in it, you\'re all the way in, and that kind of presence takes something from you too.',                                                                         mirror:'You\'ve always been this perceptive — you\'ve just sometimes used sharpness to avoid depth.',                                               aspire:'You\'re growing toward letting the real version out — the one that doesn\'t need the armor.'},
-    jake:    {name:'Jake',    role:'Vocalist',                   arch:'The Spark', coreType:'The Spark', coreFamily:'Light',     group:'ENHYPEN',     insight:'You\'re immediately warm — the kind of person who makes people feel welcome before they\'ve decided to feel comfortable. That instinct isn\'t performance. It\'s a genuine draw toward people that shows up every time.',                                                                               shadow:'The shadow side? You give people the real version of you right away — which means you feel it more when they don\'t meet you there.',                                                     mirror:'You\'ve always been this direct with your heart — you\'ve just been told to soften it.',                                                     aspire:'You\'re building toward being fully sincere without giving everyone equal access to that sincerity.'},
-    sunghoon:{name:'Sunghoon',role:'Vocalist',                   arch:'The Refiner', coreType:'The Refiner', coreFamily:'Edge', group:'ENHYPEN',     insight:'The elegance you carry comes from years of figure skating — a discipline that demands internal focus and invisible precision. What people see is the result of a standard that lives entirely inside you and never moves.',                                                         shadow:'The shadow side? The composed exterior can keep the right people at arm\'s length. Let the interesting interior be seen more.',                                 mirror:'You\'ve always had this depth behind the surface — you\'ve just been letting people stop at the surface.',                                   aspire:'You\'re growing toward letting what\'s underneath be the thing that defines you.'},
-    sunoo:   {name:'Sunoo',   role:'Vocalist',                   arch:'The Performer', coreType:'The Performer', coreFamily:'Light',        group:'ENHYPEN',     insight:'You come alive in front of people. The expressiveness you bring — the way every feeling moves visibly through you — isn\'t extra. It\'s the whole thing. People don\'t just watch you, they feel something specific because of you.',                                                                                              shadow:'The shadow side? You shine so consistently that the people around you can forget you\'re allowed to not be okay.',                                     mirror:'You\'ve already chosen this — to stay open, stay warm, stay present. That choice is yours and it matters.',                                  aspire:'You\'re building toward joy that includes the hard days — warmth that doesn\'t require everything to be good.'},
-    niki:    {name:'Niki',    role:'Main Dancer · Maknae',       arch:'The Architect', coreType:'The Architect', coreFamily:'Edge',         group:'ENHYPEN',     insight:'You\'re building something no one has seen yet — a lane that\'s entirely yours. At an age when most people are still figuring out what they\'re good at, you\'re already constructing what you want to be known for.',                                                                     shadow:'The shadow side? Living in a future that hasn\'t arrived yet means the present keeps feeling like a waiting room. Architects risk burning out on the vision before they get to live in what they built.',                          mirror:'You\'re living this now — the most important and most uncomfortable part of the process.',                                                    aspire:'You\'re becoming the version of yourself that matches the ability — and that process is the whole point.'},
-  },
-
-  txt:{
-    yeonjun: {name:'Yeonjun', role:'Main Dancer · Vocalist',     arch:'The Foundation', coreType:'The Foundation', coreFamily:'Pillars',           group:'TXT',         insight:'The group\'s identity runs through you — not because you asked for it, but because you\'ve been the reference point long enough that it\'s just true. You carry the standard quietly and the whole thing moves around you.',                                                                                                 shadow:'The shadow side? You carry the group\'s identity so naturally that your own separateness can get lost in it. Who you are outside of what you represent is a question worth sitting with.',                                              mirror:'You\'ve always felt most alive when people are witnessing something. You\'ve just been deciding whether to own that.',                        aspire:'You\'re growing toward being fully seen — not just performing for a room, but letting one person see the whole thing.'},
-    soobin:  {name:'Soobin',  role:'Leader · Vocalist',          arch:'The Anchor', coreType:'The Anchor', coreFamily:'Pillars',  group:'TXT',         insight:'You are the quiet constant — the person a group exhales around. Your leadership doesn\'t announce itself, it just makes everything function better. People trust you before they understand why, and it\'s because that groundedness is visible even when you\'re saying nothing.',                                                                                     shadow:'The shadow side? You\'re so reliably steady that asking for steadiness back can feel like breaking a rule you set for yourself.',                                             mirror:'You\'ve always operated this carefully — and it\'s part of why people feel so safe around you.',                                             aspire:'You\'re building toward the kind of leader who can be both thoughtful and decisive — not choosing between them.'},
-    beomgyu: {name:'Beomgyu', role:'Vocalist',                   arch:'The Wit', coreType:'The Wit', coreFamily:'Depth',      group:'TXT',         insight:'You\'re sharp and perceptive — you see what\'s actually happening in a room and you articulate it in a way that makes people laugh and then think. That\'s a rarer combination than it sounds, and it\'s entirely yours.',                                                shadow:'The shadow side? Making people laugh and then think is its own kind of armor. The joke lands, the room exhales — and you\'ve kept a safe distance without anyone noticing.',                                   mirror:'You\'ve chosen to be this kind of presence — and that choice has been made over and over.',                                                  aspire:'You\'re growing toward joy that includes the hard moments instead of glossing over them.'},
-    taehyun: {name:'Taehyun', role:'Main Vocalist',              arch:'The Refiner', coreType:'The Refiner', coreFamily:'Edge',        group:'TXT',         insight:'You hold the work to an intellectual and technical standard that most people would find exhausting. You call it caring. The gap between what is and what could be isn\'t frustrating to you — it\'s a direction.',                                                                                shadow:'The shadow side? The bar you hold yourself to is invisible to everyone else — which means the gap between where you are and where you want to be is one only you can feel.',mirror:'You\'ve always held yourself to this level — and it\'s produced real things.',                                                                    aspire:'You\'re building toward standards that push you without punishing you.'},
-    huening: {name:'Huening Kai',role:'Maknae · Vocalist',       arch:'The Open Heart', coreType:'The Open Heart', coreFamily:'Light',         group:'TXT',         insight:'You lead with vulnerability and you do it unapologetically. The softness isn\'t weakness — it\'s a choice you make every day, and it gives other people permission to feel things they\'d otherwise keep quiet.',                                                  shadow:'The shadow side? You live so fully in what could be that what already is sometimes doesn\'t get the credit it deserves.',                                      mirror:'You\'ve always had this quality — a foot in somewhere else, a gentleness toward what could be.',                                             aspire:'You\'re growing toward bringing what you imagine into the world — making the dream visible.'},
-  },
-
-
-  seventeen:{
-    s_coups: {name:'S.Coups',  role:'Leader · Rapper',                        arch:'The Anchor',             coreType:'The Anchor',    coreFamily:'Pillars', group:'SEVENTEEN', insight:'You carry the weight of thirteen people without making it look like weight. That\'s the whole thing. The groundedness you offer isn\'t manufactured — it\'s who you become when it matters, which is every time.',                                                      shadow:'The shadow side? You\'ve been the one holding everything together for so long that it\'s stopped feeling like a choice — and that means the weight rarely gets acknowledged, even by you.',                                            mirror:'You\'ve been the ironclad one for so long it\'s become invisible — even to you.',                                                           aspire:'You\'re drawn to this because you want to be the kind of strength that never wavers. You\'re learning that it already does, and that\'s okay.'},
-    jeonghan:{name:'Jeonghan', role:'Vocalist',                                arch:'The Counsel',           coreType:'The Counsel',   coreFamily:'Pillars', group:'SEVENTEEN', insight:'You see things before other people see them — the dynamic underneath the dynamic, the move three steps ahead. That strategic intelligence isn\'t coldness. It\'s care. You pay attention because you actually want things to go well for the people around you.',                                                                  shadow:'The shadow side? You\'re so good at reading rooms that you can end up managing them instead of just being in them.',                                                      mirror:'You\'ve always operated a step ahead. You just don\'t always let people know it.',                                                           aspire:'You\'re drawn to this because you want to be the one who sees clearly. You\'re learning to trust what you see without needing to act on all of it.'},
-    joshua:  {name:'Joshua',   role:'Vocalist',                                arch:'The Warmth',      coreType:'The Warmth',    coreFamily:'Light',   group:'SEVENTEEN', insight:'You\'re the kind of presence people don\'t fully notice until you\'re not there. Steady, warm, genuinely interested in the people around you — you make belonging feel effortless, and that\'s one of the rarest gifts anyone can offer.',                                                                                                       shadow:'The shadow side? You\'re so consistently warm that people rarely check if anything is wrong — and you rarely tell them.',                                                 mirror:'This constancy is yours. You\'ve built it quietly over years and it holds.',                                                                  aspire:'You\'re drawn to this ease because you want to make people feel safe without trying. You\'re closer to it than you think.'},
-    jun:     {name:'Jun',      role:'Performer · Vocalist',                    arch:'The Hidden',          coreType:'The Hidden',    coreFamily:'Depth',   group:'SEVENTEEN', insight:'You reveal yourself in flashes — a moment of performance, a flash of humor, a creative choice that catches everyone off guard. What\'s underneath is deeper than most people get to see, and you\'re deliberate about who earns that access.',                                                                                   shadow:'The shadow side? Revealing yourself in flashes means people get a highlight reel rather than a through-line. That\'s your choice — but sometimes the people worth knowing don\'t have the patience to wait for the next flash.',                                        mirror:'You\'ve always had this depth of commitment. It shows every time you step into a performance.',                                               aspire:'You\'re drawn to this because you want your presence to speak for itself. It already does.'},
-    hoshi:   {name:'Hoshi',    role:'Main Dancer · Performer · Choreographer', arch:'The Performer',             coreType:'The Performer', coreFamily:'Light',   group:'SEVENTEEN', insight:'You were built for the stage — not in the sense that you perform well, but in the sense that performing is where you\'re most fully yourself. The energy you bring isn\'t manufactured. It\'s something you unleash, and it takes everyone in the room with it.',                                                      shadow:'The shadow side? The stage is where you\'re most fully yourself — which raises the question of who Kwon Soonyoung is when Hoshi goes home. That blur isn\'t a crisis, but it\'s worth paying attention to.',                                         mirror:'You\'ve always had this electric presence. The stage just gives it somewhere to go.',                                                         aspire:'You\'re drawn to this because you want to be the energy in the room. You already are.'},
-    wonwoo:  {name:'Wonwoo',   role:'Lead Rapper · Vocalist',                  arch:'The Watcher',          coreType:'The Watcher',   coreFamily:'Depth',   group:'SEVENTEEN', insight:'You exist at a remove from the noise — not because you\'re not present, but because you\'re processing everything at a different depth than most people. That quiet isn\'t distance. It\'s the place where real things happen.',                                                                                                 shadow:'The shadow side? Processing everything at depth means you\'re often still working through something by the time the moment has moved on. The world moves faster than the depth you bring to it.',                                         mirror:'This stillness is your superpower. People feel it before they understand it.',                                                                 aspire:'You\'re drawn to this because you want your depth to mean something. It already does to the people paying attention.'},
-    woozi:   {name:'Woozi',    role:'Main Vocalist · Producer · Songwriter',   arch:'The Artist',   coreType:'The Artist',   coreFamily:'Depth',    group:'SEVENTEEN', insight:'You don\'t just make music — you build worlds from the inside out. The standard you hold the work to is invisible to most people, but they feel the result every time. Small in presence, enormous in output. That ratio is one of the most interesting things about you.',                                               shadow:'The shadow side? When the work is that personal, criticism of it is never just about the work. The line between what you make and who you are is thinner than people realize — and that\'s a vulnerable place to live.',                                          mirror:'You\'ve always held the work to this standard. The catalog speaks for itself.',                                                               aspire:'You\'re drawn to this because you want what you make to outlast the moment. It will.'},
-    dk:      {name:'DK',       role:'Main Vocalist',                           arch:'The Open Heart',             coreType:'The Open Heart',  coreFamily:'Light',   group:'SEVENTEEN', insight:'You wear your emotions openly and it makes everyone around you feel like they\'re allowed to do the same. The warmth and joy you bring isn\'t manufactured — it\'s a daily commitment to meeting the world with your whole heart.',                                                           shadow:'The shadow side? Being the emotional warmth of a group means your own darker moments can feel like a disruption — like you\'re breaking something you\'re supposed to protect.',                                                        mirror:'This brightness is a choice you keep making. That makes it more impressive, not less.',                                                        aspire:'You\'re drawn to this because you want joy to be your default. It already is — and it\'s contagious.'},
-    mingyu:  {name:'Mingyu',   role:'Main Rapper · Vocalist',                  arch:'The Foundation',             coreType:'The Foundation',coreFamily:'Pillars', group:'SEVENTEEN', insight:'You do everything — and you make it look effortless. The cooking, the energy, the presence, the work. That load-bearing quality isn\'t just about being capable. It\'s about being the person the group\'s daily life actually runs through.',                                                             shadow:'The shadow side? A presence that large can make people assume you\'re always solid. You feel things too, at exactly the same volume as everyone else.',                                                   mirror:'You\'ve always had this — the kind of gravity that pulls people in without trying.',                                                          aspire:'You\'re drawn to this because you want to be someone people feel before they see. You already are.'},
-    the8:    {name:'The8',     role:'Performer · Vocalist',                    arch:'The Refiner',          coreType:'The Refiner',    coreFamily:'Edge',   group:'SEVENTEEN', insight:'Everything is intentional — the art, the lifestyle, the creative choices, the standards you hold yourself to. That precision isn\'t perfectionism. It\'s a deep respect for what things could actually be when you care enough to get them right.',                                                                               shadow:'The shadow side? When everything is intentional, nothing is allowed to be accidental — and some of the best things happen by accident. The control that makes you compelling can close doors you didn\'t mean to close.',                                               mirror:'You\'ve always moved to your own rhythm. The people who get it stay.',                                                                        aspire:'You\'re drawn to this because you want to be fully yourself without apology. You\'re further along that road than you realize.'},
-    seungkwan:{name:'Seungkwan',role:'Main Vocalist',                          arch:'The Wit',    coreType:'The Wit',       coreFamily:'Depth',   group:'SEVENTEEN', insight:'You say what everyone else is thinking and somehow make it feel like a gift rather than a confrontation. That combination of humor, honesty, and warmth is its own rare skill — you can hold a room, move it, and make people feel seen all in the same breath.',                                                                   shadow:'The shadow side? You\'re so good at reading and serving a room that your own needs can stay offstage longer than they should.',                                           mirror:'You\'ve always been the voice that cuts through. People trust it because it\'s real.',                                                       aspire:'You\'re drawn to this because you want your honesty to land as love. It does.'},
-    vernon:  {name:'Vernon',   role:'Rapper · Vocalist',                       arch:'The Artist',          coreType:'The Artist',    coreFamily:'Depth',   group:'SEVENTEEN', insight:'You live in a creative world that\'s entirely your own — the references, the perspective, the way it all comes out in your verses. That distinctiveness isn\'t a pose. It\'s just what happens when someone refuses to make themselves generic.',                                                                                    shadow:'The shadow side? The depth you carry can feel like a distance to people who want to be close to you but don\'t know how to get there.',                                   mirror:'You\'ve always had this interior life. Most people only catch glimpses, which makes them want more.',                                          aspire:'You\'re drawn to this because you want to make sense of things. You\'re learning that not everything needs to resolve.'},
-    dino:    {name:'Dino',     role:'Main Dancer · Vocalist · Maknae',         arch:'The Becoming',      coreType:'The Becoming',  coreFamily:'Pillars', group:'SEVENTEEN', insight:'You are constantly, visibly evolving your craft — and you\'ve been doing it with the entire world watching. That commitment to growth isn\'t restlessness. It\'s the specific courage of someone who refuses to stop at good enough.',                                       shadow:'The shadow side? The version of you that\'s arriving gets all the attention — which means the version that\'s already here sometimes doesn\'t get the credit it earned.',                                              mirror:'You\'re living the evolution. It\'s visible to everyone watching.',                                                                          aspire:'You\'re drawn to this because you want to outgrow the box you were put in. You already have.'},
-  },
-
-  illit:{
-    yunah:  {name:'Yunah',  role:'Leader · Vocalist',          arch:'The Intensity',     coreType:'The Intensity',     coreFamily:'Edge', group:'ILLIT', insight:'There\'s a determined, powerful force to you that shows up before you\'ve said anything. You lead with full commitment — to the performance, to the group, to whatever the moment demands. That intensity isn\'t aggression. It\'s conviction.',                                                                                                                             shadow:'The shadow side? Leading with full force means the moments where you don\'t have it cost you more than they cost other people. You\'re allowed to show up at 80%.',                                       mirror:'This warmth is how you lead. It\'s already working.',                                                                                         aspire:'You\'re drawn to this because you want people to feel safe around you. They do.'},
-    minju:  {name:'Minju',  role:'Vocalist',                   arch:'The Open Heart',     coreType:'The Open Heart',      coreFamily:'Light',   group:'ILLIT', insight:'You\'re soft-spoken and deeply emotional, and you lead with your whole heart rather than holding back. That openness isn\'t vulnerability — it\'s courage. The people around you feel seen because you\'re not performing anything.',                                                                                                                                  shadow:'The shadow side? Leading with your whole heart means you feel the gap more acutely when the world is closed off. The openness that\'s your greatest gift is also what makes certain rooms feel very lonely.',                                                             mirror:'This pull is real and it\'s yours. You didn\'t build it — you just stopped hiding it.',                                                      aspire:'You\'re drawn to this because you want connection to feel effortless. It already does for the people around you.'},
-    moka:   {name:'Moka',   role:'Main Dancer · Vocalist',     arch:'The Performer',   coreType:'The Performer',    coreFamily:'Light',    group:'ILLIT', insight:'You\'re highly expressive on stage — the kind of performer where everything reads, every choice lands, every moment is inhabited completely. That stage presence isn\'t technique. It\'s what happens when someone is genuinely in it.',                                                                                                      shadow:'The shadow side? Inhabiting every moment completely on stage means the ordinary ones offstage can feel strangely flat. The intensity of the performance makes the rest of life harder to settle into.',    mirror:'You\'ve always held yourself to this. The quality in your work is the evidence.',                                                             aspire:'You\'re drawn to this because you want the work to be worth it. It is.'},
-    wonhee: {name:'Wonhee', role:'Vocalist · Performer',       arch:'The Becoming',     coreType:'The Becoming', coreFamily:'Pillars',   group:'ILLIT', insight:'You\'re learning and growing at high speed and doing it openly, in front of everyone. The version of you that\'s emerging is more interesting than any finished product could be — and that process itself is one of the most honest things about you.',                                                                                        shadow:'The shadow side? Growth this fast and this public means you\'re always being measured against who you were last month. Give yourself permission to just be where you are.',                                                           mirror:'This openness is your gift. The people who receive it don\'t forget it.',                                                                     aspire:'You\'re drawn to this because you want your feelings to mean something to others. They do.'},
-    iroha:  {name:'Iroha',  role:'Main Dancer · Vocalist',     arch:'The Refiner',    coreType:'The Refiner',    coreFamily:'Edge',   group:'ILLIT', insight:'Your dancer\'s precision shows up in everything — how you move, how you hold yourself, the standard you bring to every detail of the performance. That internal focus isn\'t distance. It\'s respect for the work.',                                                                                                          shadow:'The shadow side? Precision built through discipline means mistakes land harder for you than they do for other people. You hold yourself to a standard that doesn\'t have much room for the learning curve.',                                                     mirror:'You\'ve always processed the world this carefully. The depth is there for anyone patient enough to find it.',                                  aspire:'You\'re drawn to this because you want your presence to be felt without being loud. It already is.'},
-  },
-
-
-  izone:{
-    eunbi:    {name:'Eunbi',    role:'Leader · Vocalist',              arch:'The Foundation', coreType:'The Foundation', coreFamily:'Pillars', group:'IZ*ONE', insight:'You were handed something most leaders never face — a group with a built-in ending, a language barrier, and twelve people who needed someone to make it feel permanent anyway. You did that. The structure held because you held it, and you made it look like it wasn\'t costing you anything.',                                                                shadow:'The shadow side? You spent so long making the weight look light that the people around you forgot it was weight at all.'},
-    sakura:   {name:'Sakura',   role:'Vocalist',                       arch:'The Counsel',    coreType:'The Counsel',    coreFamily:'Pillars', group:'IZ*ONE', insight:'You see the move before the room does — not because you\'re calculating, but because you actually care how things turn out for the people around you. That strategic intelligence isn\'t coldness. It\'s the most consistent form of attention you know how to give.',                                                                                       shadow:'The shadow side? You\'re so good at reading rooms that you can end up managing them instead of just being in them.'},
-    nako:     {name:'Nako',     role:'Vocalist · Dancer',              arch:'The Anchor',     coreType:'The Anchor',     coreFamily:'Pillars', group:'IZ*ONE', insight:'You are the quiet constant — the person a group finds its footing around without fully understanding why. That steadiness isn\'t performed and it doesn\'t announce itself. It\'s just always there, and people have learned to rely on it before they\'ve decided to.',                                                                                    shadow:'The shadow side? You\'re so contained and so consistent that people read your steadiness as not needing anything — and you\'ve never really corrected them.'},
-    hitomi:   {name:'Hitomi',   role:'Vocalist · Dancer',              arch:'The Becoming',   coreType:'The Becoming',   coreFamily:'Pillars', group:'IZ*ONE', insight:'You proved in front of everyone that identity isn\'t fixed — it\'s built. You took yourself apart and rebuilt, in a foreign country, in a foreign language, with the whole thing on camera. The version of you that came out the other side didn\'t happen by accident. You engineered it.',                                                              shadow:'The shadow side? When your whole story is about becoming the next version of yourself, it gets hard to stop and actually live in the one you already are.'},
-    chaewon:  {name:'Chaewon',  role:'Vocalist · Center',              arch:'The Architect',  coreType:'The Architect',  coreFamily:'Edge',    group:'IZ*ONE', insight:'You don\'t wait for a lane to open up — you design the one you want and then build it. The vision is yours, the direction is yours, and the thing you\'re constructing doesn\'t look like anything that existed before you decided it should.',                                                                                                          shadow:'The shadow side? You see exactly where things are going — which means you feel the gap between the blueprint and the current reality more sharply than anyone else in the room.'},
-    wonyoung: {name:'Wonyoung', role:'Vocalist · Center',              arch:'The Standard',   coreType:'The Standard',   coreFamily:'Edge',    group:'IZ*ONE', insight:'You understand that presence is a choice, not a default. Everything you bring to a moment is considered — not out of vanity, but because you hold yourself to a standard most people don\'t even acknowledge exists. That\'s not performance. That\'s mastery.',                                                                                                                                                                                                                                                                                                                                    shadow:'The shadow side? The cost of never being seen unpolished is that people stop thinking of you as someone who could be. The performance of perfection is exhausting to maintain alone.'},
-    chaeyeon: {name:'Chaeyeon', role:'Main Dancer · Vocalist',         arch:'The Refiner',    coreType:'The Refiner',    coreFamily:'Edge',    group:'IZ*ONE', insight:'The precision is the point. You hold your craft to a standard that lives entirely inside you — a bar most people can\'t see and wouldn\'t know how to measure. The work isn\'t just good. It\'s honest. And the difference between those two things is something you\'ve never been willing to ignore.',                                              shadow:'The shadow side? You can refine something until the technical perfection is real and the human soul of it is somewhere on the floor. The bar is yours — which means only you know when you\'ve crossed that line.'},
-    yuri:     {name:'Yuri',     role:'Vocalist',                       arch:'The Refiner',    coreType:'The Refiner',    coreFamily:'Edge',    group:'IZ*ONE', insight:'You treat your voice like it owes you something — and you hold it to a standard that\'s entirely internal, precise, and unmoving. The discipline isn\'t rigidity. It\'s respect for what the work could actually be, and you\'ve never been satisfied with anything less than that.',                                                                  shadow:'The shadow side? The bar you hold your voice to is one only you can hear — which means you\'re the only one who knows when you\'ve fallen short of it, and the only one who can\'t let it go.'},
-    yena:     {name:'Yena',     role:'Vocalist · Performer',           arch:'The Spark',      coreType:'The Spark',      coreFamily:'Light',   group:'IZ*ONE', insight:'You make a room feel different the second you\'re in it — not because you\'re performing energy, but because yours is genuinely, immediately available to everyone around you. That warmth moves fast and it pulls people in before they\'ve decided to be pulled. It\'s not a strategy. It\'s just how you\'re built.',                          shadow:'The shadow side? When you\'re everyone\'s immediate source of warmth, people forget to ask what keeps yours going — and you\'ve gotten very good at not reminding them.'},
-    iz_yujin: {name:'Yujin',    role:'Vocalist · Leader',              arch:'The Standard',   coreType:'The Standard',   coreFamily:'Edge',    group:'IZ*ONE', insight:'You raise the bar by refusing to be anything less than fully committed — to every category, every performance, every room you walk into. That\'s not pressure you put on other people. It\'s just the version of yourself you show up as, and the whole thing rises around it.',                                                                        shadow:'The shadow side? When you\'re the reliable one who can do everything, you\'re rarely given permission to drop something — which means the cost of that reliability is one mostly you can feel.'},
-    hyewon:   {name:'Hyewon',   role:'Vocalist',                       arch:'The Wit',        coreType:'The Wit',        coreFamily:'Depth',   group:'IZ*ONE', insight:'You see the thing other people are too polite or too distracted to name, and then you name it — precisely, without flinching, usually in a way that makes everyone laugh. That\'s not just humor. That\'s a form of honesty most people aren\'t sharp enough to pull off.',                                                                            shadow:'The shadow side? The observer role keeps you sharp and it keeps you safe — but the same distance that makes the wit work can make it hard to let people into the version of you that isn\'t watching.'},
-    iz_minju: {name:'Minju',    role:'Vocalist',                       arch:'The Hidden',     coreType:'The Hidden',     coreFamily:'Depth',   group:'IZ*ONE', insight:'There\'s a genuine warmth underneath the visual exterior that most people don\'t get to reach. You\'re not guarded because you\'re cold — you\'re guarded because what\'s underneath actually matters to you. You share it carefully, with the people who\'ve taken the time, and that selectivity is its own form of self-knowledge.',    shadow:'The shadow side? The sincerity is real — but it\'s so carefully protected that people who haven\'t earned their way in yet can mistake the distance for indifference.'},
-  },
-
-  twice:{
-    nayeon:   {name:'Nayeon',   role:'Main Vocalist · Center',         arch:'The Performer',  coreType:'The Performer',  coreFamily:'Light',   group:'TWICE', insight:'The stage isn\'t where you go to work — it\'s where you\'re most fully yourself. That performance instinct is genuine, not manufactured. You come alive in front of people in a way that\'s specific to you, and the audience can always tell the difference.',                                                                                    shadow:'The shadow side? When you\'re performing for everyone, it can be hard for people — including you — to know who you are when the music stops.'},
-    jeongyeon:{name:'Jeongyeon',role:'Vocalist',                       arch:'The Anchor',     coreType:'The Anchor',     coreFamily:'Pillars', group:'TWICE', insight:'You are the steady one — the person the group exhales around. That groundedness isn\'t manufactured and it doesn\'t need to perform itself. People feel safer when you\'re in the room, and they\'ve learned that if Jeongyeon is here, things are going to be okay.',                                                                            shadow:'The shadow side? You\'ve had to build that steadiness — which means the people who lean on it don\'t always see what it cost.'},
-    momo:     {name:'Momo',     role:'Main Dancer · Vocalist',         arch:'The Refiner',    coreType:'The Refiner',    coreFamily:'Edge',    group:'TWICE', insight:'The precision is the point. You hold your work to an invisible standard that no one else can fully see, and you don\'t lower it — ever. The gap between what you can do and what most people think is possible has always been wider than they expect.',                                                                                              shadow:'The shadow side? The bar you hold yourself to is relentless. Rest rarely feels earned, even when it is.'},
-    sana:     {name:'Sana',     role:'Vocalist',                       arch:'The Spark',      coreType:'The Spark',      coreFamily:'Light',   group:'TWICE', insight:'You make people feel like they\'re the only one in the room. That\'s not a strategy — it\'s just how you love people. The warmth is real, and it\'s specific, and people feel chosen by it in a way that most performers can\'t manufacture.',                                                                                                shadow:'The shadow side? You\'re so good at making people feel seen that your own moments of wanting to be seen can get lost in the brightness.'},
-    jihyo:    {name:'Jihyo',    role:'Leader · Main Vocalist',         arch:'The Foundation', coreType:'The Foundation', coreFamily:'Pillars', group:'TWICE', insight:'You are the group\'s center of gravity. Not the loudest, not always the most visible — but structurally, everything runs through you. That voice, that leadership, that willingness to carry more than your share without announcing it. The group\'s identity is inseparable from yours.',                                                          shadow:'The shadow side? When you\'re the one everyone looks to, it\'s easy for people to read your strength as not needing anything back.'},
-    mina:     {name:'Mina',     role:'Vocalist · Dancer',              arch:'The Hidden',     coreType:'The Hidden',     coreFamily:'Depth',   group:'TWICE', insight:'You\'ve learned to hold yourself very still in front of people — and it took something to learn that. The depth is real: the art, the feeling, the internal world. You share it carefully, with the people who\'ve proven they can hold it, and that selectivity is a form of self-knowledge most people never develop.',                      shadow:'The shadow side? The care you take about who gets access to the real version of you means the people who love you can miss the moments when you actually need them.'},
-    dahyun:   {name:'Dahyun',   role:'Vocalist · Rapper',              arch:'The Wit',        coreType:'The Wit',        coreFamily:'Depth',   group:'TWICE', insight:'The humor is the intelligence. You see the thing other people don\'t see, you name it exactly, and then you make it funny — which means anyone paying attention learns something. That precision isn\'t accidental. You\'re sharper than you let on, and the best part is you already know it.',                                                 shadow:'The shadow side? The wit keeps people laughing, but it can also keep people at arm\'s length from the parts of you that aren\'t punchlines.'},
-    chaeyoung:{name:'Chaeyoung',role:'Vocalist · Rapper',              arch:'The Artist',     coreType:'The Artist',     coreFamily:'Depth',   group:'TWICE', insight:'You live inside a creative and emotional world that is completely, specifically yours. The art isn\'t decoration — it\'s how you think. You\'re not fitting into a genre or a lane; you\'re building something that didn\'t exist before, and you\'re doing it on your own terms.',                                                     shadow:'The shadow side? A world that interior can make it easy to disappear into the work and hard to let people into the person making it.'},
-    tzuyu:    {name:'Tzuyu',    role:'Vocalist',                       arch:'The Becoming',   coreType:'The Becoming',   coreFamily:'Pillars', group:'TWICE', insight:'You\'ve been in the spotlight since before you were ready, and you\'ve handled it with a quiet dignity that took years to fully become yours. The version of you that exists right now — considered, grounded, still growing — is more interesting than any finished product.',                                                                   shadow:'The shadow side? You\'ve spent so long being someone else\'s ideal that figuring out what\'s purely, specifically yours takes longer than it should.'},
-  },
-
-};
-
-function qzShuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-
-const QZ_GROUPS={
-  girl:[
-    {id:'newjeans',  name:'NewJeans',   emoji:'🐰', gen:'4th Gen · ADOR',       pronoun:'she'},
-    {id:'lesserafim',name:'LE SSERAFIM',emoji:'🔥', gen:'4th Gen · HYBE',       pronoun:'she'},
-    {id:'aespa',     name:'aespa',      emoji:'🤖', gen:'4th Gen · SM',         pronoun:'she'},
-    {id:'ive',       name:'IVE',        emoji:'🌸', gen:'4th Gen · Starship',   pronoun:'she'},
-    {id:'illit',     name:'ILLIT',      emoji:'🌷', gen:'5th Gen · HYBE',       pronoun:'she'},
-    {id:'izone',     name:'IZ*ONE',     emoji:'🌹', gen:'4th Gen · Off The Record', pronoun:'she'},
-    {id:'twice',     name:'TWICE',      emoji:'🍭', gen:'3rd Gen · JYP',          pronoun:'she'},
-    {id:'itzy',      name:'ITZY',       emoji:'⚡', gen:'Coming Soon', soon:true},
-    {id:'gidle',     name:'(G)I-DLE',   emoji:'👑', gen:'Coming Soon', soon:true},
-    {id:'nmixx',     name:'NMIXX',      emoji:'🎵', gen:'Coming Soon', soon:true},
-    {id:'blackpink', name:'BLACKPINK',  emoji:'🌹', gen:'Coming Soon', soon:true},
-    {id:'twice',     name:'TWICE',      emoji:'🐇', gen:'Coming Soon', soon:true},
-  ],
-  boy:[
-    {id:'straykids', name:'Stray Kids', emoji:'🐺', gen:'4th Gen · JYP',        pronoun:'he'},
-    {id:'ateez',     name:'ATEEZ',      emoji:'🏴‍☠️', gen:'4th Gen · KQ',         pronoun:'he'},
-    {id:'enhypen',   name:'ENHYPEN',    emoji:'🌙', gen:'4th Gen · HYBE',       pronoun:'he'},
-    {id:'txt',       name:'TXT',        emoji:'🌌', gen:'4th Gen · HYBE',       pronoun:'he'},
-    {id:'exo',       name:'EXO',        emoji:'❄️', gen:'Coming Soon', soon:true},
-    {id:'seventeen', name:'SEVENTEEN',  emoji:'💎', gen:'3rd Gen · PLEDIS', pronoun:'he'},
-    {id:'nctdream',  name:'NCT Dream',  emoji:'🌙', gen:'Coming Soon', soon:true},
-    {id:'bts',       name:'BTS',        emoji:'🔮', gen:'Coming Soon', soon:true},
-  ]
-};
-
-let selGender=null;
-
-function qzPickGender(g){
-  selGender=g;
-  selGroup=null;
-  document.querySelectorAll('.gender-card').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('gc-'+g).classList.add('selected');
-  document.getElementById('btn-qz-gender').disabled=false;
-}
-
-function qzShowGroups(){
-  const list=QZ_GROUPS[selGender];
-  document.getElementById('qz-group-grid').innerHTML=list.map(g=>
-    g.soon
-      ? `<div class="qz-group-card qz-coming-soon"><div class="qz-group-emoji">${g.emoji}</div><div class="qz-group-name">${g.name}</div><div class="qz-group-gen">Coming Soon</div></div>`
-      : `<div class="qz-group-card" onclick="qzPickGroup('${g.id}')" id="qzgc-${g.id}"><div class="qz-group-emoji">${g.emoji}</div><div class="qz-group-name">${g.name}</div><div class="qz-group-gen">${g.gen}</div></div>`
-  ).join('');
-  document.getElementById('btn-qz-start').disabled=true;
-  showQS('qs-groupsel');
-}
-
-function qzPickGroup(g){
-  selGroup=g;
-  document.querySelectorAll('.qz-group-card:not(.qz-coming-soon)').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('qzgc-'+g).classList.add('selected');
-  document.getElementById('btn-qz-start').disabled=false;
-}
-
-function qzBegin(){
-  if(!selGroup)return;
-  qzScores={};Object.keys(QZ_MEMBERS[selGroup]).forEach(m=>qzScores[m]=0);
-  qzAnswers=[];qzIdx=0;
-  sessionQs=[];
-  DIMS.forEach(dim=>{
-    const pool=qzShuffle(QZ_POOL.filter(q=>q.dim===dim));
-    sessionQs.push(...pool.slice(0,2));
-  });
-  qzShuffle(sessionQs);
-  sessionQs.forEach(q=>{ q._opts=null; });
-  showQS('qs-questions');
-  qzRender();
-}
-
-function qzGetOpts(q){
-  const members=QZ_MEMBERS[selGroup];
-  const valid=q.opts.filter(o=>Object.keys(o.w).some(k=>members[k]!==undefined));
-  if(valid.length>=4) return qzShuffle([...valid]).slice(0,4);
-  // Pad with remaining options if not enough group-specific ones
-  const rest=q.opts.filter(o=>!valid.includes(o));
-  const padded=[...valid,...qzShuffle([...rest])].slice(0,4);
-  return qzShuffle([...padded]);
-}
-
-function qzRender(){
-  const q=sessionQs[qzIdx];
-  document.getElementById('qz-progress').innerHTML=sessionQs.map((_,i)=>`<div class="progress-step${i<qzIdx?' done':i===qzIdx?' active':''}"></div>`).join('')+`<span class="progress-label">${qzIdx+1} / ${sessionQs.length}</span>`;
-  document.getElementById('qz-dim').textContent=q.dim;
-  document.getElementById('qz-num').textContent='Question '+(qzIdx+1)+' of '+sessionQs.length;
-  if(!q._opts) q._opts=qzGetOpts(q);
-  const sel=qzAnswers[qzIdx];
-  document.getElementById('qz-body').innerHTML=`<div class="question-card"><div class="q-text">${q.q}</div><div class="options">${q._opts.map((o,i)=>`<button class="option${sel===i?' selected':''}" onclick="qzPick(${i})"><span class="option-letter">${['A','B','C','D'][i]}</span>${o.t}</button>`).join('')}</div></div>`;
-  document.getElementById('btn-qz-next').disabled=sel===undefined;
-  document.getElementById('btn-qz-next').textContent=qzIdx===sessionQs.length-1?'See My Result ✦':'Next →';
-  document.getElementById('btn-qz-back').style.visibility=qzIdx===0?'hidden':'visible';
-}
-
-function qzPick(i){
-  qzAnswers[qzIdx]=i;
-  document.querySelectorAll('.option').forEach((o,idx)=>o.classList.toggle('selected',idx===i));
-  document.getElementById('btn-qz-next').disabled=false;
-}
-
-function qzBack(){ if(qzIdx>0){qzIdx--;qzRender();}else showQS('qs-intro'); }
-
-function qzNext(){
-  const q=sessionQs[qzIdx];
-  const opt=q._opts[qzAnswers[qzIdx]];
-  if(opt)Object.entries(opt.w).forEach(([m,v])=>{ if(qzScores[m]!==undefined)qzScores[m]+=v; });
-  if(qzIdx<sessionQs.length-1){qzIdx++;qzRender();}
-  else qzShowResult();
-}
-
-function qzShowResult(){
-  const members=QZ_MEMBERS[selGroup];
-  const memberKeys=Object.keys(members);
-  const allGroups=[...QZ_GROUPS.girl,...QZ_GROUPS.boy];
-  const groupData=allGroups.find(g=>g.id===selGroup);
-  const pronoun=groupData&&groupData.pronoun?groupData.pronoun:'they';
-  const subjectCap=pronoun==='she'?'She':pronoun==='he'?'He':'They';
-
-  // ── Mirror scoring — all questions, full weights ──
-  const mirrorScores={};memberKeys.forEach(k=>mirrorScores[k]=0);
-  sessionQs.forEach((q,i)=>{
-    if(qzAnswers[i]===undefined||!q._opts)return;
-    const opt=q._opts[qzAnswers[i]];
-    if(opt)Object.entries(opt.w).forEach(([m,v])=>{ if(mirrorScores[m]!==undefined)mirrorScores[m]+=v; });
-  });
-  const mirrorSorted=Object.entries(mirrorScores).sort((a,b)=>b[1]-a[1]);
-  const mirrorKey=mirrorSorted[0][0];
-  const mirrorMember=members[mirrorKey];
-
-  // ── Aspiration scoring — forward-facing questions only, amplified ──
-  const aspireScores={};memberKeys.forEach(k=>aspireScores[k]=0);
-  sessionQs.forEach((q,i)=>{
-    if(!q.aspire||qzAnswers[i]===undefined||!q._opts)return;
-    const opt=q._opts[qzAnswers[i]];
-    if(opt)Object.entries(opt.w).forEach(([m,v])=>{ if(aspireScores[m]!==undefined)aspireScores[m]+=v*2; });
-  });
-  const aspireSorted=Object.entries(aspireScores).sort((a,b)=>b[1]-a[1]);
-  const aspireKey=aspireSorted[0][0];
-  const aspireMember=members[aspireKey];
-
-  // ── Determine if dual result is meaningful ──
-  // Only show two members if: different members, aspire score is meaningful,
-  // and group has enough members to support contrast
-  const aspireQsInSession=sessionQs.filter(q=>q.aspire).length;
-  const hasAspireSignal=aspireScores[aspireKey]>0&&aspireQsInSession>=1;
-  const isDualResult=aspireKey!==mirrorKey&&hasAspireSignal&&memberKeys.length>=4;
-
-  // ── Dimension scores — driven by all answer weights for natural variation ──
-  // Score each dimension by summing all weights from answers across all members
-  // This creates genuine variation even for low-scoring dimensions
-  const dimScores={};DIMS.forEach(d=>dimScores[d]=0);
-  const dimRawScores={};DIMS.forEach(d=>dimRawScores[d]=0);
-  sessionQs.forEach((q,i)=>{
-    if(qzAnswers[i]===undefined||!q._opts)return;
-    const opt=q._opts[qzAnswers[i]];
-    if(!opt)return;
-    // Primary: weight toward matched member for that dimension
-    if(opt.w[mirrorKey])dimScores[q.dim]+=opt.w[mirrorKey];
-    // Secondary: sum all weights in this answer to get a raw activity signal
-    const totalW=Object.values(opt.w).reduce((a,b)=>a+b,0);
-    dimRawScores[q.dim]+=totalW;
-  });
-  const maxD=Math.max(...Object.values(dimScores))||1;
-  const maxRaw=Math.max(...Object.values(dimRawScores))||1;
-  // Build final percentages — primary score scaled to 100, with a small raw
-  // activity signal added to low-scoring dims so no two zeroed dims look identical
-  const dimPct={};
-  DIMS.forEach(d=>{
-    const primary=Math.round((dimScores[d]/maxD)*100);
-    const rawBoost=primary<15?Math.round((dimRawScores[d]/maxRaw)*12):0;
-    dimPct[d]=Math.max(8+rawBoost, primary);
-  });
-
-  // ── Top answers for deep dive ──
-  const topAnswers=sessionQs.map((q,i)=>{
-    if(qzAnswers[i]===undefined||!q._opts)return null;
-    return q._opts[qzAnswers[i]]?q._opts[qzAnswers[i]].t:null;
-  }).filter(Boolean).slice(0,5);
-
-  // ── Build deep-dive URL ──
-  const ddParams=new URLSearchParams({
-    member: mirrorMember.name,
-    group: mirrorMember.group,
-    groupKey: selGroup,
-    archetype: mirrorMember.arch,
-    archetypeKey: mirrorKey,
-    coreType: mirrorMember.coreType||'',
-    coreFamily: mirrorMember.coreFamily||'',
-    mirror: 'true',
-    ms: mirrorSorted[0][1],
-    as: mirrorSorted[1]?mirrorSorted[1][1]:0,
-    d0: dimPct[DIMS[0]],
-    d1: dimPct[DIMS[1]],
-    d2: dimPct[DIMS[2]],
-    d3: dimPct[DIMS[3]],
-    d4: dimPct[DIMS[4]],
-    ta: topAnswers.join('|'),
-    dual: isDualResult?'true':'false',
-    aspireMember: isDualResult?aspireMember.name:'',
-    aspireArch: isDualResult?aspireMember.arch:'',
-    aspireCoreType: isDualResult?(aspireMember.coreType||''):'',
-    aspireCoreFamily: isDualResult?(aspireMember.coreFamily||''):'',
-    aspireKey: isDualResult?aspireKey:'',
-  });
-  const ddUrl=`deep-dive.html?${ddParams.toString()}`;
-  const dduBtn=document.getElementById('ddu-btn');
-  if(dduBtn){
-    dduBtn.href=ddUrl;
-    dduBtn.onclick=null;
-    dduBtn.addEventListener('click', function(){
-      if(typeof gtag !== 'undefined'){
-        gtag('event', 'deep_dive_clicked', {
-          'event_category': 'conversion',
-          'member': mirrorMember.name,
-          'arch': mirrorMember.arch,
-          'group': selGroup
-        });
-      }
-    }, {once: true});
-  }
-
-  // ── Render result card ──
-  const singleMirrorLabel=mirrorSorted[0][1]>=mirrorSorted[1][1]+4?
-    `${subjectCap}'s a mirror — you already carry this`:
-    `${subjectCap}'s who you're becoming`;
-
-  // GA4 — quiz completed
-  if(typeof gtag !== 'undefined'){
-    gtag('event', 'quiz_completed', {
-      'event_category': 'quiz',
-      'group': selGroup,
-      'result_member': mirrorMember.name,
-      'result_arch': mirrorMember.arch,
-      'is_dual': isDualResult
-    });
-  }
-  document.getElementById('qz-result-output').innerHTML=isDualResult?`
-    <div class="qz-result-card">
-      <div class="qz-result-header">
-        <div class="qz-result-eyebrow">✦ Your Bias Theory Result</div>
-        <div class="qz-dual-grid">
-          <div class="qz-dual-box qz-dual-mirror">
-            <div class="qz-dual-label">You right now</div>
-            <div class="qz-result-initial">${mirrorMember.name[0]}</div>
-            <div class="qz-result-member">${mirrorMember.name}</div>
-            <div class="qz-result-group">${mirrorMember.group} · ${mirrorMember.role}</div>
-            <div class="qz-result-arch">${mirrorMember.arch}</div>
-            <div style="font-size:10px;color:rgba(167,139,250,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px">${mirrorMember.coreType} · ${mirrorMember.coreFamily}</div>
-            <div class="qz-dual-tag mirror-tag">Mirror</div>
-          </div>
-          <div class="qz-dual-divider">→</div>
-          <div class="qz-dual-box qz-dual-aspire">
-            <div class="qz-dual-label">You're becoming</div>
-            <div class="qz-result-initial">${aspireMember.name[0]}</div>
-            <div class="qz-result-member">${aspireMember.name}</div>
-            <div class="qz-result-group">${aspireMember.group} · ${aspireMember.role}</div>
-            <div class="qz-result-arch">${aspireMember.arch}</div>
-            <div style="font-size:10px;color:rgba(244,114,182,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px">${aspireMember.coreType} · ${aspireMember.coreFamily}</div>
-            <div class="qz-dual-tag aspire-tag">Aspiration</div>
-          </div>
-        </div>
-      </div>
-      <div class="qz-result-body">
-        <div class="qz-section">
-          <div class="qz-section-label">Your Mirror — ${mirrorMember.name}</div>
-          <p>${mirrorMember.insight}</p>
-        </div>
-        <div class="qz-divider"></div>
-        <div class="qz-section">
-          <div class="qz-section-label">Your Aspiration — ${aspireMember.name}</div>
-          <p>${aspireMember.insight}</p>
-          <p style="margin-top:10px;font-size:13px;opacity:0.7">You're drawn to ${aspireMember.name}'s energy because you're building it — ${aspireMember.aspire}</p>
-        </div>
-        <div class="qz-divider"></div>
-        <div class="qz-section">
-          <div class="qz-section-label">Your Personality Dimensions</div>
-          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[d]}%"></div></div></div>`).join('')}</div>
-        </div>
-        <div class="qz-divider"></div>
-        <div class="qz-section"><div class="qz-section-label">Shadow Type</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
-      </div>
-    </div>` : `
-    <div class="qz-result-card">
-      <div class="qz-result-header">
-        <div class="qz-result-initial">${mirrorMember.name[0]}</div>
-        <div class="qz-result-member">${mirrorMember.name}</div>
-        <div class="qz-result-group">${mirrorMember.group} · ${mirrorMember.role}</div>
-        <div class="qz-result-arch">${mirrorMember.arch}</div>
-        <div style="font-size:10px;color:rgba(167,139,250,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">${mirrorMember.coreType} · ${mirrorMember.coreFamily}</div>
-      </div>
-      <div class="qz-result-body">
-        <div class="qz-section"><div class="qz-section-label">Your Read</div><p>${mirrorMember.insight}</p></div>
-        <div class="qz-divider"></div>
-        <div class="qz-section">
-          <div class="qz-section-label">Your Personality Dimensions</div>
-          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[d]}%"></div></div></div>`).join('')}</div>
-        </div>
-        <div class="qz-divider"></div>
-        <div class="qz-section">
-          <div class="qz-section-label">Mirror or Aspiration?</div>
-          <h3>${singleMirrorLabel}</h3>
-          <div class="qz-mirror-grid">
-            <div class="qz-mirror-box"><div class="qz-mirror-label">The Mirror</div><p>${mirrorMember.mirror}</p></div>
-            <div class="qz-mirror-box"><div class="qz-mirror-label">The Aspiration</div><p>${mirrorMember.aspire}</p></div>
-          </div>
-        </div>
-        <div class="qz-divider"></div>
-        <div class="qz-section"><div class="qz-section-label">Shadow Type</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
-      </div>
-    </div>`;
-  showQS('qs-result');
-}
-
-function qzRestart(){
-  selGender=null; selGroup=null;
-  document.querySelectorAll('.gender-card').forEach(c=>c.classList.remove('selected'));
-  document.getElementById('btn-qz-gender').disabled=true;
-  showQS('qs-intro');
-}
-
-// ── Suggestion / Bug Box ──
-function switchSuggestTab(type) {
-  document.querySelectorAll('.suggest-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('stab-' + type).classList.add('active');
-  document.getElementById('suggest-type').value =
-    type === 'suggestion' ? 'Suggestion' :
-    type === 'group' ? 'Group Request' : 'Bug Report';
-  const groupField = document.getElementById('group-name-field');
-  const msgLabel = document.getElementById('message-label');
-  const msgBox = document.getElementById('suggest-message');
-  if (type === 'group') {
-    groupField.style.display = 'block';
-    msgLabel.textContent = 'Why this group? (optional)';
-    msgBox.placeholder = 'Tell us why you want this group added...';
-  } else if (type === 'bug') {
-    groupField.style.display = 'none';
-    msgLabel.textContent = 'Describe the Bug';
-    msgBox.placeholder = 'What happened? What were you doing when it broke?';
-  } else {
-    groupField.style.display = 'none';
-    msgLabel.textContent = 'Your Suggestion';
-    msgBox.placeholder = 'Tell us what you\'re thinking...';
-  }
-}
-
-async function submitSuggestion() {
-  const type = document.getElementById('suggest-type').value;
-  const message = document.getElementById('suggest-message').value.trim();
-  const email = document.getElementById('suggest-email').value.trim();
-  const groupName = document.getElementById('suggest-group-name').value.trim();
-
-  if (!message && !groupName) {
-    document.getElementById('suggest-message').style.borderColor = 'rgba(244,114,182,0.6)';
-    document.getElementById('suggest-message').placeholder = 'Please write something first...';
-    return;
-  }
-
-  const btn = document.getElementById('suggest-submit-btn');
-  btn.textContent = 'Sending...';
-  btn.disabled = true;
-
-  // ── Formspree submission ──
-  // Replace YOUR_FORM_ID below with your actual Formspree form ID
-  // Sign up free at formspree.io → New Form → copy the ID from the endpoint
-  const FORMSPREE_ID = 'mpqypbjv';
-
-  try {
-    const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        type,
-        group: groupName || '—',
-        message,
-        _replyto: email || 'noreply@biastheory.net',
-        email: email || 'No email provided',
-        submitted: new Date().toLocaleString(),
-      })
-    });
-
-    if (res.ok) {
-      document.getElementById('suggest-form-wrap').style.display = 'none';
-      document.getElementById('suggest-success').style.display = 'block';
+  btn.addEventListener('click', () => {
+    const isOpen = btn.classList.contains('open');
+    btn.classList.toggle('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
     } else {
-      throw new Error('Submission failed');
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
-  } catch(e) {
-    // Fallback — show success anyway (swap for real error handling once Formspree is live)
-    document.getElementById('suggest-form-wrap').style.display = 'none';
-    document.getElementById('suggest-success').style.display = 'block';
-  }
-}
+  });
 
-function resetSuggestionForm() {
-  document.getElementById('suggest-message').value = '';
-  document.getElementById('suggest-email').value = '';
-  document.getElementById('suggest-group-name').value = '';
-  document.getElementById('suggest-form-wrap').style.display = 'block';
-  document.getElementById('suggest-success').style.display = 'none';
-  const btn = document.getElementById('suggest-submit-btn');
-  btn.textContent = 'Send ✦';
-  btn.disabled = false;
-  switchSuggestTab('suggestion');
-}
+  // Close on link click
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
 
+  // Close on escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', initHamburger);
 </script>
 </body>
 </html>
