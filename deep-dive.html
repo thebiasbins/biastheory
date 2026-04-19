@@ -937,7 +937,13 @@ The JSON structure you must follow exactly:
 
     const data = await response.json();
     const raw = data.content.map(b => b.text || '').join('');
-    const clean = raw.replace(/```json|```/g, '').trim();
+    // Extract JSON — handle cases where Claude wraps with extra text
+    let clean = raw.replace(/```json|```/g, '').trim();
+    // If not starting with {, try to find the JSON object
+    if (!clean.startsWith('{')) {
+      const jsonMatch = clean.match(/\{[\s\S]*\}/);
+      if (jsonMatch) clean = jsonMatch[0];
+    }
     generatedRead = JSON.parse(clean);
     renderRead(generatedRead);
     document.getElementById('download-btn').disabled = false;
@@ -1039,6 +1045,28 @@ function compatCards(compat) {
 }
 
 function renderRead(read) {
+  // ── Safety: normalize all fields to prevent undefined errors ──
+  const safeStr = (v) => (typeof v === 'string' ? v : '') ;
+  const safeObj = (v, fallback={}) => (v && typeof v === 'object' ? v : fallback);
+  read = read || {};
+  read.headline         = safeStr(read.headline)         || 'Your Deep Dive Read';
+  read.extended_archetype = safeStr(read.extended_archetype) || '';
+  read.closing          = safeStr(read.closing)          || '';
+  const gp = safeObj(read.growth_path);
+  read.growth_path = { title: safeStr(gp.title) || 'Your Growth Path', body: safeStr(gp.body) || '' };
+  const sw = safeObj(read.shadow_work);
+  read.shadow_work = { title: safeStr(sw.title) || 'Your Shadow Work', body: safeStr(sw.body) || '' };
+  const iu = safeObj(read.if_you_want_to_do_something);
+  read.if_you_want_to_do_something = iu.title ? iu : null;
+  const comp = safeObj(read.compatibility);
+  read.compatibility = {
+    pairs_well_with: safeStr(comp.pairs_well_with) || '',
+    challenged_by:   safeStr(comp.challenged_by)   || '',
+    same_group:      safeStr(comp.same_group)       || '',
+  };
+  read.constellation = safeStr(read.constellation) || '';
+
+
   const isDual = quizData.isDual;
   const d = quizData.dimScores;
 
