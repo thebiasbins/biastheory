@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Your Archetype · Bias Theory</title>
+<meta name="description" content="Find your core personality archetype. Not who you're like — who you actually are."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-909GKTN49G"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-909GKTN49G');
+</script>
+<style>
+:root {
+  --bg:       #07070e;
+  --surface:  #0f0e1a;
+  --surface2: #16152a;
+  --violet:   #a78bfa;
+  --violet2:  #c4b5fd;
+  --pink:     #f472b6;
+  --muted:    #6b6890;
+  --muted2:   #9893b8;
+  --text:     #ece9f8;
+  --border:   rgba(167,139,250,0.15);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Outfit',sans-serif;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Stars background */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 40%, rgba(26,10,53,0.6) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 40% at 20% 70%, rgba(20,8,45,0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 30%, rgba(30,8,40,0.3) 0%, transparent 60%);
+  pointer-events:none;
+  z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;
+  padding:20px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(7,7,14,0.85);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+  z-index:100;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:20px;color:var(--violet2);
+  text-decoration:none;letter-spacing:0.02em;
+}
+.nav-links{display:flex;gap:28px;align-items:center;}
+.nav-links a{
+  font-size:13px;color:var(--muted2);text-decoration:none;
+  letter-spacing:0.06em;transition:color 0.2s;
+}
+.nav-links a:hover{color:var(--text);}
+.nav-links a.active{color:var(--violet2);}
+.nav-cta{
+  padding:8px 20px;border-radius:100px;
+  background:rgba(167,139,250,0.12);
+  border:1px solid rgba(167,139,250,0.3);
+  color:var(--violet2) !important;
+  transition:all 0.2s !important;
+}
+.nav-cta:hover{background:rgba(167,139,250,0.2) !important;}
+
+/* ── SCREENS ── */
+.screen{display:none;position:relative;z-index:1;}
+.screen.active{display:block;}
+
+/* ── INTRO ── */
+#screen-intro{
+  min-height:100vh;
+  display:flex;align-items:center;justify-content:center;
+  padding:120px 24px 60px;
+  flex-direction:column;
+  text-align:center;
+}
+#screen-intro.active{display:flex;}
+.intro-eyebrow{
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--violet);margin-bottom:24px;
+}
+.intro-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(42px,7vw,80px);
+  line-height:1.1;margin-bottom:24px;
+  color:var(--text);
+}
+.intro-title em{color:var(--violet2);font-style:italic;}
+.intro-sub{
+  font-size:17px;color:var(--muted2);line-height:1.75;
+  max-width:560px;margin:0 auto 48px;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 40px;border-radius:100px;
+  background:linear-gradient(135deg,rgba(167,139,250,0.2),rgba(244,114,182,0.15));
+  border:1px solid rgba(167,139,250,0.35);
+  color:var(--violet2);font-size:15px;font-family:'Outfit',sans-serif;
+  cursor:pointer;transition:all 0.25s;letter-spacing:0.04em;
+  text-decoration:none;
+}
+.btn-primary:hover{
+  background:linear-gradient(135deg,rgba(167,139,250,0.3),rgba(244,114,182,0.25));
+  border-color:rgba(167,139,250,0.5);
+  transform:translateY(-2px);
+}
+.intro-note{
+  margin-top:24px;font-size:12px;color:var(--muted);
+  letter-spacing:0.04em;
+}
+.diamond{
+  width:10px;height:10px;
+  background:linear-gradient(135deg,var(--violet),var(--pink));
+  transform:rotate(45deg);display:inline-block;margin:0 6px;
+  vertical-align:middle;
+}
+
+/* ── QUIZ ── */
+#screen-quiz{
+  min-height:100vh;
+  padding:100px 24px 60px;
+  display:flex;flex-direction:column;align-items:center;
+}
+#screen-quiz.active{display:flex;}
+.quiz-wrap{width:100%;max-width:640px;}
+
+.progress-bar-wrap{
+  width:100%;height:3px;
+  background:rgba(167,139,250,0.12);
+  border-radius:2px;margin-bottom:40px;overflow:hidden;
+}
+.progress-bar-fill{
+  height:100%;border-radius:2px;
+  background:linear-gradient(90deg,var(--violet),var(--pink));
+  transition:width 0.4s ease;
+}
+.q-counter{
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:12px;
+}
+.q-text{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(22px,4vw,30px);
+  line-height:1.35;margin-bottom:36px;color:var(--text);
+}
+.options-grid{display:flex;flex-direction:column;gap:12px;}
+.option-btn{
+  width:100%;text-align:left;
+  padding:18px 22px;
+  background:rgba(167,139,250,0.04);
+  border:1px solid var(--border);
+  border-radius:14px;
+  color:var(--muted2);font-size:14px;
+  font-family:'Outfit',sans-serif;line-height:1.55;
+  cursor:pointer;transition:all 0.2s;
+  display:flex;align-items:flex-start;gap:14px;
+}
+.option-btn:hover{
+  background:rgba(167,139,250,0.09);
+  border-color:rgba(167,139,250,0.3);
+  color:var(--text);
+}
+.option-btn.selected{
+  background:rgba(167,139,250,0.12);
+  border-color:rgba(167,139,250,0.5);
+  color:var(--text);
+}
+.opt-letter{
+  width:24px;height:24px;border-radius:50%;
+  background:rgba(167,139,250,0.1);
+  border:1px solid rgba(167,139,250,0.25);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;color:var(--violet);flex-shrink:0;
+  margin-top:1px;letter-spacing:0;
+  transition:all 0.2s;
+}
+.option-btn.selected .opt-letter{
+  background:var(--violet);color:var(--bg);border-color:var(--violet);
+}
+.quiz-nav{
+  display:flex;justify-content:flex-end;
+  margin-top:32px;
+}
+.btn-next{
+  padding:13px 32px;border-radius:100px;
+  background:rgba(167,139,250,0.12);
+  border:1px solid rgba(167,139,250,0.3);
+  color:var(--violet2);font-size:14px;
+  font-family:'Outfit',sans-serif;
+  cursor:pointer;transition:all 0.2s;
+  letter-spacing:0.04em;
+}
+.btn-next:hover:not(:disabled){
+  background:rgba(167,139,250,0.2);
+  border-color:rgba(167,139,250,0.5);
+}
+.btn-next:disabled{opacity:0.3;cursor:not-allowed;}
+
+/* ── RESULT ── */
+#screen-result{
+  min-height:100vh;
+  padding:100px 24px 80px;
+  display:flex;flex-direction:column;align-items:center;
+}
+#screen-result.active{display:flex;}
+.result-wrap{width:100%;max-width:700px;}
+
+.result-eyebrow{
+  font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--violet);margin-bottom:16px;text-align:center;
+}
+.result-family{
+  font-size:12px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:10px;text-align:center;
+}
+.result-type{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(38px,7vw,64px);
+  text-align:center;margin-bottom:8px;
+  color:var(--violet2);
+}
+.result-type-italic{font-style:italic;}
+.result-divider{
+  width:60px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--violet),transparent);
+  margin:24px auto;
+}
+.result-insight{
+  font-size:16px;color:var(--muted2);line-height:1.8;
+  text-align:center;margin-bottom:40px;
+  max-width:580px;margin-left:auto;margin-right:auto;
+}
+
+/* Shadow section */
+.shadow-card{
+  background:rgba(244,114,182,0.04);
+  border:1px solid rgba(244,114,182,0.15);
+  border-radius:16px;padding:24px 28px;margin-bottom:40px;
+}
+.shadow-label{
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--pink);margin-bottom:10px;
+}
+.shadow-text{font-size:14px;color:var(--muted2);line-height:1.75;}
+
+/* Idol matches */
+.matches-title{
+  font-size:13px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:20px;text-align:center;
+}
+.matches-grid{
+  display:flex;flex-wrap:wrap;gap:10px;
+  justify-content:center;margin-bottom:48px;
+}
+.match-pill{
+  padding:8px 16px;border-radius:100px;
+  background:rgba(167,139,250,0.07);
+  border:1px solid rgba(167,139,250,0.18);
+  font-size:12px;color:var(--muted2);
+  display:flex;align-items:center;gap:6px;
+}
+.match-pill strong{color:var(--text);font-weight:500;}
+.match-pill span{color:var(--muted);font-size:11px;}
+
+/* CTA section */
+.result-ctas{
+  display:flex;flex-direction:column;gap:12px;
+  align-items:center;
+}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.btn-secondary{
+  padding:13px 28px;border-radius:100px;
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--muted2);font-size:13px;
+  font-family:'Outfit',sans-serif;
+  cursor:pointer;transition:all 0.2s;
+  text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+}
+.btn-secondary:hover{
+  border-color:rgba(167,139,250,0.3);
+  color:var(--text);
+}
+.retake-btn{
+  background:none;border:none;
+  color:var(--muted);font-size:12px;
+  cursor:pointer;font-family:'Outfit',sans-serif;
+  letter-spacing:0.05em;margin-top:8px;
+  transition:color 0.2s;text-decoration:underline;
+  text-underline-offset:3px;
+}
+.retake-btn:hover{color:var(--muted2);}
+
+/* Family badge */
+.family-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:6px 16px;border-radius:100px;
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  margin:0 auto 32px;
+}
+.family-pillars{background:rgba(147,197,253,0.08);border:1px solid rgba(147,197,253,0.2);color:#93c5fd;}
+.family-edge{background:rgba(244,114,182,0.08);border:1px solid rgba(244,114,182,0.2);color:var(--pink);}
+.family-light{background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);color:#fbbf24;}
+.family-depth{background:rgba(167,139,250,0.08);border:1px solid rgba(167,139,250,0.2);color:var(--violet2);}
+.family-wrap{display:flex;justify-content:center;margin-bottom:32px;}
+
+@media(max-width:600px){
+  nav{padding:16px 20px;}
+  .nav-links{gap:16px;}
+  .nav-links a:not(.nav-cta){display:none;}
+  #screen-intro{padding:100px 20px 40px;}
+}
+
+/* ── Mobile pass ── */
+@media (max-width: 600px) {
+  nav { padding: 14px 20px; }
+  .nav-logo { font-size: 17px; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .nav-cta { padding: 7px 14px; font-size: 11px; }
+
+  #screen-intro { padding: 100px 20px 48px; }
+  .intro-title { font-size: clamp(34px, 9vw, 56px); }
+  .intro-sub { font-size: 14px; max-width: 100%; margin-bottom: 32px; }
+  .btn-primary { width: 100%; max-width: 280px; justify-content: center; }
+
+  #screen-quiz { padding: 88px 16px 48px; }
+  .quiz-wrap { padding: 0; }
+  .q-counter { font-size: 10px; }
+  .q-text { font-size: clamp(16px, 4.5vw, 22px); margin-bottom: 24px; }
+  .options-grid { gap: 10px; }
+  .option-btn { padding: 15px 16px; font-size: 13px; min-height: 52px; }
+  .opt-letter { width: 22px; height: 22px; font-size: 10px; flex-shrink: 0; }
+  .quiz-nav { margin-top: 20px; }
+  .btn-next { width: 100%; padding: 14px 24px; font-size: 13px; }
+
+  #screen-result { padding: 88px 16px 64px; }
+  .result-wrap { max-width: 100%; }
+  .result-type { font-size: clamp(30px, 8vw, 48px); }
+  .result-insight { font-size: 14px; line-height: 1.8; }
+  .shadow-card { padding: 20px 18px; }
+  .shadow-text { font-size: 13px; }
+  .matches-grid { gap: 8px; }
+  .match-pill { font-size: 11px; padding: 7px 13px; }
+  .result-ctas { gap: 10px; }
+  .cta-row { flex-direction: column; align-items: center; width: 100%; }
+  .btn-primary, .btn-secondary { width: 100%; max-width: 300px; justify-content: center; text-align: center; }
+}
+
+@media (max-width: 420px) {
+  .q-text { font-size: 15px; }
+  .option-btn { font-size: 12px; padding: 13px 14px; }
+  .result-type { font-size: clamp(26px, 8vw, 38px); }
+}
+
+/* ── Hamburger nav ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px; height: 36px;
+  background: none; border: none;
+  cursor: pointer; padding: 4px;
+  z-index: 1001;
+}
+.nav-hamburger span {
+  display: block;
+  width: 22px; height: 2px;
+  background: var(--muted2);
+  border-radius: 2px;
+  transition: all 0.25s ease;
+  transform-origin: center;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); background: var(--text); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); background: var(--text); }
+
+/* Mobile drawer */
+.nav-drawer {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 999;
+  padding-top: 72px;
+  background: rgba(7,7,14,0.97);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.nav-drawer.open {
+  display: flex;
+  opacity: 1;
+  pointer-events: all;
+}
+.nav-drawer a {
+  font-size: 22px;
+  font-family: 'Playfair Display', serif;
+  color: var(--muted2);
+  text-decoration: none;
+  padding: 12px 24px;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+  text-align: center;
+}
+.nav-drawer a:hover, .nav-drawer a.active { color: var(--text); }
+.nav-drawer .drawer-cta {
+  margin-top: 16px;
+  padding: 14px 36px;
+  border-radius: 100px;
+  background: rgba(167,139,250,0.12);
+  border: 1px solid rgba(167,139,250,0.3);
+  color: var(--violet2) !important;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px !important;
+  letter-spacing: 0.08em;
+}
+.nav-drawer .drawer-cta:hover {
+  background: rgba(167,139,250,0.2) !important;
+}
+.drawer-divider {
+  width: 40px; height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+
+@media (max-width: 600px) {
+  .nav-hamburger { display: flex; }
+  .nav-links { display: none !important; }
+  nav { padding: 14px 20px; z-index: 1000; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">Bias Theory</a>
+  <div class="nav-links">
+    <a href="index.html#how">About</a>
+    <a href="index.html#groups">Groups</a>
+    <a href="profiles.html">Profiles</a>
+    <a href="archetype.html" class="active">Your Archetype</a>
+    <a href="quiz.html" class="nav-cta">Bias Quiz ✦</a>
+  </div>
+  <button class="nav-hamburger" id="nav-hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-drawer" id="nav-drawer">
+  <a href="index.html">Home</a>
+  <a href="index.html#groups">Groups</a>
+  <div class="drawer-divider"></div>
+  <a href="profiles.html">Profiles</a>
+  <a href="archetype.html" class="active">Your Archetype</a>
+  <div class="drawer-divider"></div>
+  <a href="quiz.html" class="drawer-cta">Bias Quiz ✦</a>
+</div>
+
+<!-- INTRO -->
+<div id="screen-intro" class="screen active">
+  <div class="intro-eyebrow">✦ Bias Theory · Archetype Quiz</div>
+  <h1 class="intro-title">Who are you,<br/><em>really?</em></h1>
+  <p class="intro-sub">Not who you're like. Not who you aspire to be. This quiz finds your core archetype — the pattern underneath everything you do.</p>
+  <button class="btn-primary" onclick="startQuiz()">Find Your Archetype <span class="diamond"></span></button>
+  <p class="intro-note">12 questions · 3 minutes · No K-pop knowledge needed</p>
+</div>
+
+<!-- QUIZ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-wrap">
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="progress-fill" style="width:0%"></div>
+    </div>
+    <div class="q-counter" id="q-counter">Question 1 of 12</div>
+    <div class="q-text" id="q-text"></div>
+    <div class="options-grid" id="options-grid"></div>
+    <div class="quiz-nav">
+      <button class="btn-next" id="btn-next" disabled onclick="nextQ()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULT -->
+<div id="screen-result" class="screen">
+  <div class="result-wrap">
+    <div class="result-eyebrow">✦ Your Core Archetype</div>
+    <div class="result-type" id="result-type"></div>
+    <div class="family-wrap">
+      <div class="family-badge" id="family-badge"></div>
+    </div>
+    <div class="result-divider"></div>
+    <p class="result-insight" id="result-insight"></p>
+    <div class="shadow-card">
+      <div class="shadow-label">The Shadow Side</div>
+      <div class="shadow-text" id="result-shadow"></div>
+    </div>
+    <div class="matches-title">Idols who share your archetype</div>
+    <div class="matches-grid" id="matches-grid"></div>
+    <div class="result-ctas">
+      <div class="cta-row">
+        <a href="quiz.html" class="btn-primary">Find Your Bias Match ✦</a>
+        <a href="profiles.html" class="btn-secondary">Browse All Profiles</a>
+      </div>
+      <button class="retake-btn" onclick="retake()">Retake the quiz</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Questions ──
+// Each option scores one or more core types
+// Types: Anchor, Foundation, Counsel, Becoming, Standard, Architect, Refiner, Intensity,
+//        Spark, Warmth, Open Heart, Performer, Watcher, Artist, Hidden, Wit
+
+const QUESTIONS = [
+  {
+    q: "When you walk into a room full of people you don't know, your instinct is to...",
+    opts: [
+      { t: "Find a corner to observe from first — you want the full picture before you engage.", w: {Watcher:3, Hidden:2, Counsel:1} },
+      { t: "Move toward people naturally — you're genuinely curious about who's in the room.", w: {Spark:3, Warmth:2, Open_Heart:1} },
+      { t: "Scan for where you're needed or useful — find the role before you find the conversation.", w: {Anchor:3, Foundation:2, Architect:1} },
+      { t: "Wait for someone interesting to come to you — you're comfortable being still.", w: {Watcher:2, Hidden:2, Refiner:1, Standard:1} },
+    ]
+  },
+  {
+    q: "The version of a hard day you relate to most is...",
+    opts: [
+      { t: "You held everyone else together and no one noticed the cost.", w: {Anchor:3, Foundation:2, Warmth:1} },
+      { t: "You couldn't get the work to the standard you needed it to be.", w: {Refiner:3, Standard:2, Architect:1} },
+      { t: "You said the honest thing and it landed wrong.", w: {Wit:3, Open_Heart:2, Intensity:1} },
+      { t: "You disappeared into your own head and couldn't find the way out.", w: {Artist:3, Hidden:2, Watcher:2} },
+    ]
+  },
+  {
+    q: "The compliment that would mean the most coming from someone who really knows you...",
+    opts: [
+      { t: "\"You make people feel like they actually matter.\"", w: {Warmth:3, Anchor:2, Open_Heart:2} },
+      { t: "\"There's no one who works like you do.\"", w: {Refiner:3, Standard:2, Intensity:2} },
+      { t: "\"You always know what's really going on — before anyone else does.\"", w: {Counsel:3, Watcher:2, Wit:2} },
+      { t: "\"What you create couldn't have come from anyone else.\"", w: {Artist:3, Hidden:2, Becoming:1} },
+    ]
+  },
+  {
+    q: "When something goes wrong that was your responsibility, you...",
+    opts: [
+      { t: "Go quiet and process it alone — you need space before you can address it.", w: {Watcher:3, Refiner:2, Hidden:2} },
+      { t: "Take immediate ownership and start figuring out how to fix it.", w: {Anchor:3, Architect:2, Standard:1} },
+      { t: "Feel it fully first, then channel it into something productive.", w: {Artist:3, Intensity:2, Open_Heart:2} },
+      { t: "Analyze exactly where it went wrong before you let yourself feel it.", w: {Refiner:3, Counsel:2, Architect:2} },
+    ]
+  },
+  {
+    q: "The thing that makes you feel most like yourself is...",
+    opts: [
+      { t: "Being fully present with someone who lets you drop the performance.", w: {Open_Heart:3, Warmth:2, Becoming:1} },
+      { t: "Creating or building something that only you could have made.", w: {Artist:3, Refiner:2, Architect:2} },
+      { t: "Being the steady presence in a moment that needs it.", w: {Anchor:3, Foundation:2, Counsel:1} },
+      { t: "Saying the true thing when everyone else is avoiding it.", w: {Wit:3, Intensity:2, Standard:1} },
+    ]
+  },
+  {
+    q: "In your close relationships, you are most often the one who...",
+    opts: [
+      { t: "Remembers the small things and shows up before being asked.", w: {Warmth:3, Foundation:2, Open_Heart:1} },
+      { t: "Sees what people need even when they haven't said it.", w: {Counsel:3, Watcher:2, Anchor:1} },
+      { t: "Brings honesty even when it's uncomfortable.", w: {Wit:3, Standard:2, Intensity:1} },
+      { t: "Creates the moments that people carry with them.", w: {Spark:3, Performer:2, Artist:1} },
+    ]
+  },
+  {
+    q: "When you're at your best, people around you would say you...",
+    opts: [
+      { t: "Make everything feel possible — your energy changes the room.", w: {Spark:3, Performer:3, Foundation:1} },
+      { t: "Hold things together without making it about you.", w: {Anchor:3, Foundation:2, Counsel:1} },
+      { t: "See further ahead than anyone else in the room.", w: {Architect:3, Counsel:2, Standard:1} },
+      { t: "Make people feel safe enough to be honest.", w: {Warmth:3, Open_Heart:2, Wit:1} },
+    ]
+  },
+  {
+    q: "Your relationship to the standard you hold yourself to is...",
+    opts: [
+      { t: "It's always there — I'm the only one who can see it and it never moves.", w: {Standard:3, Refiner:3, Intensity:1} },
+      { t: "I build toward something deliberately — the work is part of a larger vision.", w: {Architect:3, Counsel:2, Foundation:1} },
+      { t: "I push hard then rest — I move in cycles, not in straight lines.", w: {Artist:2, Hidden:2, Becoming:2, Watcher:1} },
+      { t: "I hold my people to what they can actually be — including myself.", w: {Anchor:2, Warmth:2, Wit:2, Open_Heart:1} },
+    ]
+  },
+  {
+    q: "The thing that drains you most is...",
+    opts: [
+      { t: "Being asked to perform a version of yourself that isn't real.", w: {Hidden:3, Wit:2, Open_Heart:2} },
+      { t: "Being the reliable one for so long that no one thinks to check on you.", w: {Anchor:3, Foundation:2, Warmth:1} },
+      { t: "Watching something be done badly when you can see exactly how it should be.", w: {Refiner:3, Standard:2, Architect:1} },
+      { t: "Not having enough space to think, create, or just be quiet.", w: {Watcher:3, Artist:2, Hidden:2} },
+    ]
+  },
+  {
+    q: "When you imagine the version of yourself you're working toward, it's someone who...",
+    opts: [
+      { t: "Has built something real — something that lasts beyond the moment.", w: {Architect:3, Refiner:2, Standard:1} },
+      { t: "Is fully, completely themselves — no performance required.", w: {Becoming:3, Hidden:2, Wit:1} },
+      { t: "Affects people in ways they carry with them for a long time.", w: {Performer:3, Spark:2, Open_Heart:2} },
+      { t: "Lives at peace — not settling, just no longer at war with themselves.", w: {Watcher:3, Counsel:2, Warmth:1} },
+    ]
+  },
+  {
+    q: "The role you most naturally end up in — even when you didn't plan it...",
+    opts: [
+      { t: "The one who holds the shape of things when everything else is shifting.", w: {Anchor:3, Foundation:3, Counsel:1} },
+      { t: "The one who makes the thing everyone else was trying to say.", w: {Wit:3, Open_Heart:2, Spark:1} },
+      { t: "The one who sees what's underneath before the surface has shifted.", w: {Watcher:3, Hidden:2, Counsel:2} },
+      { t: "The one who brings so much that the room lifts without knowing why.", w: {Spark:3, Performer:2, Warmth:2} },
+    ]
+  },
+  {
+    q: "The shadow version of your greatest strength is...",
+    opts: [
+      { t: "You give so steadily that asking for anything back feels like a betrayal of yourself.", w: {Anchor:3, Foundation:2, Warmth:2} },
+      { t: "The standard you hold privately is one no one else can see — including how far you fall short of it.", w: {Standard:3, Refiner:3, Intensity:1} },
+      { t: "You see everything — which makes it easy to stay just far enough outside that no one fully sees you.", w: {Watcher:3, Hidden:3, Counsel:1} },
+      { t: "You feel everything at the surface, which means the world gets to you before you've decided to let it.", w: {Open_Heart:3, Artist:2, Becoming:2} },
+    ]
+  }
+];
+
+// ── Core Type Data ──
+const TYPES = {
+  Anchor: {
+    name:'The Anchor', family:'Pillars',
+    insight:'You hold things together — not because you demanded the role, but because you were the steady one long enough that it stopped being a role and became just who you are. People feel safer when you\'re in the room. That groundedness is rare and it\'s real.',
+    shadow:'The shadow side? You\'re so naturally the one holding everyone else steady that needing steadiness yourself doesn\'t feel like an option you\'re allowed to take.',
+  },
+  Foundation: {
+    name:'The Foundation', family:'Pillars',
+    insight:'You\'re the person everything else gets built around — not always visibly, but structurally. Group identity runs through you. You carry more than your share and you make it look like nothing, which means people rarely think to look.',
+    shadow:'The shadow side? A presence that load-bearing can make people assume you\'re always fine. You feel things too, at exactly the same volume as everyone else.',
+  },
+  Counsel: {
+    name:'The Counsel', family:'Pillars',
+    insight:'You see the move before the room does. That strategic intelligence isn\'t coldness — it\'s care. You pay close attention because you actually want things to go well for the people around you, and you\'re usually the one they go to before they\'ve decided to go to anyone.',
+    shadow:'The shadow side? You\'re so good at reading rooms that you can end up managing them instead of just being in them.',
+  },
+  Becoming: {
+    name:'The Becoming', family:'Pillars',
+    insight:'You\'re in the middle of something — and you\'re doing it honestly, in front of everyone, which takes more courage than most realize. The version of you still forming right now is more interesting than any finished product could be.',
+    shadow:'The shadow side? You\'re so open to growth that you can forget the version of you right now is already worth something.',
+  },
+  Standard: {
+    name:'The Standard', family:'Edge',
+    insight:'You embody an ideal — not as performance, but as an internal bar that never moves. You raise the standard not by demanding more from other people but by demanding more from yourself, constantly, in a way that makes everyone around you want to rise too.',
+    shadow:'The shadow side? The bar you hold yourself to is one most people will never see — which means you\'re often the only one who knows when you\'ve fallen short of it.',
+  },
+  Architect: {
+    name:'The Architect', family:'Edge',
+    insight:'You don\'t fit into what already exists — you look at a blank space and see something that isn\'t there yet, and then you build it. The lane you walk didn\'t exist before you decided it should. That vision is yours and it\'s real.',
+    shadow:'The shadow side? You see so clearly where things are going that it can be hard to slow down and just be in where things are.',
+  },
+  Refiner: {
+    name:'The Refiner', family:'Edge',
+    insight:'You hold everything to a standard that lives entirely inside you. The precision isn\'t rigidity — it\'s respect for what the work could actually be. Small in declaration, enormous in output. That ratio is one of the most interesting things about you.',
+    shadow:'The shadow side? The perfectionism that makes the work extraordinary can make rest feel like something you haven\'t earned yet.',
+  },
+  Intensity: {
+    name:'The Intensity', family:'Edge',
+    insight:'You don\'t do 80%. When something matters to you, it matters completely, and you bring everything you have to it without reservation. That level of commitment is magnetic and it\'s rare and it\'s the reason people can\'t look away.',
+    shadow:'The shadow side? You give everything when you\'re in — which means you feel the weight of it more than anyone watching you would ever know.',
+  },
+  Spark: {
+    name:'The Spark', family:'Light',
+    insight:'You change the temperature of a room the moment you walk in. That energy isn\'t manufactured — it\'s just you, and people feel it before you\'ve said a word. The warmth you carry isn\'t something you turn on. It\'s just always lit.',
+    shadow:'The shadow side? You light up every room you walk into — which means people rarely think to ask what lights you up.',
+  },
+  Warmth: {
+    name:'The Warmth', family:'Light',
+    insight:'You make people feel chosen. Not just included — actually chosen. You remember the details, you show up without being asked, you make the people around you feel like they matter in a way that stays.',
+    shadow:'The shadow side? You remember everyone else — their details, their moments, their needs. You\'re less practiced at letting people remember you.',
+  },
+  Open_Heart: {
+    name:'The Open Heart', family:'Light',
+    insight:'You love openly and without apology. When you\'re in, you\'re completely in — for people, for things you care about, for experiences. That full-heartedness is rare and it\'s the reason people feel so seen around you.',
+    shadow:'The shadow side? You lead with your whole heart, which means you feel the gap when the world doesn\'t meet you there.',
+  },
+  Performer: {
+    name:'The Performer', family:'Light',
+    insight:'You don\'t ask for the room. You already have it. There\'s an instinct in you toward impact — you want what you do to land, to stay, to matter past the moment. Performing isn\'t what you do. It\'s where you\'re most fully yourself.',
+    shadow:'The shadow side? You know how to fill a room — the quieter question is who you are when the room is empty.',
+  },
+  Watcher: {
+    name:'The Watcher', family:'Depth',
+    insight:'You see everything and reveal almost nothing — and somehow that makes people more drawn to you, not less. Your quiet is not emptiness. It\'s depth. Most people can only guess at what\'s underneath, and that mystery is entirely yours to keep.',
+    shadow:'The shadow side? You see so much from the outside that fully stepping into moments can feel like a risk you don\'t always take.',
+  },
+  Artist: {
+    name:'The Artist', family:'Depth',
+    insight:'You don\'t just create — you translate. Everything you make is a way of taking something internal and finding a form for it. You see beauty in things other people walk past and you feel compelled to do something about it. The canvas is always open.',
+    shadow:'The shadow side? You translate so much of your inner world into what you create that the line between the work and yourself can get thin.',
+  },
+  Hidden: {
+    name:'The Hidden', family:'Depth',
+    insight:'There\'s more underneath than people expect — and that\'s entirely by design. You\'re protecting something deliberately. The gap between what you show and what you are is one of the most interesting things about you, and you know exactly who earns access.',
+    shadow:'The shadow side? The independence that makes you compelling can become a wall between you and people who genuinely want in.',
+  },
+  Wit: {
+    name:'The Wit', family:'Depth',
+    insight:'You say what everyone else is thinking and somehow make it feel like a gift rather than a confrontation. The sharpness isn\'t armor — it\'s just how you see. You observe and articulate and the combination of those two things in one person is rarer than it sounds.',
+    shadow:'The shadow side? The sharpness that makes you so compelling is also how you keep a little distance — even from people you actually want close.',
+  },
+};
+
+// ── Idol Matches ──
+const IDOL_MATCHES = {
+  Anchor:     [{name:'Yujin',group:'IVE'},{name:'Bang Chan',group:'Stray Kids'},{name:'Jungwon',group:'ENHYPEN'},{name:'Soobin',group:'TXT'},{name:'S.Coups',group:'SEVENTEEN'}],
+  Foundation: [{name:'Minji',group:'NewJeans'},{name:'Yunho',group:'ATEEZ'},{name:'Yeonjun',group:'TXT'},{name:'Mingyu',group:'SEVENTEEN'}],
+  Counsel:    [{name:'Heeseung',group:'ENHYPEN'},{name:'Jeonghan',group:'SEVENTEEN'}],
+  Becoming:   [{name:'Hyein',group:'NewJeans'},{name:'Eunchae',group:'LE SSERAFIM'},{name:'I.N',group:'Stray Kids'},{name:'Dino',group:'SEVENTEEN'},{name:'Wonhee',group:'ILLIT'}],
+  Standard:   [{name:'Chaewon',group:'LE SSERAFIM'},{name:'Karina',group:'aespa'},{name:'Wonyoung',group:'IVE'},{name:'Seungmin',group:'Stray Kids'},{name:'Jongho',group:'ATEEZ'}],
+  Architect:  [{name:'Sakura',group:'LE SSERAFIM'},{name:'Hongjoong',group:'ATEEZ'},{name:'Niki',group:'ENHYPEN'}],
+  Refiner:    [{name:'Kazuha',group:'LE SSERAFIM'},{name:'Lee Know',group:'Stray Kids'},{name:'Sunghoon',group:'ENHYPEN'},{name:'Taehyun',group:'TXT'},{name:'The8',group:'SEVENTEEN'},{name:'Iroha',group:'ILLIT'}],
+  Intensity:  [{name:'Winter',group:'aespa'},{name:'San',group:'ATEEZ'},{name:'Jay',group:'ENHYPEN'},{name:'Yunah',group:'ILLIT'}],
+  Spark:      [{name:'Danielle',group:'NewJeans'},{name:'Leeseo',group:'IVE'},{name:'Wooyoung',group:'ATEEZ'},{name:'Jake',group:'ENHYPEN'}],
+  Warmth:     [{name:'Felix',group:'Stray Kids'},{name:'Seonghwa',group:'ATEEZ'},{name:'Joshua',group:'SEVENTEEN'}],
+  Open_Heart: [{name:'Yunjin',group:'LE SSERAFIM'},{name:'Liz',group:'IVE'},{name:'Huening Kai',group:'TXT'},{name:'DK',group:'SEVENTEEN'},{name:'Minju',group:'ILLIT'}],
+  Performer:  [{name:'Sunoo',group:'ENHYPEN'},{name:'Hoshi',group:'SEVENTEEN'},{name:'Moka',group:'ILLIT'}],
+  Watcher:    [{name:'Haerin',group:'NewJeans'},{name:'Yeosang',group:'ATEEZ'},{name:'Wonwoo',group:'SEVENTEEN'}],
+  Artist:     [{name:'Hanni',group:'NewJeans'},{name:'Rei',group:'IVE'},{name:'Hyunjin',group:'Stray Kids'},{name:'Han',group:'Stray Kids'},{name:'Mingi',group:'ATEEZ'},{name:'Woozi',group:'SEVENTEEN'},{name:'Vernon',group:'SEVENTEEN'}],
+  Hidden:     [{name:'Ningning',group:'aespa'},{name:'Gaeul',group:'IVE'},{name:'Jun',group:'SEVENTEEN'}],
+  Wit:        [{name:'Giselle',group:'aespa'},{name:'Changbin',group:'Stray Kids'},{name:'Beomgyu',group:'TXT'},{name:'Seungkwan',group:'SEVENTEEN'}],
+};
+
+const FAMILY_COLORS = {
+  Pillars:'family-pillars',
+  Edge:'family-edge',
+  Light:'family-light',
+  Depth:'family-depth',
+};
+
+// ── State ──
+let qIdx = 0;
+let scores = {};
+let answers = new Array(QUESTIONS.length).fill(null);
+
+function initScores(){
+  Object.keys(TYPES).forEach(t => scores[t] = 0);
+}
+
+function startQuiz(){
+  initScores();
+  qIdx = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  showScreen('screen-quiz');
+  renderQ();
+}
+
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderQ(){
+  const q = QUESTIONS[qIdx];
+  const pct = (qIdx / QUESTIONS.length) * 100;
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('q-counter').textContent = `Question ${qIdx+1} of ${QUESTIONS.length}`;
+  document.getElementById('q-text').textContent = q.q;
+
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = q.opts.map((o,i) => `
+    <button class="option-btn${answers[qIdx]===i?' selected':''}"
+      onclick="pickOpt(${i})">
+      <span class="opt-letter">${['A','B','C','D'][i]}</span>
+      <span>${o.t}</span>
+    </button>
+  `).join('');
+
+  document.getElementById('btn-next').disabled = answers[qIdx] === null;
+
+  // Update button text on last question
+  document.getElementById('btn-next').textContent =
+    qIdx === QUESTIONS.length - 1 ? 'See My Archetype →' : 'Continue →';
+}
+
+function pickOpt(i){
+  answers[qIdx] = i;
+  document.querySelectorAll('.option-btn').forEach((b,idx)=>{
+    b.classList.toggle('selected', idx===i);
+  });
+  document.getElementById('btn-next').disabled = false;
+}
+
+function nextQ(){
+  if(answers[qIdx] === null) return;
+
+  // Score this answer
+  const q = QUESTIONS[qIdx];
+  const weights = q.opts[answers[qIdx]].w;
+  Object.entries(weights).forEach(([type, val]) => {
+    if(scores[type] !== undefined) scores[type] += val;
+  });
+
+  qIdx++;
+  if(qIdx >= QUESTIONS.length){
+    showResult();
+  } else {
+    renderQ();
+  }
+}
+
+function showResult(){
+  // Find top type
+  const sorted = Object.entries(scores).sort((a,b) => b[1]-a[1]);
+  const topType = sorted[0][0];
+  const typeData = TYPES[topType];
+  const idols = IDOL_MATCHES[topType] || [];
+
+  document.getElementById('result-type').innerHTML =
+    `<span class="result-type-italic">${typeData.name}</span>`;
+
+  const familyBadge = document.getElementById('family-badge');
+  familyBadge.className = `family-badge ${FAMILY_COLORS[typeData.family]}`;
+  familyBadge.textContent = typeData.family + ' Family';
+
+  document.getElementById('result-insight').textContent = typeData.insight;
+  document.getElementById('result-shadow').textContent = typeData.shadow;
+
+  const matchGrid = document.getElementById('matches-grid');
+  matchGrid.innerHTML = idols.map(idol => `
+    <div class="match-pill">
+      <strong>${idol.name}</strong>
+      <span>${idol.group}</span>
+    </div>
+  `).join('');
+
+  showScreen('screen-result');
+
+  // GA4 event
+  if(typeof gtag !== 'undefined'){
+    gtag('event', 'archetype_quiz_completed', {
+      'event_category': 'quiz',
+      'archetype': typeData.name,
+      'family': typeData.family
+    });
+  }
+}
+
+function retake(){
+  initScores();
+  qIdx = 0;
+  answers = new Array(QUESTIONS.length).fill(null);
+  showScreen('screen-quiz');
+  renderQ();
+}
+</script>
+<script>
+// ── Hamburger menu ──
+function initHamburger() {
+  const btn = document.getElementById('nav-hamburger');
+  const drawer = document.getElementById('nav-drawer');
+  if (!btn || !drawer) return;
+
+  btn.addEventListener('click', () => {
+    const isOpen = btn.classList.contains('open');
+    btn.classList.toggle('open');
+    if (isOpen) {
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    } else {
+      drawer.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+  });
+
+  // Close on link click
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Close on escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      btn.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', initHamburger);
+</script>
+</body>
+</html>
