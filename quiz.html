@@ -815,6 +815,106 @@ footer {
   .nav-links { display: none !important; }
   nav { padding: 14px 20px; z-index: 1000; }
 }
+
+/* ── Result page redesign ── */
+.qz-insight-sentence {
+  font-size: 16px; line-height: 1.8; color: var(--text);
+  font-style: italic; letter-spacing: 0.01em;
+}
+.qz-dim-locked {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 0; opacity: 0.35;
+}
+.qz-dim-locked .qz-dim-label { font-size: 11px; color: var(--muted); }
+.qz-dim-locked-bar {
+  flex: 1; height: 4px; background: var(--border);
+  border-radius: 2px; margin: 0 12px;
+}
+.qz-dim-lock-icon { font-size: 12px; color: var(--muted); }
+.qz-unlock-nudge {
+  font-size: 11px; color: var(--violet); letter-spacing: 0.05em;
+  margin-top: 12px; opacity: 0.8;
+}
+.qz-aspire-tease {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 18px;
+  background: rgba(244,114,182,0.05);
+  border: 1px solid rgba(244,114,182,0.15);
+  border-radius: 12px; margin-top: 4px;
+}
+.qz-aspire-tease-left { display: flex; flex-direction: column; gap: 4px; }
+.qz-aspire-tease-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(244,114,182,0.6); }
+.qz-aspire-tease-name { font-size: 15px; font-family: 'Playfair Display', serif; color: var(--text); }
+.qz-aspire-tease-lock { font-size: 11px; color: rgba(244,114,182,0.5); letter-spacing: 0.04em; }
+.qz-shadow-tease {
+  font-size: 14px; color: var(--muted2); line-height: 1.75; font-style: italic;
+}
+.qz-shadow-tease-lock {
+  font-size: 11px; color: var(--muted); margin-top: 8px; opacity: 0.7; letter-spacing: 0.04em;
+}
+
+/* ── Upsell redesign ── */
+.ddu-redesign {
+  background: linear-gradient(135deg, rgba(147,51,234,0.1), rgba(244,114,182,0.06));
+  border: 1px solid rgba(167,139,250,0.25);
+  border-radius: 20px; padding: 32px 28px;
+  text-align: center; margin-top: 8px;
+}
+.ddu-eyebrow {
+  font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 12px;
+}
+.ddu-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(22px, 4vw, 28px); color: var(--text);
+  line-height: 1.2; margin-bottom: 8px;
+}
+.ddu-subhead {
+  font-size: 13px; color: var(--muted2); line-height: 1.7;
+  margin-bottom: 20px; max-width: 380px; margin-left: auto; margin-right: auto;
+}
+.ddu-what-you-get {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 24px; text-align: left;
+  max-width: 340px; margin-left: auto; margin-right: auto;
+}
+.ddu-get-item {
+  display: flex; align-items: flex-start; gap: 10px;
+  font-size: 13px; color: var(--muted2); line-height: 1.5;
+}
+.ddu-get-icon { color: var(--violet); flex-shrink: 0; margin-top: 1px; }
+.ddu-price-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; margin-bottom: 16px;
+}
+.ddu-price { font-size: 28px; font-weight: 500; color: var(--text); }
+.ddu-price-note { font-size: 11px; color: var(--muted); line-height: 1.4; text-align: left; }
+.ddu-main-btn {
+  display: block; width: 100%;
+  padding: 17px 24px;
+  background: linear-gradient(135deg, var(--violet), var(--pink));
+  color: white; border: none; border-radius: 100px;
+  font-size: 15px; font-family: 'Outfit', sans-serif;
+  font-weight: 500; letter-spacing: 0.04em;
+  cursor: pointer; text-decoration: none;
+  transition: all 0.25s; box-shadow: 0 8px 32px rgba(147,51,234,0.35);
+  margin-bottom: 14px;
+}
+.ddu-main-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(147,51,234,0.45); }
+.ddu-social-proof {
+  font-size: 11px; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 8px;
+}
+.ddu-urgency {
+  font-size: 11px; color: rgba(244,114,182,0.6); letter-spacing: 0.05em;
+}
+.ddu-disclaimer {
+  font-size: 10px; color: var(--muted); opacity: 0.5;
+  margin-top: 12px; letter-spacing: 0.04em;
+}
+@media (max-width: 600px) {
+  .ddu-redesign { padding: 24px 18px; }
+  .ddu-what-you-get { max-width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -902,12 +1002,25 @@ footer {
     <!-- Result -->
     <div class="quiz-screen" id="qs-result">
       <div id="qz-result-output"></div>
-      <div class="deepdive-upsell" id="deepdive-upsell">
-        <div class="ddu-glyph">✦</div>
-        <div class="ddu-title">Want to go deeper?</div>
-        <p class="ddu-body">Your free read is just the surface. The Deep Dive unlocks your full growth path, compatibility with other members, extended shadow work, and a personalized PDF — all generated specifically for you.</p>
-        <a class="ddu-btn" id="ddu-btn" href="#">Get Your Deep Dive Read ✦</a>
-        <p class="ddu-note" style="margin-top:8px;opacity:0.6">For entertainment & self-reflection only · Not professional advice</p>
+      <div class="ddu-redesign" id="deepdive-upsell">
+        <div class="ddu-eyebrow">✦ Deep Dive Read</div>
+        <div class="ddu-headline">Your free result is just<br><em>the surface.</em></div>
+        <p class="ddu-subhead">The Deep Dive unlocks everything your result is holding back — generated specifically for you.</p>
+        <div class="ddu-what-you-get">
+          <div class="ddu-get-item"><span class="ddu-get-icon">✦</span><span>All 4 personality dimensions with full breakdown</span></div>
+          <div class="ddu-get-item"><span class="ddu-get-icon">✦</span><span>Your complete shadow side — what it costs you and why</span></div>
+          <div class="ddu-get-item"><span class="ddu-get-icon">✦</span><span>Your aspiration archetype and what it means for your growth</span></div>
+          <div class="ddu-get-item"><span class="ddu-get-icon">✦</span><span>Compatibility — which archetypes energize you vs drain you</span></div>
+          <div class="ddu-get-item"><span class="ddu-get-icon">✦</span><span>Personalized PDF you can save and share</span></div>
+        </div>
+        <div class="ddu-price-row">
+          <div class="ddu-price">$4.99</div>
+          <div class="ddu-price-note">One-time · Instant<br>No account needed</div>
+        </div>
+        <a class="ddu-main-btn" id="ddu-btn" href="#">Unlock My Full Read ✦</a>
+        <div class="ddu-social-proof">✦ Join the people who've already unlocked their Deep Dive</div>
+        <div class="ddu-urgency">Your result is live now — take 2 minutes to go deeper</div>
+        <div class="ddu-disclaimer">For entertainment & self-reflection only · Not professional advice</div>
       </div>
       <div class="restart-row" style="margin-top:16px">
         <button class="btn-nav-ghost" onclick="qzRestart()">✦ Try Another Group</button>
@@ -1589,22 +1702,13 @@ function qzShowResult(){
     }, {once: true});
   }
 
-  // ── Render result card ──
-  const singleMirrorLabel=mirrorSorted[0][1]>=mirrorSorted[1][1]+4?
-    `${subjectCap}'s a mirror — you already carry this`:
-    `${subjectCap}'s who you're becoming`;
 
-  // GA4 — quiz completed
-  if(typeof gtag !== 'undefined'){
-    gtag('event', 'quiz_completed', {
-      'event_category': 'quiz',
-      'group': selGroup,
-      'result_member': mirrorMember.name,
-      'result_arch': mirrorMember.arch,
-      'is_dual': isDualResult
-    });
-  }
-  document.getElementById('qz-result-output').innerHTML=isDualResult?`
+  // ── Top dimension for locked result ──
+  const topDim = DIMS.reduce((a,b) => dimPct[a] >= dimPct[b] ? a : b);
+  const topDimLabel = topDim.replace('How you ','');
+  const lockedDims = DIMS.filter(d => d !== topDim);
+
+document.getElementById('qz-result-output').innerHTML=isDualResult?`
     <div class="qz-result-card">
       <div class="qz-result-header">
         <div class="qz-result-eyebrow">✦ Your Bias Theory Result</div>
@@ -1621,37 +1725,49 @@ function qzShowResult(){
           <div class="qz-dual-divider">→</div>
           <div class="qz-dual-box qz-dual-aspire">
             <div class="qz-dual-label">You're becoming</div>
-            <div class="qz-result-initial">${aspireMember.name[0]}</div>
-            <div class="qz-result-member">${aspireMember.name}</div>
-            <div class="qz-result-group">${aspireMember.group} · ${aspireMember.role}</div>
-            <div class="qz-result-arch">${aspireMember.arch}</div>
-            <div style="font-size:10px;color:rgba(244,114,182,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:3px">${aspireMember.coreType} · ${aspireMember.coreFamily}</div>
+            <div class="qz-result-initial" style="filter:blur(4px);user-select:none">?</div>
+            <div class="qz-result-member" style="filter:blur(5px);user-select:none">${aspireMember.name}</div>
+            <div class="qz-result-arch" style="opacity:0.5">🔒 Locked</div>
             <div class="qz-dual-tag aspire-tag">Aspiration</div>
           </div>
         </div>
       </div>
       <div class="qz-result-body">
         <div class="qz-section">
-          <div class="qz-section-label">Your Mirror — ${mirrorMember.name}</div>
-          <p>${mirrorMember.insight}</p>
+          <div class="qz-section-label">Your Read</div>
+          <p class="qz-insight-sentence">${mirrorMember.insight.split('. ').slice(0,2).join('. ')}${mirrorMember.insight.split('. ').length > 2 ? '.' : ''}</p>
         </div>
         <div class="qz-divider"></div>
         <div class="qz-section">
-          <div class="qz-section-label">Your Aspiration — ${aspireMember.name}</div>
-          <p>${aspireMember.insight}</p>
-          <p style="margin-top:10px;font-size:13px;opacity:0.7">You're drawn to ${aspireMember.name}'s energy because you're building it — ${aspireMember.aspire}</p>
+          <div class="qz-section-label">Your Top Dimension</div>
+          <div class="qz-dim-bar">
+            <div class="qz-dim-row"><span class="qz-dim-label">${topDimLabel}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[topDim]}%"></div></div></div>
+            ${lockedDims.map(d=>`<div class="qz-dim-locked"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-locked-bar"></div><span class="qz-dim-lock-icon">🔒</span></div>`).join('')}
+          </div>
+          <div class="qz-unlock-nudge">🔒 Unlock all 4 dimensions in your Deep Dive</div>
         </div>
         <div class="qz-divider"></div>
         <div class="qz-section">
-          <div class="qz-section-label">Your Personality Dimensions</div>
-          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[d]}%"></div></div></div>`).join('')}</div>
+          <div class="qz-section-label">The Shadow Side</div>
+          <p class="qz-shadow-tease">${mirrorMember.shadow.split('. ')[0]}.</p>
+          <p class="qz-shadow-tease-lock">🔒 The full picture is in your Deep Dive</p>
         </div>
         <div class="qz-divider"></div>
-        <div class="qz-section"><div class="qz-section-label">Shadow Type</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
+        <div class="qz-section">
+          <div class="qz-section-label">Who You're Becoming</div>
+          <div class="qz-aspire-tease">
+            <div class="qz-aspire-tease-left">
+              <div class="qz-aspire-tease-label">Your aspiration archetype</div>
+              <div class="qz-aspire-tease-name">${aspireMember.arch}</div>
+            </div>
+            <div class="qz-aspire-tease-lock">🔒 See what this<br>means for you</div>
+          </div>
+        </div>
       </div>
     </div>` : `
     <div class="qz-result-card">
       <div class="qz-result-header">
+        <div class="qz-result-eyebrow">✦ Your Bias Theory Result</div>
         <div class="qz-result-initial">${mirrorMember.name[0]}</div>
         <div class="qz-result-member">${mirrorMember.name}</div>
         <div class="qz-result-group">${mirrorMember.group} · ${mirrorMember.role}</div>
@@ -1659,25 +1775,39 @@ function qzShowResult(){
         <div style="font-size:10px;color:rgba(167,139,250,0.7);letter-spacing:0.08em;text-transform:uppercase;margin-top:4px">${mirrorMember.coreType} · ${mirrorMember.coreFamily}</div>
       </div>
       <div class="qz-result-body">
-        <div class="qz-section"><div class="qz-section-label">Your Read</div><p>${mirrorMember.insight}</p></div>
-        <div class="qz-divider"></div>
         <div class="qz-section">
-          <div class="qz-section-label">Your Personality Dimensions</div>
-          <div class="qz-dim-bar">${DIMS.map(d=>`<div class="qz-dim-row"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[d]}%"></div></div></div>`).join('')}</div>
+          <div class="qz-section-label">Your Read</div>
+          <p class="qz-insight-sentence">${mirrorMember.insight.split('. ').slice(0,2).join('. ')}${mirrorMember.insight.split('. ').length > 2 ? '.' : ''}</p>
         </div>
         <div class="qz-divider"></div>
         <div class="qz-section">
-          <div class="qz-section-label">Mirror or Aspiration?</div>
-          <h3>${singleMirrorLabel}</h3>
-          <div class="qz-mirror-grid">
-            <div class="qz-mirror-box"><div class="qz-mirror-label">The Mirror</div><p>${mirrorMember.mirror}</p></div>
-            <div class="qz-mirror-box"><div class="qz-mirror-label">The Aspiration</div><p>${mirrorMember.aspire}</p></div>
+          <div class="qz-section-label">Your Top Dimension</div>
+          <div class="qz-dim-bar">
+            <div class="qz-dim-row"><span class="qz-dim-label">${topDimLabel}</span><div class="qz-dim-track"><div class="qz-dim-fill" style="width:${dimPct[topDim]}%"></div></div></div>
+            ${lockedDims.map(d=>`<div class="qz-dim-locked"><span class="qz-dim-label">${d.replace('How you ','')}</span><div class="qz-dim-locked-bar"></div><span class="qz-dim-lock-icon">🔒</span></div>`).join('')}
+          </div>
+          <div class="qz-unlock-nudge">🔒 Unlock all 4 dimensions in your Deep Dive</div>
+        </div>
+        <div class="qz-divider"></div>
+        <div class="qz-section">
+          <div class="qz-section-label">The Shadow Side</div>
+          <p class="qz-shadow-tease">${mirrorMember.shadow.split('. ')[0]}.</p>
+          <p class="qz-shadow-tease-lock">🔒 The full picture is in your Deep Dive</p>
+        </div>
+        <div class="qz-divider"></div>
+        <div class="qz-section">
+          <div class="qz-section-label">Who You're Becoming</div>
+          <div class="qz-aspire-tease">
+            <div class="qz-aspire-tease-left">
+              <div class="qz-aspire-tease-label">Your aspiration archetype</div>
+              <div class="qz-aspire-tease-name">${mirrorMember.coreType}</div>
+            </div>
+            <div class="qz-aspire-tease-lock">🔒 See what this<br>means for you</div>
           </div>
         </div>
-        <div class="qz-divider"></div>
-        <div class="qz-section"><div class="qz-section-label">Shadow Type</div><div class="qz-shadow-box"><p>${mirrorMember.shadow}</p></div></div>
       </div>
     </div>`;
+  
   showQS('qs-result');
 }
 
