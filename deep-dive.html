@@ -417,9 +417,92 @@ main {
   #screen-payment .bias-summary { flex-wrap: wrap; }
   .bias-archetype { margin-left: 0; text-align: left; width: 100%; }
 }
+
+/* ── Premium upsell modal ── */
+.upsell-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(7,7,14,0.88);
+  backdrop-filter: blur(12px);
+  align-items: center; justify-content: center;
+  padding: 24px;
+}
+.upsell-overlay.open { display: flex; }
+.upsell-modal {
+  background: var(--surface2);
+  border: 1px solid rgba(167,139,250,0.3);
+  border-radius: 24px;
+  padding: 36px 28px;
+  max-width: 400px; width: 100%;
+  text-align: center;
+  animation: fadeUp 0.25s ease;
+}
+.upsell-modal-eyebrow {
+  font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--violet); margin-bottom: 14px;
+}
+.upsell-modal-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(20px, 4vw, 26px);
+  color: var(--text); line-height: 1.2; margin-bottom: 10px;
+}
+.upsell-modal-sub {
+  font-size: 13px; color: var(--muted2); line-height: 1.7;
+  margin-bottom: 20px;
+}
+.upsell-modal-items {
+  display: flex; flex-direction: column; gap: 8px;
+  margin-bottom: 24px; text-align: left;
+}
+.upsell-modal-item {
+  display: flex; gap: 10px; font-size: 13px;
+  color: var(--muted2); line-height: 1.5;
+}
+.upsell-modal-item span:first-child { color: var(--violet); flex-shrink: 0; }
+.upsell-modal-price {
+  font-size: 13px; color: var(--muted); margin-bottom: 18px;
+}
+.upsell-modal-price strong { color: var(--text); font-size: 16px; }
+.upsell-accept {
+  display: block; width: 100%;
+  padding: 15px 24px; border-radius: 100px;
+  background: linear-gradient(135deg, var(--violet), var(--pink));
+  color: white; border: none;
+  font-size: 14px; font-family: 'Outfit', sans-serif;
+  font-weight: 500; letter-spacing: 0.04em;
+  cursor: pointer; margin-bottom: 10px;
+  transition: all 0.2s;
+  box-shadow: 0 6px 24px rgba(147,51,234,0.3);
+}
+.upsell-accept:hover { transform: translateY(-1px); }
+.upsell-decline {
+  display: block; width: 100%;
+  background: none; border: none;
+  font-size: 12px; color: var(--muted);
+  cursor: pointer; padding: 8px;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.upsell-decline:hover { color: var(--muted2); }
 </style>
 </head>
 <body>
+<div class="upsell-overlay" id="upsell-overlay">
+  <div class="upsell-modal">
+    <div class="upsell-modal-eyebrow">✦ Before you go</div>
+    <div class="upsell-modal-headline">Upgrade to Premium<br>for just <em>$2 more</em></div>
+    <p class="upsell-modal-sub">You're about to get the Basic read. Upgrade now and unlock everything.</p>
+    <div class="upsell-modal-items">
+      <div class="upsell-modal-item"><span>✦</span><span>Your Constellation — how your top dimensions combine</span></div>
+      <div class="upsell-modal-item"><span>✦</span><span>Compatibility — which archetypes energize vs drain you</span></div>
+      <div class="upsell-modal-item"><span>✦</span><span>Shareable trading card with your result</span></div>
+    </div>
+    <div class="upsell-modal-price">Basic $2.99 → <strong>Premium $4.99</strong></div>
+    <button class="upsell-accept" onclick="upgradeAndPay()">Yes — Upgrade to Premium ✦</button>
+    <button class="upsell-decline" onclick="declineUpgrade()">No thanks, keep Basic ($2.99)</button>
+  </div>
+</div>
+
 <canvas id="starfield"></canvas>
 
 <nav>
@@ -498,7 +581,7 @@ main {
       <div class="payment-form-area">
         <div id="payment-element"></div>
         <div id="card-errors"></div>
-        <button class="pay-btn" id="pay-btn" onclick="handlePayment()">
+        <button class="pay-btn" id="pay-btn" onclick="tryPayWithUpsell()">
           <span>✦</span>
           <span id="pay-btn-text">Get Basic Deep Dive — $2.99</span>
         </button>
@@ -1177,6 +1260,32 @@ async function downloadPDF() {
 function showError(msg) {
   document.getElementById('error-msg').textContent = msg;
   showScreen('screen-error');
+}
+</script>
+
+<script>
+function tryPayWithUpsell() {
+  // Only show upsell if they picked Basic
+  if (selectedTier === 'basic') {
+    document.getElementById('upsell-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  } else {
+    handlePayment();
+  }
+}
+
+function upgradeAndPay() {
+  document.getElementById('upsell-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  selectTier('premium');
+  // Small delay so the UI updates visibly before payment starts
+  setTimeout(handlePayment, 150);
+}
+
+function declineUpgrade() {
+  document.getElementById('upsell-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+  handlePayment();
 }
 </script>
 </body>
